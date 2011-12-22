@@ -3,12 +3,12 @@
 \alias{AT.dose.Gy.from.fluence.cm2}
 \title{AT.dose.Gy.from.fluence.cm2}
 \description{Returns dose in Gy for each given particle}
-\usage{AT.dose.Gy.from.fluence.cm2(E.MeV.u, fluence.cm2, particle.no, material.no, stopping.power.source.no)
+\usage{AT.dose.Gy.from.fluence.cm2(E.MeV.u, particle.no, fluence.cm2, material.no, stopping.power.source.no)
 }
 \arguments{
   \item{E.MeV.u}{ energy of particles in the mixed particle field (array of size n) (see also \code{\link{E.MeV.u}}).}
-  \item{fluence.cm2}{ fluence for each particle type (array of size n).}
   \item{particle.no}{ type of the particles in the mixed particle field (array of size n) (see also \code{\link{particle.no}}).}
+  \item{fluence.cm2}{ fluence for each particle type (array of size n).}
   \item{material.no}{ material index (see also \code{\link{material.no}}).}
   \item{stopping.power.source.no}{ stopping power source index (see also \code{\link{stopping.power.source.no}}).}
 }
@@ -19,9 +19,7 @@
 \seealso{
 View the C source code here:
 
-\url{ http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.4.1/src/AT_PhysicsRoutines.c#L237
-}
-
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_PhysicsRoutines.c#L297}
 }
 \examples{
 # Compute dose from protons, He-3, C-12 and O-16 at

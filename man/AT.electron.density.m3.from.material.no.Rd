@@ -12,5 +12,10 @@
 % TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{electron.density.m3}{ electron densities per m3 (array of size n)}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_DataMaterial.c#L327}
+}
 
 

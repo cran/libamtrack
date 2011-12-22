@@ -20,9 +20,7 @@
 \seealso{
 View the C source code here:
 
-\url{ http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.4.1/src/AT_PhysicsRoutines.c#L418
-}
-
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_PhysicsRoutines.c#L485}
 }
 \examples{
 # Compute total fluence in a 

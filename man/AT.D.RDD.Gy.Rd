@@ -25,9 +25,7 @@
 \seealso{
 View the C source code here:
 
-\url{ http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.4.1/src/AT_RDD.c#L446
-}
-
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_RDD.c#L454}
 }
 \examples{
 # Compute dose in several distances of an 100 MeV/u neon ion in water according to 'Site' parametrization

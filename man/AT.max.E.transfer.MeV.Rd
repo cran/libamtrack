@@ -18,9 +18,7 @@
 \seealso{
 View the C source code here:
 
-\url{ http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.4.1/src/AT_PhysicsRoutines.c#L167
-}
-
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_PhysicsRoutines.c#L209}
 }
 \examples{
 # Plot maximum energy transferred in a collision in the range from 1 to 1000 MeV

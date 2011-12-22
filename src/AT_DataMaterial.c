@@ -89,7 +89,9 @@ double AT_density_g_cm3_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.density_g_cm3[index];
@@ -101,7 +103,9 @@ double AT_I_eV_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.I_eV[index];
@@ -112,7 +116,9 @@ double AT_alpha_g_cm2_MeV_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.alpha_g_cm2_MeV[index];
@@ -122,7 +128,9 @@ double AT_p_MeV_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.p_MeV[index];
@@ -133,7 +141,9 @@ double AT_m_g_cm2_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.m_g_cm2[index];
@@ -143,7 +153,9 @@ double AT_average_A_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.average_A[index];
@@ -154,7 +166,9 @@ double AT_average_Z_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.average_Z[index];
@@ -164,7 +178,9 @@ long AT_phase_from_material_no( const long   material_no )
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   return AT_Material_Data.phase[index];
@@ -180,7 +196,9 @@ void AT_get_material_data(     const long  material_no,
 
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     *density_g_cm3        =  0.0;
     *I_eV                 =  0.0;
     *alpha_g_cm2_MeV      =  0.0;
@@ -276,7 +294,9 @@ void AT_get_materials_data( const long  number_of_materials,
 double AT_plasma_energy_J_from_material_no(const long material_no){
 	  long  index = AT_material_index_from_material_number( material_no );
 	  if( index == -1){
+#ifndef NDEBUG
 	    printf("Material no %ld not found\n", material_no);
+#endif
 	    return 0.0;
 	  }
 	  double electron_density_m3 = AT_electron_density_m3_from_material_no_single(material_no);
@@ -291,7 +311,9 @@ double AT_electron_density_m3_from_material_no_single( const long   material_no 
 {
   long  index = AT_material_index_from_material_number( material_no );
   if( index == -1){
+#ifndef NDEBUG
     printf("Material no %ld not found\n", material_no);
+#endif
     return 0.0;
   }
   double density_g_cm3 = AT_density_g_cm3_from_material_no(material_no);
@@ -398,19 +420,32 @@ void AT_average_Z_from_composition( const long n,
 void AT_effective_Z_from_composition( const long n,
     const long Z[],
     const double weight_fraction[],
+    const double electron_densities_cm3[],
     const double exponent,
     double* effective_Z)
 {
 	double* normalized_weight_fraction = (double*)calloc(n, sizeof(double));
 	AT_normalize(n, weight_fraction, normalized_weight_fraction);
 
+	double* normalized_electron_densities = (double*)calloc(n, sizeof(double));
+    bool use_electron_densities = false;
+    if(AT_sum(n, electron_densities_cm3) > 0){
+    	AT_normalize(n, electron_densities_cm3, normalized_electron_densities);
+    	use_electron_densities = true;
+    }
+
 	double effective_Z_sum = 0.0;
 	long i;
 	for (i = 0; i < n; i++){
-		effective_Z_sum += pow(normalized_weight_fraction[i] * Z[i], exponent);
-		*effective_Z = pow(effective_Z_sum, 1/exponent);
+		double tmp = normalized_weight_fraction[i] * pow(Z[i], exponent);
+		if(use_electron_densities){
+			tmp *= normalized_electron_densities[i];
+		}
+		effective_Z_sum += tmp;
 	}
+	*effective_Z = pow(effective_Z_sum, 1/exponent);
 
+	free(normalized_electron_densities);
 	free(normalized_weight_fraction);
 }
 

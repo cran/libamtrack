@@ -43,6 +43,11 @@
   \item{sd.S.gamma}{ standard deviation for S.gamma}
   \item{sd.n.particles}{ standard deviation for n.particles}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_Algorithms_GSM.c#L277}
+}
 \examples{
 # Compute the relative efficiency of an Alanine detector
 #  in a proton field

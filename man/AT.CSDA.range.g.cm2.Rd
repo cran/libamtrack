@@ -18,9 +18,7 @@
 \seealso{
 View the C source code here:
 
-\url{ http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.4.1/src/AT_DataLET.c#L178
-}
-
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_DataLET.c#L81}
 }
 \examples{
 # Range of 270 MeV/u carbon ions and 142 MeV/u protons in water

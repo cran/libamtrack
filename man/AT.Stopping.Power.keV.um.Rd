@@ -15,5 +15,10 @@
 % TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{Stopping.Power.keV.um}{ (array of size number.of.particles)}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_DataStoppingPower.c#L211}
+}
 
 

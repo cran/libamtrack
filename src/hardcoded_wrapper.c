@@ -116,45 +116,4 @@ void AT_material_no_from_material_name_R( const char** material_name,
 	  *material_no = (int)material_no_long;
 }
 
-void AT_SPC_get_size_from_filename_R(const char** filename,
-    int* spc_size){
 
-	  char * filename_str = (char*)calloc(FILE_NAME_NCHAR, sizeof(char));
-	  strcpy(filename_str, *filename);
-      
-      long spc_size_long = AT_SPC_get_size_from_filename( filename_str);
-      
-      free( filename_str);
-      
-      *spc_size = (int)spc_size_long;
-}
-/*
-// TODO: solve issue (int to pointer w/o cast) of parameter 2 in subfunction call
-void AT_SPC_read_data_from_filename_R( const char** filename,
-		const int* n,
-		int* depth_step,
-		double* depth_g_cm2,
-	        double* E_MeV_u,
-		double* DE_MeV_u,
-		int* particle_no,
-		double* fluence_cm2,
-        int* n_bins_read){
-
-	  char * filename_str = (char*)calloc(256, sizeof(char));
-	  strcpy(filename_str, *filename);
-
-       int n_bins_read_tmp = AT_SPC_read_data_from_filename( filename_str,
-		n,
-		depth_step,
-		depth_g_cm2,
-		E_MeV_u,
-		DE_MeV_u,
-		particle_no,
-		fluence_cm2);
-        
-
-    free( filename_str);
-      
-    *n_bins_read = n_bins_read_tmp;
-}
-*/

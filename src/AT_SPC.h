@@ -33,13 +33,18 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "AT_DataParticle.h"
+#include "AT_DataMaterial.h"
 
 /**
  * File name and path length
  */
 #define FILE_NAME_NCHAR 256
-
 
 /**
  * @enum spc tags
@@ -69,98 +74,141 @@ enum {
 
 
 /**
- * structure for spc tags
+ * TODO
+ * @param[in]	filename  	    	path and name for spc file, incl. extension (array of size FILE_NAME_NCHAR)
+ * @return	    number of bytes in file
  */
-
-struct STRPSPCBTAG { uint32_t ulTag; uint32_t ulLen; };
+int AT_SPC_get_number_of_bytes_in_file( const char filename[] );
 
 
 /**
- * Swaps endianess of two-byte types
- *
- * @param[in/out]	x	pointer to variable to be swapped
+ * TODO
+ * @param[in]	filename  	    	path and name for spc file, incl. extension (array of size FILE_NAME_NCHAR)
+ * @param[in]	    content_size 	number of elements in content arrays
+ * @param[out]      content  	    binary content of SPC file (array of size content_size)
+ * @return			status code
  */
-void endian_swap2(    unsigned short* x);
+int AT_SPC_fast_read_buffer( const char filename[],
+		int content_size,
+		int32_t* content);
 
 
 /**
- * Swaps endianess of four-byte types
- *
- * @param[in/out]	x	pointer to variable to be swapped
+ * TODO
+ * @param[in]	    content  	    table of bytes containing binary content of SPC file
+ * @param[out]	    string 			string stored in first tag (item) of SPC content table
+ * @param[out]      length  	    length of string
  */
-void endian_swap4(    unsigned int* x);
+void decomposeStructIntoString( const int32_t content[],
+		char* string,
+		int*  length );
 
 
 /**
- * Swaps endianess of eight-byte types (uint64_t MSVC, long long in gcc)
- *
- * @param[in/out]	x	pointer to variable to be swapped
+ * TODO
+ * @param[in]	    content  	    table of bytes containing binary content of SPC file
+ * @param[out]	    value 			floating point value (single or pointer to beginning of table) stored in first tag (item) of SPC content table
+ * @param[out]      length  	    number of items under "value" pointer
  */
-void endian_swap8(     uint64_t * x);
+void decomposeStructIntoDouble( const int32_t content[],
+		double* value,
+		int*    length );
 
 
 /**
- * Reads tag into tag structure
- *
- * @param[in/out]	fp				pointer to spc file
- * @param[in/out]	str				pointer to spc tag structure to be filled
- * @param[in]		switchEndian	if TRUE endianess will be swapped
+ * TODO
+ * @param[in]	    content  	    table of bytes containing binary content of SPC file
+ * @param[out]	    value 			integer value (single or pointer to beginning of table) stored in first tag (item) of SPC content table
+ * @param[out]      length  	    number of items under "value" pointer
  */
-void readStruct(      FILE *fp,
-		struct STRPSPCBTAG * str,
-		bool switchEndian);
+void decomposeStructIntoInteger( const int32_t content[],
+		uint64_t* value,
+		int*      length );
 
 
 /**
- * Reads data from spc file. Will reallocate the arrays to hold the
- * read content - and can therefore only called from environments
- * that are able to cope with reallocation (C, C++, but not R!).
- * The data will be converted for direct use in libamtrack, i.e. to an R-style array of six columns
- * (each presented by a single pointer) and all of same length. That of course
- * results in redundancy in depth_step, depth_g_cm2, particle_no but enables
- * easy division into cells (i.e. passing all spectra of a specific depth and
- * particle number to another routine such as total dose). Please note that
- * the fluence IS NOT normalized to bin width but given in absolute fluence!
- *
- * @param[in]	    file  	        path and name of spc file to open (incl. suffix)
- * @param[out]		depth_step		depth step index, zero-based (pointer to array of initial size 1)
- * @param[out]		depth_g_cm2		depth in g/cm2 (pointer to array of initial size 1)
- * @param[out]		E_MeV_u			midpoints of energy bins (pointer to array of initial size 1)
- * @param[out]		DE_MeV_u		widths of energy bins (pointer to array of initial size 1)
- * @param[out]		particle_no		particle index numbers (pointer to array of initial size 1)
- * @param[out]      fluence_cm2		fluence values differential in energy and particle number
- * @return                          array sizes after reallocation
+ * Increase pointer (binary content of SPC file) to move it to next tag (item).
+ * @param[in,out]	content  	    table of bytes containing binary content of SPC file
  */
-int AT_SPC_read( const char filename[FILE_NAME_NCHAR],
-		int* depth_step[],
-		double* depth_g_cm2[],
-		double* E_MeV_u[],
-		double* DE_MeV_u[],
-		int* particle_no[],
-		double* fluence_cm2[]);
+int skipStruct( int32_t** content );
 
 
 /**
- * Browses spc file to get total number of energy bins covered.
- * This is needed for later memory allocation when reading the
- * actual data.
- *
- * @param[in]	    filename  	    path and name for spc file (incl. extension)
- * @return							total number of bins in spc file
+ * TODO
+ * @param[in]	content  	    table of bytes containing binary content of SPC file
+ * @return
  */
-int AT_SPC_get_size_from_filename(const char filename[FILE_NAME_NCHAR]);
+int decomposeTag( const int32_t content[] );
 
 
 /**
- * Browses spc file to get total number of energy bins covered.
- * This is needed for later memory allocation when reading the
- * actual data.
- *
- * @param[in/out]	fp				pointer to spc file
- * @return							total number of bins in spc file
+ * TODO
+ * @param[in]	content  	    table of bytes containing binary content of SPC file
+ * @return
  */
-int AT_SPC_get_size(  FILE *fp);
+int decomposeLength( const int32_t content[] );
 
+
+/**
+ * TODO
+ * @param[in]	content_size  	    size of table content_orig
+ * @param[in]	content_orig  	    table of bytes containing binary content of SPC file (array of size content_size)
+ * @return      number of bins
+ */
+int AT_SPC_decompose_size( const int content_size,
+		int32_t content_orig[]);
+
+
+/**
+ * TODO
+ * @param[in]	content_size  	    size of table content_orig
+ * @param[in]	content_orig  	    table of bytes containing binary content of SPC file (array of size content_size)
+ * @param[out]	E_MeV_u  	        beam energy [MeV]
+ * @param[out]	peak_position_g_cm2 peak position
+ * @param[out]	particle_no         projectile - particle no
+ * @param[out]	material_no         target - material no
+ * @param[out]	normalisation  	    normalisation
+ * @param[out]  depth_steps_no      number of depth steps
+ * return       status code
+ */
+int AT_SPC_decompose_header(		const int content_size,
+		int32_t   content_orig[],
+		double*   E_MeV_u,
+		double*   peak_position_g_cm2,
+		long*     particle_no,
+		int*      material_no,
+		double*   normalisation,
+		int*      depth_steps_no);
+
+
+/**
+ * TODO
+ * @param[in]	content_size  	    size of table content_orig
+ * @param[in]	content_orig  	    table of bytes containing binary content of SPC file (array of size content_size)
+ * @param[out]  depth_step          depth step index, zero-based
+ * @param[out]  depth_g_cm2         depth in g/cm2
+ * @param[out]	E_MeV_u  	        midpoints of energy bins
+ * @param[out]	DE_MeV_u  	        widths of energy bins
+ * @param[out]	particle_no         particle index numbers
+ * @param[out]	fluence_cm2  	    fluence values differential in energy and particle number
+ * return       status code
+ */
+int AT_SPC_decompose_data(		const int content_size,
+		int32_t   content_orig[],
+		int*      depth_step[],
+		double*   depth_g_cm2[],
+		double*   E_MeV_u[],
+		double*   DE_MeV_u[],
+		long*     particle_no[],
+		double*   fluence_cm2[]);
+
+
+/**
+ * TODO
+ * @param[in]	filename  	    	path and name for spc file, incl. extension (array of size FILE_NAME_NCHAR)
+ * @return               number of bins
+ */
+long AT_SPC_get_number_of_bins_from_filename_fast( const char filename[] );
 
 /**
  * Reads data from spc file into pre-allocated arrays. It will be converted
@@ -171,7 +219,33 @@ int AT_SPC_get_size(  FILE *fp);
  * particle number to another routine such as total dose). Please note that
  * the fluence IS NOT normalized to bin width but given in absolute fluence!
  *
- * @param[in]	    filename  	    path and name for spc file (incl. extension)
+ * @param[in]	filename  	    	path and name for spc file, incl. extension (array of size FILE_NAME_NCHAR)
+ * @param[out]	E_MeV_u				primary beam energy in MeV/u
+ * @param[out]	peak_position_g_cm2	position of peak in g/cm2
+ * @param[out]	particle_no         projectile - particle no
+ * @param[out]	material_no         target - material no
+ * @param[out]	normalisation		normalisation
+ * @param[out]  depth_steps_no      number of depth steps
+ * @return               status code
+ */
+int AT_SPC_read_header_from_filename_fast( const char filename[],
+		double*   E_MeV_u,
+		double*   peak_position_g_cm2,
+		long*     particle_no,
+		int*      material_no,
+		double*   normalisation,
+		int*      depth_steps_no);
+
+/**
+ * Reads data from spc file into pre-allocated arrays. It will be converted
+ * for direct use in libamtrack, i.e. to an R-style array of six columns
+ * (each presented by a single pointer) and all of same length. That of course
+ * results in redundancy in depth_step, depth_g_cm2, particle_no but enables
+ * easy division into cells (i.e. passing all spectra of a specific depth and
+ * particle number to another routine such as total dose). Please note that
+ * the fluence IS NOT normalized to bin width but given in absolute fluence!
+ *
+ * @param[in]	    filename  	    path and name for spc file, incl. extension (array of size FILE_NAME_NCHAR)
  * @param[in]       n               array size, total number of bins expected
  * @see AT_SPC_get_size
  * @param[out]		depth_step		depth step index, zero-based (array of size n)
@@ -179,18 +253,17 @@ int AT_SPC_get_size(  FILE *fp);
  * @param[out]		E_MeV_u			midpoints of energy bins (array of size n)
  * @param[out]		DE_MeV_u		widths of energy bins (array of size n)
  * @param[out]		particle_no		particle index numbers (array of size n)
- * @param[out]      fluence_cm2		fluence values differential in energy and particle number
+ * @param[out]      fluence_cm2		fluence values differential in energy and particle number (array of size n)
  * @return                          number of bins read. Must match the array size n
  */
-int AT_SPC_read_data_from_filename( const char filename[FILE_NAME_NCHAR],
-		const int n,
-		int depth_step[],
+int AT_SPC_read_data_from_filename_fast( const char filename[],
+		int    n,
+		int    depth_step[],
 		double depth_g_cm2[],
 		double E_MeV_u[],
 		double DE_MeV_u[],
-		int particle_no[],
+		long   particle_no[],
 		double fluence_cm2[]);
-
 
 /**
  * Reads data from spc file into pre-allocated arrays. It will be converted
@@ -201,24 +274,36 @@ int AT_SPC_read_data_from_filename( const char filename[FILE_NAME_NCHAR],
  * particle number to another routine such as total dose). Please note that
  * the fluence IS NOT normalized to bin width but given in absolute fluence!
  *
- * @param[in]	    fp  	        pointer to spc file
- * @param[in]       n               array size, total number of bins expected
+ * @param[in]	filename  	    	path and name for spc file, incl. extension (array of size FILE_NAME_NCHAR)
+ * @param[in]   n                   array size, total number of bins expected
  * @see AT_SPC_get_size
- * @param[out]		depth_step		depth step index, zero-based (array of size total_n_bins)
- * @param[out]		depth_g_cm2		depth in g/cm2 (array of size total_n_bins)
- * @param[out]		E_MeV_u			midpoints of energy bins (array of size total_n_bins)
- * @param[out]		DE_MeV_u		widths of energy bins (array of size total_n_bins)
- * @param[out]		particle_no		particle index numbers (array of size total_n_bins)
- * @param[out]      fluence_cm2		fluence values differential in energy and particle number
+ * @param[out]	E_MeV_u_initial		primary beam energy in MeV/u
+ * @param[out]	peak_position_g_cm2	position of peak in g/cm2
+ * @param[out]	particle_no_initial projectile - particle no
+ * @param[out]	material_no         target - material no
+ * @param[out]	normalisation		normalisation
+ * @param[out]  depth_steps_no      number of depth steps
+ * @param[out]	depth_step		    depth step index, zero-based (array of size n)
+ * @param[out]	depth_g_cm2		    depth in g/cm2 (array of size n)
+ * @param[out]	E_MeV_u			    midpoints of energy bins (array of size n)
+ * @param[out]	DE_MeV_u		    widths of energy bins (array of size n)
+ * @param[out]	particle_no		    particle index numbers (array of size n)
+ * @param[out]  fluence_cm2		    fluence values differential in energy and particle number (array of size n)
+ * @return                          number of bins read. Must match the array size n
  */
-int AT_SPC_read_data( FILE* fp,
-		const int n,
-		int depth_step[],
-		double depth_g_cm2[],
-		double E_MeV_u[],
-		double DE_MeV_u[],
-		int particle_no[],
-		double fluence_cm2[]);
-
+int AT_SPC_read_from_filename_fast( const char filename[FILE_NAME_NCHAR],
+		int 	  n,
+		double*   E_MeV_u_initial,
+		double*   peak_position_g_cm2,
+		long*     particle_no_initial,
+		int*      material_no,
+		double*   normalisation,
+		int*      depth_steps_no,
+		int       depth_step[],
+		double    depth_g_cm2[],
+		double    E_MeV_u[],
+		double    DE_MeV_u[],
+		long      particle_no[],
+		double    fluence_cm2[]);
 
 #endif /* AT_SPC_H_ */

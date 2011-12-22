@@ -50,7 +50,7 @@ enum material_no{
   Air				        		= 7,  /**< Air dry (at sea level) */
   Silicon                    		= 8,  /**< Silicon */
   Copper                    		= 9,  /**< Copper */
-  Dummy10                   		= 10, /**< Dummy */
+  Tungsten                   		= 10, /**< Tungsten */
   Gammex_Lung_LN450         		= 11, /**< Gammex tissue surrogate "Lung (LN450)" */
   Gammex_AP6_Adipose_RMI453 		= 12, /**< Gammex tissue surrogate "AP6 Adipose RMI 453" */
   Gammex_BR12_Breast_RMI454 		= 13, /**< Gammex tissue surrogate "BR12 Breast RMI454" */
@@ -63,7 +63,8 @@ enum material_no{
   Gammex_B200_Bone_Mineral			= 20, /**< Gammex tissue surrogate "B200 Bone Mineral" */
   Gammex_CB2_30_CaCO3				= 21, /**< Gammex tissue surrogate "CB2 30%  CaCO3" */
   Gammex_CB2_50_CaCO3				= 22, /**< Gammex tissue surrogate "CB2 50%  CaCO3" */
-  Gammex_SB3_Cortical_Bone_RMI450	= 23 /**< Gammex tissue surrogate "SB3 Cortical Bone RMI 450" */
+  Gammex_SB3_Cortical_Bone_RMI450	= 23, /**< Gammex tissue surrogate "SB3 Cortical Bone RMI 450" */
+  Lead                              = 24  /**< Lead */
 };
 
 enum material_phase{
@@ -72,7 +73,7 @@ enum material_phase{
   phase_gaseous			= 2
 };
 
-#define MATERIAL_DATA_N    24
+#define MATERIAL_DATA_N    25
 
 // TODO The next two LET-related structures must be declared here rather than in AT_DataLET.h to avoid circular dependencies
 
@@ -155,17 +156,22 @@ typedef struct {
   long			phase[MATERIAL_DATA_N];
 } AT_table_of_material_data_struct;
 
+// This is to suppress "defined but not used" warnings by gcc here
+#ifdef __GNUC__
+#define VARIABLE_IS_NOT_USED __attribute__ ((unused))
+#else
+#define VARIABLE_IS_NOT_USED
+#endif
 
-//static const
-static AT_table_of_material_data_struct AT_Material_Data = {
+static AT_table_of_material_data_struct VARIABLE_IS_NOT_USED AT_Material_Data = {
     MATERIAL_DATA_N,
     // material_no
     {  User_Defined_Material,
        Water_Liquid,      Aluminum_Oxide,   Aluminum,     PMMA,      Alanine,
-       LiF,	              Air,              Silicon,      Copper,    Dummy10,
+       LiF,	              Air,              Silicon,      Copper,    Tungsten,
        Gammex_Lung_LN450,		Gammex_AP6_Adipose_RMI453,	Gammex_BR12_Breast_RMI454,		  Gammex_CT_Solid_Water_RMI451,		Gammex_Water,
 	   Gammex_Muscle_RMI452,	Gammex_LV1_RMI,				Gammex_SR2_Brain, 		   		  Gammex_IB3_Inner_Bone_RMI456,	   	Gammex_B200_Bone_Mineral,
-	   Gammex_CB2_30_CaCO3,		Gammex_CB2_50_CaCO3,	    Gammex_SB3_Cortical_Bone_RMI450},
+	   Gammex_CB2_30_CaCO3,		Gammex_CB2_50_CaCO3,	    Gammex_SB3_Cortical_Bone_RMI450,  Lead},
 
     // ready
     {  false,
@@ -173,77 +179,77 @@ static AT_table_of_material_data_struct AT_Material_Data = {
        true,			  true,             true,         true,      true,
 	   true,              true,             true,         true,      true,
        true,			  true,             true,         true,      true,
-	   true,              true,				true},
+	   true,              true,				true,         true},
     // ICRU_ID
     {  0,
        276,               106,              13,           223,       0,
-       185,               104,              14,           29,        0,
+       185,               104,              14,           29,       74,
        0,                 0,              	0,            0,         0,
        0,              	  0,              	0,            0,         0,
-       0,                 0,				0},
+       0,                 0,				0,            82},
     // density_g_cm3
     {  0.0,
        1.00,              3.97,             2.6989,       1.188,     1.42,
-       2.64,   			  1.20479E-03,      2.33,         8.96,      0,
+       2.64,   			  1.20479E-03,      2.33,         8.96,      19.3,
        0.450,             0.920,            0.980,        1.015,     1.0,
        1.050,          	  1.039,         	1.049,        1.133,   	 1.145,
-       1.340,	          1.560,			1.819},
+       1.340,	          1.560,			1.819,        11.35},
     // I_eV
     {  0.0,
        75.0,              145.2,            166.0,        74.0,      71.9,
-       10.0,              85.7,             173.0,        322.0,     0,
+       10.0,              85.7,             173.0,        322.0,     727.0,
        71.45,             65.38,            66.81,        68.72,     68.86,
        68.55,             68.64,            62.51,        77.01,     77.09,
-       77.48,             87.94,			97.40},
+       77.48,             87.94,			97.40,        823.0},
     // alpha_g_cm2 - TODO No data for LiF, air
     {  0.0,
        0.00231,           0.003058,         0.003266,     0.001988,  0.00216381,
        0.0,	  		      0.0,              0.0,          0.0,       0.0,
        0.0,               0.0,              0.0,          0.0,       0.0,
        0.0,            	  0.0,              0.0,          0.0,       0.0,
-       0.0,               0.0,				0.0},
+       0.0,               0.0,				0.0,          0.0},
 	// p_MeV - TODO No data for LiF, air
     {  0.0,
        1.761,             1.748,            1.745,        1.762,     1.79165987,
        0.0,	  		      0.0,              0.0,          0.0,       0.0,
        0.0,               0.0,              0.0,          0.0,       0.0,
        0.0,            	  0.0,              0.0,          0.0,       0.0,
-       0.0,               0.0,				0.0},
+       0.0,               0.0,				0.0,          0.0},
     // m_g_cm2 - TODO No data processed for nuclear interactions in Alanine, hence set to -100
     {  0.0,
        0.01153,           0.01305,          0.01230,      0.01338,   -100.0,
 	   0.0,	 			  0.0,              0.0,          0.0,       0.0,
        0.0,               0.0,              0.0,          0.0,       0.0,
        0.0,            	  0.0,              0.0,          0.0,       0.0,
-       0.0,               0.0,				0.0},
+       0.0,               0.0,				0.0,          0.0},
     // average_A
     {  0.0,
        13.0,              21.72,            27.0,         11.556,    12.8088,
-       17.7333,           14.78,            28.085,       63.546,    0,
+       17.7333,           14.78,            28.085,       63.546,    183.84,
        12.33, 		      10.84,		 	11.24,        11.78,     12.98,
        11.76,          	  11.77,          	10.43,        14.45,  	 14.46,
-       14.80,             17.62,			19.99},
+       14.80,             17.62,			19.99,        207.2},
     // average_Z
     {  0.0,
        7.22,              10.637,           13.0,         6.24,      6.44,
-       8.0,		          7.375,            14.0,         29.0,      0,
+       8.0,		          7.375,            14.0,         29.0,      74.0,
        6.68,     	      5.91,      	    6.10,    	  6.36,      7.22,
        6.36,           	  6.36,           	5.78,         7.70,      7.71,
-       7.89,              9.23,				10.34},
+       7.89,              9.23,				10.34,        82.0},
     // material_name
     {  "User defined",
        "Water, Liquid",   "Aluminum Oxide", "Aluminum",   "PMMA",    "Alanine",
-       "Lithium Fluoride","Air", "Silicon", "Copper", "Dummy10",
+       "Lithium Fluoride","Air", "Silicon", "Copper", "Tungsten",
        "Gammex Lung LN450", "Gammex AP6 Adipose RMI453", "BR12 Breast RMI454",	"CT Solid Water RMI451", "Gammex Water",
 		"Muscle RMI452" , "LV1 Liver RMI" ,	"SR2 Brain", "IB3 Inner Bone RMI 456", "B200 Bone Mineral",
-		"CB2 30% CaCO3", "CB2 50% CaCO3", "SB3 Cortical Bone RMI 450" },
+		"CB2 30% CaCO3", "CB2 50% CaCO3", "SB3 Cortical Bone RMI 450", "Lead" },
 	// phase
 	{  phase_undefined,
 	   phase_condensed, phase_condensed, phase_condensed, phase_condensed, phase_condensed,
-	   phase_condensed, phase_gaseous,   phase_condensed, phase_condensed, phase_undefined,
+	   phase_condensed, phase_gaseous,   phase_condensed, phase_condensed, phase_condensed,
 	   phase_condensed, phase_condensed, phase_condensed, phase_condensed, phase_condensed,
 	   phase_condensed, phase_condensed, phase_condensed, phase_condensed, phase_condensed,
-	   phase_condensed, phase_condensed, phase_condensed}
+	   phase_condensed, phase_condensed, phase_condensed, phase_condensed}
 };
 
 /* Cucinnotta calculated average A for water as 14.3, but it seems that it is 13.0 (Leszek) *
@@ -254,7 +260,7 @@ static AT_table_of_material_data_struct AT_Material_Data = {
  * Get index of material in AT_Material_Data for given material_no
  * (currently for example material with number 2 has index 1)
  *
- * @param material_number  material number
+ * @param[in] material_number  material number
  * @return                 material index in AT_Material_Data table
  */
 long AT_material_index_from_material_number( const long material_number );
@@ -412,7 +418,6 @@ double AT_electron_density_m3_from_material_no_single( const long   material_no 
  * @param[in]     n                    number of materials
  * @param[in]     material_no          material indices (array of size n)
  * @param[out]    electron_density_m3  electron densities per m3 (array of size n)
- * @return        none
  */
 void AT_electron_density_m3_from_material_no_multi( const long n,
 		const long   material_no[],
@@ -421,21 +426,21 @@ void AT_electron_density_m3_from_material_no_multi( const long n,
 /**
  * Returns material's plasma energy needed for Sternheimer
  * computation of density effect in stopping power
- * @param[in]  electron_density_m3  electron density in 1/m3
+ * @param[in]  material_no  material number
  */
-double AT_plasma_energy_J_from_material_no(const long material_no);
+double AT_plasma_energy_J_from_material_no( const long material_no );
 
 // ROUTINES FOR COMPUTING DERIVED PARAMETERS
 /**
  * Computes the electron density from average A and Z
- * @param density_g_cm3      physical density (in g/cm3) of material
- * @param average_Z          average atomic number of material
- * @param average_A          mass number of material
- * @return                   electron density in 1/m3
+ * @param[in] density_g_cm3      physical density (in g/cm3) of material
+ * @param[in] average_Z          average atomic number of material
+ * @param[in] average_A          mass number of material
+ * @return                       electron density in 1/m3
  */
 double AT_electron_density_m3_single( const double density_g_cm3,
     const double average_Z,
-    const double average_A);
+    const double average_A );
 
 /**
  * Returns electron density from average A and Z
@@ -456,7 +461,7 @@ void AT_electron_density_m3_multi( const long n,
  * computation of density effect in stopping power
  * @param[in]  electron_density_m3  electron density in 1/m3
  */
-double AT_plasma_energy_J_single(const double electron_density_m3);
+double AT_plasma_energy_J_single( const double electron_density_m3 );
 
 /**
  * Computes the electron density for a given material composition
@@ -506,15 +511,17 @@ void AT_average_Z_from_composition( const long n,
 /**
  * Computes the effective atomic number for a given material composition
  *
- * @param[in]  n                     number of constituents in material
- * @param[in]  Z                     atomic numbers of constituents (array of size n)
- * @param[in]  weight_fraction       relative fractions of weight of constituents (array of size n)
- * @param[in]  exponent              exponent for additivity rule reflecting the photon energy regime (usually 3.5 at ~ 100 kV)
- * @param[out] effective_Z           effective Z
+ * @param[in]  n                     	number of constituents in material
+ * @param[in]  Z                     	atomic numbers of constituents (array of size n)
+ * @param[in]  weight_fraction       	relative fractions of weight of constituents (array of size n)
+ * @param[in]  electron_densities_cm3   if not zero, weight fractions will additionally include electron densities per volume (array of size n)
+ * @param[in]  exponent              	exponent for additivity rule reflecting the photon energy regime (usually 3.5 at ~ 100 kV)
+ * @param[out] effective_Z           	effective Z
  */
 void AT_effective_Z_from_composition( const long n,
     const long Z[],
     const double weight_fraction[],
+    const double electron_densities_cm3[],
     const double exponent,
     double* effective_Z);
 

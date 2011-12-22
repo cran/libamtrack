@@ -19,9 +19,7 @@
 \seealso{
 View the C source code here:
 
-\url{ http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.4.1/src/AT_ElectronRange.c#L126
-}
-
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_ElectronRange.c#L126}
 }
 \examples{
 # Compute the electron range in PMMA for the Tabata parametrization between 0.3 keV and 30 MeV

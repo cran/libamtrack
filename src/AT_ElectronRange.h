@@ -90,55 +90,55 @@ int getERName( const int ER_no,
 
 /**
  * 1e-5 * wmax_keV
- * @param wmax_keV
+ * @param[in] wmax_keV
  * @return
  */
-double AT_ER_ButtsKatz_range_g_cm2( double wmax_keV);
+double AT_ER_ButtsKatz_range_g_cm2( double wmax_keV );
 
 
 /**
  * 6e-6 * pow( wmax_keV, alpha )
- * @param wmax_keV
+ * @param[in] wmax_keV
  * @return
  */
-double AT_ER_Waligorski_range_g_cm2( double wmax_keV);
+double AT_ER_Waligorski_range_g_cm2( double wmax_keV );
 
 
 /**
  * 6.13*1e-6  * pow( wmax_keV, alpha )
- * @param wmax_keV
+ * @param[in] wmax_keV
  * @return
  */
-double AT_ER_Edmund_range_g_cm2( double wmax_keV);
+double AT_ER_Edmund_range_g_cm2( double wmax_keV );
 
 
 /**
  * 4e-5 * pow(E_MeV_u, 1.5)
- * @param E_MeV_u
+ * @param[in] E_MeV_u
  * @return
  */
-double AT_ER_Geiss_range_g_cm2( double E_MeV_u);
+double AT_ER_Geiss_range_g_cm2( double E_MeV_u );
 
 
 /**
  * 5e-5 * pow(E_MeV_u, 1.7)
- * @param E_MeV_u
+ * @param[in] E_MeV_u
  * @return
  */
-double AT_ER_Scholz_range_g_cm2( double E_MeV_u);
+double AT_ER_Scholz_range_g_cm2( double E_MeV_u );
 
 
 /**
  *  tau = 2.0 * gsl_pow_2(beta) / (1.0 - gsl_pow_2(beta))
  * (a1_g_cm2)*(((gsl_sf_log(1.0 + a2 * tau))/a2) - ((a3*tau)/(1.0 + a4*pow(tau,a5))) )
  *
- * @param beta
- * @param a1_g_cm2
- * @param a2
- * @param a3
- * @param a4
- * @param a5
- * @return
+ * @param[in] beta
+ * @param[in] a1_g_cm2
+ * @param[in] a2
+ * @param[in] a3
+ * @param[in] a4
+ * @param[in] a5
+ * @return range
  */
 double AT_ER_Tabata_range_g_cm2( double beta,
     double a1_g_cm2,
@@ -153,29 +153,29 @@ double AT_ER_Tabata_range_g_cm2( double beta,
  * alpha = 1.667   when energy of ejected delta electron wmax is higher than 1keV
  * alpha = 1.079   when energy of ejected delta electron wmax is less or equal than 1keV
  *
- * @param E_MeV_u  kinetic energy for particle [in MeV/u]
+ * @param[in] E_MeV_u  kinetic energy for particle [in MeV/u]
  * @return
  */
-double AT_ER_PowerLaw_alpha( const double E_MeV_u);
+double AT_ER_PowerLaw_alpha( const double E_MeV_u );
 
 
 /**
  * Tabata model constants
- * @param average_A
- * @param average_Z
- * @param a1_g_cm2
- * @param a2
- * @param a3
- * @param a4
- * @param a5
+ * @param[in] average_A
+ * @param[in] average_Z
+ * @param[out] a1_g_cm2
+ * @param[out] a2
+ * @param[out] a3
+ * @param[out] a4
+ * @param[out] a5
  */
 void AT_ER_Tabata_constants( const double average_A,
     const double average_Z,
-    double * a1_g_cm2,
-    double * a2,
-    double * a3,
-    double * a4,
-    double * a5);
+    double* a1_g_cm2,
+    double* a2,
+    double* a3,
+    double* a4,
+    double* a5);
 
 
 /**

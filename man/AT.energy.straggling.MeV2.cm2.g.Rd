@@ -19,5 +19,10 @@
 % TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{dsE2dz.MeV2.cm2.g}{ Increase of energy straggling variance sigma.E^2 per unit length of material (array of size n)}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_PhysicsRoutines.c#L254}
+}
 
 

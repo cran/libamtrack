@@ -37,9 +37,20 @@
 #include "AT_Error.h"
 #include "AT_NumericalRoutines.h"
 
+/**
+ * TODO
+ */
 #define PARTICLE_DATA_N    96
 
+/**
+ * TODO
+ */
 #define PARTICLE_PROTON_NUMBER   1001
+
+/**
+ * TODO
+ */
+#define PARTICLE_NAME_NCHAR 6
 
 
 /**
@@ -137,9 +148,15 @@ static const AT_particle_data_struct AT_Particle_Data = {
 
 
 /**
+ * TODO
+ *
+ * @param[in]  Z            atomic number
+ * @param[in]  A            mass number
+ * @return particle_no
  */
  long AT_particle_no_from_Z_and_A_single(  const long  Z,
     const long  A);
+
 
 /**
  * Returns particle index number from given A and Z
@@ -158,7 +175,7 @@ int AT_particle_no_from_Z_and_A( const long  n,
 
 /**
  * Calculates mass number A for particle with given code number
- * @param particle_no
+ * @param[in] particle_no
  * @return A
  */
  long AT_A_from_particle_no_single(  const long  particle_no );
@@ -177,8 +194,19 @@ int AT_A_from_particle_no(  const long  n,
 
 
 /**
+ * Returns atomic weight for given Z
+ * @param[in]  n                length of arrays
+ * @param[in]  Z                atomic number (array of size n)
+ * @param[out] atomic_weight    atomic weight (array of size n)
+ * @return     return code
+ */
+int AT_atomic_weight_from_Z( const long  n,
+    const long  Z[],
+    double  atomic_weight[]);
+
+/**
  * Calculates atomic number Z for particle with given code number
- * @param particle_no
+ * @param[in] particle_no
  * @return Z
  */
  long AT_Z_from_particle_no_single(  const long  particle_no );
@@ -198,25 +226,27 @@ int AT_Z_from_particle_no(  const long  n,
 
 /**
  * TODO
- * @param[in]  n
- * @param[in]  particle_no
- * @param[out] atomic_weight
- * @return
+ * @param[in]  n              TODO
+ * @param[in]  particle_no    TODO
+ * @param[out] atomic_weight  TODO
+ * @return                    status code
  */
 int AT_atomic_weight_from_particle_no(  const long  n,
     const long  particle_no[],
     double  atomic_weight[]);
+
 
 /**
  * Return I value for given elements
  * @param[in]  n              number of elements
  * @param[in]  particle_no    particle index number (array of size n)
  * @param[out] I_eV           I value (array of size n)
- * @return
+ * @return                    status code
  */
 int AT_I_eV_from_particle_no( const long  n,
     const long  particle_no[],
     double  I_eV[]);
+
 
 /**
  * Returns nuclear spin from particle no
@@ -229,12 +259,14 @@ int AT_nuclear_spin_from_particle_no_multi( const long  n,
     const long  particle_no[],
     double  I[]);
 
+
 /**
  * Returns nuclear spin from particle no
  * @param[in]  particle_no    particle index number (array of size n)
  * @return     nuclear spin
  */
-double AT_nuclear_spin_from_particle_no_single( const long  particle_no);
+double AT_nuclear_spin_from_particle_no_single( const long  particle_no );
+
 
 /**
  * Returns nuclear spin from Z and A
@@ -245,51 +277,173 @@ double AT_nuclear_spin_from_particle_no_single( const long  particle_no);
 double AT_nuclear_spin_from_Z_and_A( const long  Z,
     const long  A);
 
-/**
- * TODO
- */
-#define PARTICLE_NAME_NCHAR 6
 
 /**
  * Returns particle index name for given particle index number
- * @param[in]  particle index number
- * @param[out] corresponding particle name
+ * @param[in]  particle_no    particle index number
+ * @param[out] particle_name  corresponding particle name
  * @return status
  */
 int AT_particle_name_from_particle_no_single( const long  particle_no,
-    char * particle_name);
+    char* particle_name);
 
 /**
  * Returns particle index number for given particle name
- * @param[in]  particle index name
- * @param[out] corresponding particle number
- * @return status
+ * @param[in]  particle_name particle index name (array of size PARTICLE_NAME_NCHAR)
+ * @return corresponding particle number
  */
-long AT_particle_no_from_particle_name_single( const char particle_name[PARTICLE_NAME_NCHAR]);
+long AT_particle_no_from_particle_name_single( const char particle_name[] );
 
 
 /**
  * Returns particle index numbers for given particle names
- * @param[in]  n
- * @param[in]  particle index numbers (array of size n)
- * @param[out] corresponding particle names (array of size n)
+ * @param[in]  n             TODO
+ * @param[in]  particle_no   particle index numbers (array of size n)
+ * @param[out] particle_name corresponding particle names
  * @return status
  */
-int AT_particle_name_from_particle_no(const long  n,
+int AT_particle_name_from_particle_no( const long  n,
     const long  particle_no[],
     char particle_name[][PARTICLE_NAME_NCHAR]);
 
 
 /**
  * Returns particle names for given particle numbers
- * @param[in]  n
- * @param[in]  particle names (array of size n)
- * @param[out] corresponding particle names (array of size n)
+ * @param[in]  n              TODO
+ * @param[in]  particle_name  particle names
+ * @param[out] corresponding  particle numbers
  * @return status
  */
 int AT_particle_no_from_particle_name( const long  n,
-    char * particle_name[],
-    long particle_no[]);
+    char* particle_name[],
+    long  particle_no[]);
 
+
+/**
+ * Returns Z for given elemental symbol
+ * @param[in]  acronym        elemental symbols (array of size PARTICLE_NAME_NCHAR)
+ * @return corresponding Z
+ */
+
+int AT_Z_from_element_acronym_single( const char acronym[]);
+
+
+
+/**
+ * Returns Z for given elemental symbols
+ * @param[in]  n       number of elements
+ * @param[in]  acronym elemental symbols (array of size n)
+ * @param[out] Z       corresponding Z (array of size n)
+ * @return status
+ */
+
+int AT_Z_from_element_acronym( const long n,
+		char* acronym[],
+		long Z[]);
+
+/**
+ * Returns elemental symbol for given Z
+ * @param[in]  Z      atomic number
+ * @param[out] corresponding elemental symbol
+ * return status
+ */
+
+int AT_element_acronym_from_Z_single( const long Z,
+		char acronym[PARTICLE_NAME_NCHAR]);
+
+
+/**
+ * Returns elemental symbols for given Z
+ * @param[in]  n       number of elements
+ * @param[in]  Z       atomic numbers (array of size n)
+ * @param[out] acronym corresponding elemental symbols (array of size n)
+ * @return status
+ */
+
+int AT_element_acronym_from_Z( const long n,
+		long Z[],
+		char* acronym[]);
+
+
+
+
+/**
+ * Returns A for given elemental symbol
+ * @param[in]  acronym   elemental symbols (array of size PARTICLE_NAME_NCHAR)
+ * @return corresponding atomic weight
+ */
+double AT_atomic_weight_from_element_acronym_single( const char acronym[]);
+
+
+/**
+ * Returns A for given elemental symbols
+ * @param[in]  n        number of elements in array
+ * @param[in]  acronym  elemental symbols (array of size n)
+ * @param[out] A        corresponding A (array of size n)
+ * @return status
+ */
+int AT_atomic_weight_from_element_acronym( const long n,
+		char* acronym[],
+		double A[]);
+
+
+/**
+ * Returns the elemental density in g/cm3 for given elemental symbol
+ * @param[in]  acronym   elemental symbols (array of size PARTICLE_NAME_NCHAR)
+ * @return elemental density in g/cm3
+ */
+double AT_density_g_cm3_from_element_acronym_single( const char acronym[]);
+
+
+/**
+ * Returns the elemental densities in g/cm3 for given elemental symbols
+ * @param[in]  n        number of elements in array
+ * @param[in]  acronym  elemental symbols (array of size n)
+ * @param[out] density  corresponding elemental densities in g/cm3 (array of size n)
+ * @return status
+ */
+int AT_density_g_cm3_from_element_acronym( const long n,
+		char* acronym[],
+		double density[]);
+
+
+/**
+ * Returns the I value in eV for given elemental symbol
+ * @param[in]  acronym  elemental symbol (array of size PARTICLE_NAME_NCHAR)
+ * @return corresponding I value in eV
+ */
+double AT_I_eV_from_element_acronym_single( const char acronym[]);
+
+
+/**
+ * Returns the I values in eV for given elemental symbol
+ * @param[in]  n        number of elements in array
+ * @param[in]  acronym  elemental symbols (array of size n)
+ * @param[out] I        corresponding I values in eV (array of size n)
+ * @return status
+ */
+int AT_I_eV_from_element_acronym( const long n,
+		char* acronym[],
+		double I[]);
+
+
+/**
+ * Returns the electron density per cm3 for given elemental symbol
+ * @param[in]   acronym  elemental symbol (array of size PARTICLE_NAME_NCHAR)
+ * @return      corresponding electron density per cm3
+ */
+double AT_electron_density_cm3_from_element_acronym_single( const char acronym[]);
+
+
+/**
+ * Returns the electron densities per cm3 for given elemental symbols
+ * @param[in]  n                       TODO
+ * @param[in]  acronym                 elemental symbols (array of size n)
+ * @param[out] electron_density        corresponding electron densities per cm3 (array of size n)
+ * @return status
+ */
+int AT_electron_density_cm3_from_element_acronym( const long n,
+                                                 char* acronym[],
+                                                 double electron_density[]);
 
 #endif /* AT_DATAPARTICLE_H_ */

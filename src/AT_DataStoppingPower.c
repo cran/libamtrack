@@ -121,12 +121,16 @@ double _AT_Stopping_Power_get_data(const long stopping_power_source_no,
 			AT_stopping_power_source_model_name_from_number(stopping_power_source_no,source_name);
 			char material_name[MATERIAL_NAME_LENGTH];
 			AT_material_name_from_number(material_no,material_name);
+#ifndef NDEBUG
 			printf("Missing data for data source [%s] and material [%s]\n", source_name, material_name);
-		}
+#endif
+			}
 	} else {
 		char source_name[STOPPING_POWER_SOURCE_NAME_LENGTH];
 		AT_stopping_power_source_model_name_from_number(stopping_power_source_no,source_name);
+#ifndef NDEBUG
 		printf("Missing data for data source [%s]\n", source_name);
+#endif
 		return -1;
 	}
 	return -1;
@@ -159,8 +163,10 @@ double AT_Stopping_Power_data_interpolation(const long stopping_power_source_no,
 		AT_stopping_power_source_model_name_from_number(stopping_power_source_no,source_name);
 		char material_name[MATERIAL_NAME_LENGTH];
 		AT_material_name_from_number(material_no,material_name);
+#ifndef NDEBUG
 		printf("Missing data points for data source [%s] and material [%s]\n", source_name, material_name);
-	}
+#endif
+		}
 	return -1;
 }
 
@@ -246,7 +252,9 @@ double AT_Energy_MeV_u_from_Stopping_Power_single( const long stopping_power_sou
 		}
 
 		if( (Stopping_Power_MeV_cm2_g < tab[highest_index - lowest_index][1] ) || (Stopping_Power_MeV_cm2_g > tab[0][1]) ){
+#ifndef NDEBUG
 			printf("Only energy region 5-1000 MeV supported\n");
+#endif
 			return -1;
 		}
 
@@ -262,8 +270,10 @@ double AT_Energy_MeV_u_from_Stopping_Power_single( const long stopping_power_sou
 		AT_stopping_power_source_model_name_from_number(stopping_power_source_no,source_name);
 		char material_name[MATERIAL_NAME_LENGTH];
 		AT_material_name_from_number(material_no,material_name);
+#ifndef NDEBUG
 		printf("Missing data points for data source [%s] and material [%s]\n", source_name, material_name);
-	}
+#endif
+		}
 	return -1;
 }
 
@@ -422,7 +432,7 @@ double AT_Stopping_Power_Mass_Bethe_MeV_cm2_g_single(	const double E_MeV_u,
 	 * below return zero */
 	// TODO: Find smarter criterion because this may cause problems in the code (as it did
 	// TODO: with the inappropriatly set lower limit for CSDA range integration (was 0, now 1.0 MeV)
-	if(E_MeV_u >= 1.0){
+	if(E_MeV_u >= BETHE_LOWER_LIMIT_E_MEV_U){
 		const double beta2 		= gsl_pow_2(AT_beta_from_E_single(E_MeV_u));
 		assert( beta2 > 0);
 		const double Z			= AT_average_Z_from_material_no(material_no);
@@ -436,8 +446,7 @@ double AT_Stopping_Power_Mass_Bethe_MeV_cm2_g_single(	const double E_MeV_u,
 				E_restricted_keV);
 		result = k_MeV_cm2_g * (Z / A) * gsl_pow_2(z_eff) * SN / (beta2);
 	}
-
-	return result;
+    return result;
 
 }
 

@@ -13,5 +13,10 @@
   \item{Z}{ atomic number (array of size n)}
   \item{return}{return}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_DataParticle.c#L81}
+}
 
 

@@ -18,5 +18,10 @@
   \item{average.A}{ average mass number (array of size number.of.materials)}
   \item{average.Z}{ average atomic number (array of size number.of.materials)}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_DataMaterial.c#L238}
+}
 
 

@@ -41,7 +41,6 @@
 #include "AT_ElectronRange.h"
 #include "AT_NumericalRoutines.h"
 
-
 /**
  * Structure to carry essential single, monoenergetic particle field information
  */
@@ -115,7 +114,7 @@ typedef struct {
  */
 int AT_beta_from_E( const long  n,
     const double  E_MeV_u[],
-    double  beta[]);
+    double        beta[]);
 
 
 /**
@@ -137,7 +136,7 @@ int AT_beta_from_E( const long  n,
  */
 int AT_E_from_beta(  const long  n,
     const double  beta[],
-    double  E_MeV_u[]);
+    double        E_MeV_u[]);
 
 
 /**
@@ -168,7 +167,7 @@ int AT_E_from_gamma( const long  n,
  * @param[in]  momentum_MeV_c_u         momentum per particle [MeV/c]
  * @return                              energy of particle per nucleon [MeV]
  */
- double AT_E_MeV_u_from_momentum_single( 	const double momentum_MeV_c_u);
+ double AT_E_MeV_u_from_momentum_single( 	const double momentum_MeV_c_u );
 
 /**
  *  Returns energy per nucleon for particles with given momentum per nucleon
@@ -214,7 +213,7 @@ int AT_gamma_from_E( const long  n,
  * @return     effective_charge of ion
  */
  double AT_effective_charge_from_beta_single(  const double beta,
-    const long Z);
+    const long Z );
 
 
 /**
@@ -243,17 +242,17 @@ int AT_effective_charge_from_beta(  const long  n,
  * Since the effective charge of the particle enters the equation, particle types and energies have to be given
  * The equation is however limited to energies > 10 MeV/u and not too heavy ions
  * TODO: add William extension for relativistic effects (Williams, E.J. (1945), Revs. Mod. Phys. 17, 217ff)
- * @param[in]  n                        number particles
+ * @param[in]  n                        number of particles
  * @param[in]  E_MeV_u                  vector of energies of particle per nucleon [MeV] (array of size n)
  * @param[in]  particle_no              type of the particles in the mixed particle field (array of size n)
  * @param[in]  material_no              index number for slab material
  * @param[out] dsE2dz_MeV2_cm2_g        Increase of energy straggling variance sigma_E^2 per unit length of material (array of size n)
  */
 void AT_energy_straggling_MeV2_cm2_g(  const long  n,
-	const double	E_MeV_u[],
-	const long	particle_no[],
-    const long  material_no,
-    double	dsE2dz_MeV2_cm2_g[]);
+	const double E_MeV_u[],
+	const long	 particle_no[],
+    const long   material_no,
+    double	     dsE2dz_MeV2_cm2_g[]);
 
 /**
  * Get energy spread of an ion beam after traversing
@@ -270,12 +269,12 @@ void AT_energy_straggling_MeV2_cm2_g(  const long  n,
  * @param[out] sigma_E_MeV_u            energy spread - 1 sigma - after traversing the slab (array of size n)
  */
 void AT_energy_straggling_after_slab_E_MeV_u( const long  n,
-	const double	E_MeV_u[],
-	const long	particle_no[],
-    const long	material_no,
-    const double	slab_thickness_m,
-    const double	initial_sigma_E_MeV_u[],
-    double	sigma_E_MeV_u[]);
+	const double  E_MeV_u[],
+	const long    particle_no[],
+    const long    material_no,
+    const double  slab_thickness_m,
+    const double  initial_sigma_E_MeV_u[],
+    double	      sigma_E_MeV_u[]);
 
 /**
  * Effective charge according to Barkas-Bethe-approximation
@@ -287,7 +286,6 @@ void AT_energy_straggling_after_slab_E_MeV_u( const long  n,
  */
 double AT_effective_charge_from_E_MeV_u_single(  const double E_MeV_u,
     const long  particle_no);
-
 
 /**
  * Effective charge according to Barkas-Bethe-approximation:
@@ -304,24 +302,49 @@ int AT_effective_charge_from_E_MeV_u(  const long  n,
     const long    particle_no[],
     double        effective_charge[]);
 
+/**
+ * Returns mean excitation energy for elements (according to Sternheimer: Phys. Rev. 145, 247 in 1966)
+ *
+ * @param[in]  Z            		    atomic number
+ * @return I_eV
+ */
+double AT_mean_excitation_energy_eV_from_Z_single( const long Z );
 
 /**
- * Max relativistic energy transfer for single particle
+ *  Returns mean excitation energies for elements
  *
- * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
- * @return max_E_transfer_MeV
+ * @param[in]  n                        number of elements
+ * @param[in]  Z                   		vector of atomic numbers (array of size n)
+ * @param[out] I_eV        				vector of mean excitation energies (array of size n)
+ * @return     status code
  */
- double AT_max_relativistic_E_transfer_MeV_single( const double E_MeV_u );
+int AT_mean_excitation_energy_eV_from_Z( const long n,
+	const double Z[],
+	double       I_eV[]);
 
+ /**
+  * Returns mass correction terms of max relativistic energy transfer for single particle
+  *
+  * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
+  * @return mass_correction_terms
+  */
+ double AT_mass_correction_terms( const double E_MeV_u );
+
+ /**
+  * Max relativistic energy transfer with mass correction terms for single particle
+  *
+  * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
+  * @return max_rel_E_transfer_MeV
+  */
+ double AT_max_relativistic_E_transfer_MeV_single( const double E_MeV_u );
 
 /**
  * Max classic energy transfer for single particle
  *
  * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
- * @return max_E_transfer_MeV
+ * @return max_classic_E_transfer_MeV
  */
  double AT_max_classic_E_transfer_MeV_single( const double E_MeV_u );
-
 
 /**
  * Max energy transfer for single particle
@@ -329,8 +352,7 @@ int AT_effective_charge_from_E_MeV_u(  const long  n,
  * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
  * @return     max_E_transfer_MeV
  */
- double AT_max_E_transfer_MeV_single( const double E_MeV_u);
-
+ double AT_max_E_transfer_MeV_single( const double E_MeV_u );
 
 /**
  * Kinetic energy maximally transferred from an ion to an electron
@@ -348,10 +370,11 @@ int AT_max_E_transfer_MeV(  const long  n,
 /**
  *  Returns relativistic momentum (per nucleon) of particle
  *
- * @param	  	E_MeV_u                 kinetic Energy per nucleon
+ * @param[in]	  	E_MeV_u                 kinetic Energy per nucleon
  * @return                              momentum [MeV/c]
  */
- double AT_momentum_from_E_MeV_c_u_single( const double E_MeV_u);
+ double AT_momentum_from_E_MeV_c_u_single( const double E_MeV_u );
+
 
 /**
  *  Returns relativistic momenta per nucleon for particles with given kinetic energy
@@ -365,12 +388,13 @@ int AT_momentum_MeV_c_u_from_E_MeV_u( const long  n,
     const double  E_MeV_u[],
     double        momentum_MeV_c[]);
 
+
 /**
  * Returns dose in Gy for particle with given fluence and energy
  * @param[in]  E_MeV_u      energy per unit mass
- * @param[in]  fluence_cm2  fluence in 1/cm2
  * @param[in]  particle_no  type of the particle
  * @see          AT_DataParticle.h for definition
+ * @param[in]  fluence_cm2  fluence in 1/cm2
  * @param[in]  material_no  material index
  * @see          AT_DataMaterial.h for definition
  * @param[in]  stopping_power_source_no  stopping power source index
@@ -380,16 +404,16 @@ double AT_dose_Gy_from_fluence_cm2_single(  const double  E_MeV_u,
     const long    particle_no,
     const double  fluence_cm2,
     const long    material_no,
-    const long    stopping_power_source_no);
+    const long    stopping_power_source_no );
 
 
 /**
  * Returns dose in Gy for each given particle
  * @param[in]  n            number of particle types in the mixed particle field
  * @param[in]  E_MeV_u      energy of particles in the mixed particle field (array of size n)
- * @param[in]  fluence_cm2  fluence for each particle type (array of size n)
  * @param[in]  particle_no  type of the particles in the mixed particle field (array of size n)
  * @see          AT_DataParticle.h for definition
+ * @param[in]  fluence_cm2  fluence for each particle type (array of size n)
  * @param[in]  material_no  material index
  * @see          AT_DataMaterial.h for definition
  * @param[in]  stopping_power_source_no  stopping power source index
@@ -419,7 +443,7 @@ double AT_fluence_cm2_from_dose_Gy_single( const double  E_MeV_u,
     const long    particle_no,
     const double  D_Gy,
     const long    material_no,
-    const long    stopping_power_source_no);
+    const long    stopping_power_source_no );
 
 
 /**
@@ -458,8 +482,8 @@ void AT_fluence_cm2_from_dose_Gy(  const long  n,
 void AT_beam_par_physical_to_technical(  const long  n,
     const double fluence_cm2[],
     const double sigma_cm[],
-    double N[],
-    double FWHM_mm[]);
+    double       N[],
+    double       FWHM_mm[]);
 
 /**
  * Converts technical, accelerator parameters of a symmetric, double lateral Gaussian shape beam, i.e.
@@ -476,8 +500,8 @@ void AT_beam_par_physical_to_technical(  const long  n,
 void AT_beam_par_technical_to_physical(  const long  n,
     const double N[],
     const double FWHM_mm[],
-    double fluence_cm2[],
-    double sigma_cm[]);
+    double       fluence_cm2[],
+    double       sigma_cm[]);
 
 /**
  * Interparticle distance
@@ -490,8 +514,7 @@ void AT_beam_par_technical_to_physical(  const long  n,
 void AT_interparticleDistance_m(       const long   n,
     const double  LET_MeV_cm2_g[],
     const double  fluence_cm2[],
-    double        results_m[]
-);
+    double        results_m[]);
 
 
 /**
@@ -505,8 +528,7 @@ void AT_interparticleDistance_m(       const long   n,
 void AT_inv_interparticleDistance_Gy(  const long   n,
     const double   LET_MeV_cm2_g[],
     const double   distance_m[],
-    double         results_Gy[]
-);
+    double         results_Gy[]);
 
 
 /**
@@ -524,7 +546,7 @@ void AT_inv_interparticleDistance_Gy(  const long   n,
   */
 double AT_single_impact_fluence_cm2_single( const double E_MeV_u,
     const long material_no,
-    const long er_model);
+    const long er_model );
 
 
 /**
@@ -552,22 +574,22 @@ void AT_single_impact_fluence_cm2( const long n,
  * Dose for the fluence at a single impact
  *
  * @param[in] LET_MeV_cm2_g              LET of particle
- * @param[in] single_impact_fluence_cm2  the fluence corresponing to a single impact
+ * @param[in] single_impact_fluence_cm2  the fluence corresponding to a single impact
  * @return    single impact dose
  */
 double AT_single_impact_dose_Gy_single( const double LET_MeV_cm2_g,
-    const double single_impact_fluence_cm2);
+    const double single_impact_fluence_cm2 );
 
 /**
  * Doses for the fluences at a single impact
  *
  * @param[in]  n                          number of particles
- * @param[in]  E_MeV_i                    Energy
- * @param[in]  particle_no                particle type
+ * @param[in]  E_MeV_u                    Energy (array of size n)
+ * @param[in]  particle_no                particle type (array of size n)
  * @param[in]  material_no                material
  * @param[in]  er_model                   electron-range model
  * @param[in]  stopping_power_source_no   TODO
- * @param[out] single_impact_dose_Gy      resulting single impact doses
+ * @param[out] single_impact_dose_Gy      resulting single impact doses (array of size n)
  */
 void AT_single_impact_dose_Gy( const long n,
     const double  E_MeV_u[],
@@ -755,7 +777,7 @@ double AT_mean_number_of_tracks_contrib(    const long number_of_field_component
  * @param[in]  E_MeV_u      energy of particle
  * @return     				kinetic variable
  */
-double AT_kinetic_variable_single(double E_MeV_u);
+double AT_kinetic_variable_single( double E_MeV_u );
 
 /**
  * Computes the cross section (in 1/m2) the a particle is scattered
@@ -772,7 +794,7 @@ double AT_kinetic_variable_single(double E_MeV_u);
  * @param[out] scatter_cross_section	scatter cross section (array of size n)
  * @return     status code
  */
-long AT_Rutherford_scatter_cross_section( const double E_Mev_u,
+long AT_Rutherford_scatter_cross_section( const double E_MeV_u,
 		const long particle_no,
 		const long material_no,
 		const long n,

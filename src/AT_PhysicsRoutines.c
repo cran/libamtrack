@@ -168,12 +168,36 @@ int AT_effective_charge_from_E_MeV_u( const  long  n,
 }
 
 
- double AT_max_relativistic_E_transfer_MeV_single( const double E_MeV_u ){
-  const double beta = AT_beta_from_E_single(E_MeV_u);
-  // TODO what does it mean MeV_c2, are units correct ?
-  // TODO add m/M terms (ICRU49, p. 6, eq. 2.4
-  return 2.0 * electron_mass_MeV_c2 * gsl_pow_2(beta) / (1.0 - gsl_pow_2(beta));
+double AT_mean_excitation_energy_eV_from_Z_single( const long Z ){
+	return	9.76 * Z + ( 58.8 / pow(Z, 19.0/100.0) );
 }
+
+
+int AT_mean_excitation_energy_eV_from_Z( const long n,
+	const double Z[],
+	double I_eV[])
+{
+	//loop over n to find mean excitation energy for all Z
+	long i;
+	for(i = 0; i < n; i++){
+		I_eV[i]	=	AT_mean_excitation_energy_eV_from_Z_single(Z[i]);
+	}
+	return 0;
+}
+
+
+ double AT_mass_correction_terms( const double E_MeV_u ){
+  double	gamma = AT_gamma_from_E_single( E_MeV_u );
+  double	m_MeV_c2 = 1.0079 * proton_mass_MeV_c2;   // TODO what does it mean MeV_c2, are units correct ?
+  return	1.0 + (2.0 * (electron_mass_MeV_c2 / m_MeV_c2) / gamma) + gsl_pow_2(electron_mass_MeV_c2 / m_MeV_c2);
+ }
+
+
+ double AT_max_relativistic_E_transfer_MeV_single( const double E_MeV_u ){
+  const double	beta = AT_beta_from_E_single(E_MeV_u);
+  const double	mass_correction_terms = AT_mass_correction_terms(beta);
+  return (2.0 * electron_mass_MeV_c2 * gsl_pow_2(beta) / (1.0 - gsl_pow_2(beta))) / mass_correction_terms;
+ }
 
 
  double AT_max_classic_E_transfer_MeV_single( const double E_MeV_u ){

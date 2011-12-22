@@ -18,5 +18,10 @@
   \item{dsdT.m2.MeV}{ Rutherford SDCS for given electron energies (array of size n)}
   \item{status}{status}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_DataStoppingPower.c#L470}
+}
 
 

@@ -20,5 +20,10 @@
 % TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{sigma.E.MeV.u}{ energy spread - 1 sigma - after traversing the slab (array of size n)}
 }
+\seealso{
+View the C source code here:
+
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_PhysicsRoutines.c#L271}
+}
 
 

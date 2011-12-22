@@ -360,10 +360,14 @@ AT.I.eV.from.composition <- function( Z,
 
 AT.effective.Z.from.composition <- function( Z,
 			weight.fraction,
+			electron.densities.cm3,
 			exponent){
 
 	n	<- length(Z)
 	if(n != length(weight.fraction)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(electron.densities.cm3)){cat("Array size mismatch for 'n'!\n")
 		return}
 
 	effective.Z <- numeric(1)
@@ -372,6 +376,7 @@ AT.effective.Z.from.composition <- function( Z,
 			n = as.integer(n),
 			Z = as.integer(Z),
 			weight.fraction = as.single(weight.fraction),
+			electron.densities.cm3 = as.single(electron.densities.cm3),
 			exponent = as.single(exponent),
 			effective.Z = as.single(effective.Z),PACKAGE="libamtrack")
 
@@ -534,6 +539,106 @@ AT.get.materials.data <- function( material.no){
 }
 
 
+AT.I.eV.from.element.acronym <- function( acronym){
+
+	n	<- length(acronym)
+	I <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_I_eV_from_element_acronym_R", 
+			n = as.integer(n),
+			acronym = as.character(acronym),
+			I = as.single(I),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$I
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("I", "returnValue")
+	 return(return.list)
+}
+
+
+AT.density.g.cm3.from.element.acronym <- function( acronym){
+
+	n	<- length(acronym)
+	density <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_density_g_cm3_from_element_acronym_R", 
+			n = as.integer(n),
+			acronym = as.character(acronym),
+			density = as.single(density),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$density
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("density", "returnValue")
+	 return(return.list)
+}
+
+
+AT.atomic.weight.from.element.acronym <- function( acronym){
+
+	n	<- length(acronym)
+	A <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_atomic_weight_from_element_acronym_R", 
+			n = as.integer(n),
+			acronym = as.character(acronym),
+			A = as.single(A),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$A
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("A", "returnValue")
+	 return(return.list)
+}
+
+
+AT.element.acronym.from.Z <- function( Z){
+
+	n	<- length(Z)
+	acronym <- character(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_element_acronym_from_Z_R", 
+			n = as.integer(n),
+			Z = as.integer(Z),
+			acronym = as.character(acronym),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$acronym
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("acronym", "returnValue")
+	 return(return.list)
+}
+
+
+AT.Z.from.element.acronym <- function( acronym){
+
+	n	<- length(acronym)
+	Z <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_Z_from_element_acronym_R", 
+			n = as.integer(n),
+			acronym = as.character(acronym),
+			Z = as.integer(Z),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$Z
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("Z", "returnValue")
+	 return(return.list)
+}
+
+
 AT.nuclear.spin.from.particle.no <- function( particle.no){
 
 	n	<- length(particle.no)
@@ -570,6 +675,26 @@ AT.Z.from.particle.no <- function( particle.no){
 	 return.list[[1]] <- res$Z
 	 return.list[[2]] <- res$returnValue
 	 names(return.list) <- c("Z", "returnValue")
+	 return(return.list)
+}
+
+
+AT.atomic.weight.from.Z <- function( Z){
+
+	n	<- length(Z)
+	atomic.weight <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_atomic_weight_from_Z_R", 
+			n = as.integer(n),
+			Z = as.integer(Z),
+			atomic.weight = as.single(atomic.weight),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$atomic.weight
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("atomic.weight", "returnValue")
 	 return(return.list)
 }
 
@@ -1150,8 +1275,8 @@ AT.fluence.cm2.from.dose.Gy <- function( E.MeV.u,
 
 
 AT.dose.Gy.from.fluence.cm2 <- function( E.MeV.u,
-			fluence.cm2,
 			particle.no,
+			fluence.cm2,
 			material.no,
 			stopping.power.source.no){
 
