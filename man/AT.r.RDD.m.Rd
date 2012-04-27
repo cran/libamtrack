@@ -25,7 +25,7 @@
 \seealso{
 View the C source code here:
 
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_RDD.c#L614}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.3/src/AT_RDD.c#L614}
 }
 
 

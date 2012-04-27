@@ -17,7 +17,7 @@
 \seealso{
 View the C source code here:
 
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_PhysicsRoutines.c#L71}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.3/src/AT_PhysicsRoutines.c#L71}
 }
 \examples{
 # Compute energies for betas between 0.1 and 0.99:

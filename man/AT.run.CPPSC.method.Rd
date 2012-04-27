@@ -45,7 +45,7 @@
 \seealso{
 View the C source code here:
 
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_Algorithms_CPP.c#L34}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.3/src/AT_Algorithms_CPP.c#L34}
 }
 \examples{
 # Compute the relative efficiency of an Alanine detector in a mixed

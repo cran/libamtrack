@@ -2,7 +2,7 @@
 \name{AT.atomic.weight.from.element.acronym}
 \alias{AT.atomic.weight.from.element.acronym}
 \title{AT.atomic.weight.from.element.acronym}
-\description{Returns A for given elemental symbols}
+\description{Returns atomic weight for given elemental symbols}
 \usage{AT.atomic.weight.from.element.acronym(acronym)
 }
 \arguments{
@@ -10,13 +10,13 @@
 }
 \value{
 % TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
-  \item{A}{ corresponding A (array of size n)}
+  \item{atomic.weight}{ corresponding A (array of size n)}
   \item{status}{status}
 }
 \seealso{
 View the C source code here:
 
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.2/src/AT_DataParticle.c#L391}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.3/src/AT_DataParticle.c#L391}
 }
 
 

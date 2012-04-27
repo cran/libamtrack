@@ -13,8 +13,8 @@
  *    Creator: greilich
  *
  *    File name: $HeadURL: https://libamtrack.svn.sourceforge.net/svnroot/libamtrack/trunk/include/AT.h $
- *    Revision:  $Revision: 1048 $
- *    Last modified: $Date: 2011-08-17 07:56:16 +0200 (Mi, 17 Aug 2011) $
+ *    Revision:  $Revision: 1208 $
+ *    Last modified: $Date: 2012-03-14 16:15:20 +0100 (Mi, 14 Mrz 2012) $
  *    Last modified by: $Author: sgreilich $
  *
  *    Copyright 2006, 2010 The libamtrack team
@@ -48,4 +48,6 @@
  */
  double AT_test_fun( double a, double b);
 
+ // Just a test
+ 
 #endif /* AT_ALGORITHMS_CPP_H_ */

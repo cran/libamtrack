@@ -14,6 +14,7 @@
 #include "AT_DataRange.h"
 #include "AT_DataStoppingPower.h"
 #include "AT_ElectronRange.h"
+#include "AT_MultipleCoulombScattering.h"
 #include "AT_PhysicsRoutines.h"
 #include "AT_RDD.h"
 #include "AT_SPC.h"
@@ -216,7 +217,7 @@ void AT_density_g_cm3_from_element_acronym_R( const int*		n,
 
 void AT_atomic_weight_from_element_acronym_R( const int*		n,
 		char**		acronym,
-		float*			A,
+		float*			atomic_weight,
 		int*			returnValue
 );
 
@@ -340,6 +341,90 @@ void AT_max_electron_ranges_m_R( const int*		number_of_particles,
 		const int*		material_no,
 		const int*		er_model,
 		float*			max_electron_range_m
+);
+
+
+void AT_characteristic_single_scattering_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			chi_c,
+		int*			returnValue
+);
+
+
+void AT_screening_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		char**		element_acronym,
+		float*			chi_a,
+		int*			returnValue
+);
+
+
+void AT_effective_collision_number_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			exp_b,
+		int*			returnValue
+);
+
+
+void AT_reduced_target_thickness_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			B,
+		int*			returnValue
+);
+
+
+void AT_characteristic_multiple_scattering_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			Theta_M,
+		int*			returnValue
+);
+
+
+void AT_Moliere_function_f0_R( float*			red_Theta,
+		float*			returnValue
+);
+
+
+void AT_Moliere_function_f1_R( float*			red_Theta,
+		float*			returnValue
+);
+
+
+void AT_Moliere_function_f2_R( float*			red_Theta,
+		float*			returnValue
+);
+
+
+void AT_scattering_angle_distribution_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		const char**	element_acronym,
+		const float*	Theta,
+		float*			distribution,
+		int*			returnValue
+);
+
+
+void AT_Highland_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	l_over_lR,
+		float*			Theta0,
+		int*			returnValue
 );
 
 

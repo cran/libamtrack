@@ -582,19 +582,19 @@ AT.density.g.cm3.from.element.acronym <- function( acronym){
 AT.atomic.weight.from.element.acronym <- function( acronym){
 
 	n	<- length(acronym)
-	A <- numeric(n)
+	atomic.weight <- numeric(n)
 	returnValue = numeric(1)
 
 	res <- .C("AT_atomic_weight_from_element_acronym_R", 
 			n = as.integer(n),
 			acronym = as.character(acronym),
-			A = as.single(A),
+			atomic.weight = as.single(atomic.weight),
 			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
 
 	 return.list <- list(2)
-	 return.list[[1]] <- res$A
+	 return.list[[1]] <- res$atomic.weight
 	 return.list[[2]] <- res$returnValue
-	 names(return.list) <- c("A", "returnValue")
+	 names(return.list) <- c("atomic.weight", "returnValue")
 	 return(return.list)
 }
 
@@ -946,6 +946,279 @@ AT.max.electron.ranges.m <- function( E.MeV.u,
 	 return.list <- list(1)
 	 return.list[[1]] <- res$max.electron.range.m
 	 names(return.list) <- c("max.electron.range.m")
+	 return(return.list)
+}
+
+
+AT.characteristic.single.scattering.angle <- function( E.MeV.u,
+			particle.charge.e,
+			target.thickness.cm,
+			element.acronym){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.charge.e)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(target.thickness.cm)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(element.acronym)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	chi.c <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_characteristic_single_scattering_angle_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.charge.e = as.integer(particle.charge.e),
+			target.thickness.cm = as.single(target.thickness.cm),
+			element.acronym = as.character(element.acronym),
+			chi.c = as.single(chi.c),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$chi.c
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("chi.c", "returnValue")
+	 return(return.list)
+}
+
+
+AT.screening.angle <- function( E.MeV.u,
+			particle.charge.e,
+			element.acronym){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.charge.e)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(element.acronym)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	chi.a <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_screening_angle_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.charge.e = as.integer(particle.charge.e),
+			element.acronym = as.character(element.acronym),
+			chi.a = as.single(chi.a),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$chi.a
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("chi.a", "returnValue")
+	 return(return.list)
+}
+
+
+AT.effective.collision.number <- function( E.MeV.u,
+			particle.charge.e,
+			target.thickness.cm,
+			element.acronym){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.charge.e)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(target.thickness.cm)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(element.acronym)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	exp.b <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_effective_collision_number_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.charge.e = as.integer(particle.charge.e),
+			target.thickness.cm = as.single(target.thickness.cm),
+			element.acronym = as.character(element.acronym),
+			exp.b = as.single(exp.b),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$exp.b
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("exp.b", "returnValue")
+	 return(return.list)
+}
+
+
+AT.reduced.target.thickness <- function( E.MeV.u,
+			particle.charge.e,
+			target.thickness.cm,
+			element.acronym){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.charge.e)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(target.thickness.cm)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(element.acronym)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	B <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_reduced_target_thickness_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.charge.e = as.integer(particle.charge.e),
+			target.thickness.cm = as.single(target.thickness.cm),
+			element.acronym = as.character(element.acronym),
+			B = as.single(B),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$B
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("B", "returnValue")
+	 return(return.list)
+}
+
+
+AT.characteristicple.scattering.angle <- function( E.MeV.u,
+			particle.charge.e,
+			target.thickness.cm,
+			element.acronym){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.charge.e)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(target.thickness.cm)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(element.acronym)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	Theta.M <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_characteristic_multiple_scattering_angle_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.charge.e = as.integer(particle.charge.e),
+			target.thickness.cm = as.single(target.thickness.cm),
+			element.acronym = as.character(element.acronym),
+			Theta.M = as.single(Theta.M),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$Theta.M
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("Theta.M", "returnValue")
+	 return(return.list)
+}
+
+
+AT.Moliere.function.f0 <- function( red.Theta){
+
+	returnValue = numeric(1)
+
+	res <- .C("AT_Moliere_function_f0_R", 
+			red.Theta = as.single(red.Theta),
+			returnValue = as.single(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$returnValue
+	 names(return.list) <- c("returnValue")
+	 return(return.list)
+}
+
+
+AT.Moliere.function.f1 <- function( red.Theta){
+
+	returnValue = numeric(1)
+
+	res <- .C("AT_Moliere_function_f1_R", 
+			red.Theta = as.single(red.Theta),
+			returnValue = as.single(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$returnValue
+	 names(return.list) <- c("returnValue")
+	 return(return.list)
+}
+
+
+AT.Moliere.function.f2 <- function( red.Theta){
+
+	returnValue = numeric(1)
+
+	res <- .C("AT_Moliere_function_f2_R", 
+			red.Theta = as.single(red.Theta),
+			returnValue = as.single(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$returnValue
+	 names(return.list) <- c("returnValue")
+	 return(return.list)
+}
+
+
+AT.scattering.angle.distribution <- function( E.MeV.u,
+			particle.charge.e,
+			target.thickness.cm,
+			element.acronym,
+			Theta){
+
+	n	<- length(Theta)
+	distribution <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_scattering_angle_distribution_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.charge.e = as.integer(particle.charge.e),
+			target.thickness.cm = as.single(target.thickness.cm),
+			element.acronym = as.character(element.acronym),
+			Theta = as.single(Theta),
+			distribution = as.single(distribution),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$distribution
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("distribution", "returnValue")
+	 return(return.list)
+}
+
+
+AT.Highland.angle <- function( E.MeV.u,
+			particle.charge.e,
+			l.over.lR){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.charge.e)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(l.over.lR)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	Theta0 <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_Highland_angle_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.charge.e = as.integer(particle.charge.e),
+			l.over.lR = as.single(l.over.lR),
+			Theta0 = as.single(Theta0),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$Theta0
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("Theta0", "returnValue")
 	 return(return.list)
 }
 

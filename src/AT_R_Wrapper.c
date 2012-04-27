@@ -984,7 +984,7 @@ void AT_density_g_cm3_from_element_acronym_R( const int*		n,
 
 void AT_atomic_weight_from_element_acronym_R( const int*		n,
 		char**		acronym,
-		float*			A,
+		float*			atomic_weight,
 		int*			returnValue
 ){
   long i;
@@ -992,22 +992,22 @@ void AT_atomic_weight_from_element_acronym_R( const int*		n,
 
 
 //Allocate space for the results.
-  double* A_double = (double*)calloc(n_long,sizeof(double));
+  double* atomic_weight_double = (double*)calloc(n_long,sizeof(double));
 
   int returnValue_internal = 	AT_atomic_weight_from_element_acronym( n_long,
 	acronym,
-	A_double);
+	atomic_weight_double);
 
 //Results:
 
 	*returnValue = ( int )returnValue_internal;
 
   for(i = 0 ; i < n_long; i++){
-	A[i] = (float)A_double[i];
+	atomic_weight[i] = (float)atomic_weight_double[i];
   }
 
 //Free allocated space
-  free(A_double);
+  free(atomic_weight_double);
 }
 
 
@@ -1636,6 +1636,406 @@ void AT_max_electron_ranges_m_R( const int*		number_of_particles,
 //Free allocated space
   free(E_MeV_u_double);
   free(max_electron_range_m_double);
+}
+
+
+void AT_characteristic_single_scattering_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			chi_c,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  int* particle_charge_e_long = (int*)calloc(n_long,sizeof(int));
+  double* target_thickness_cm_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_charge_e_long[i] = (int)particle_charge_e[i];
+	target_thickness_cm_double[i] = (double)target_thickness_cm[i];
+  }
+
+//Allocate space for the results.
+  double* chi_c_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_characteristic_single_scattering_angle( n_long,
+	E_MeV_u_double,
+	particle_charge_e_long,
+	target_thickness_cm_double,
+	element_acronym,
+	chi_c_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	chi_c[i] = (float)chi_c_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_charge_e_long);
+  free(target_thickness_cm_double);
+  free(chi_c_double);
+}
+
+
+void AT_screening_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		char**		element_acronym,
+		float*			chi_a,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  int* particle_charge_e_long = (int*)calloc(n_long,sizeof(int));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_charge_e_long[i] = (int)particle_charge_e[i];
+  }
+
+//Allocate space for the results.
+  double* chi_a_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_screening_angle( n_long,
+	E_MeV_u_double,
+	particle_charge_e_long,
+	element_acronym,
+	chi_a_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	chi_a[i] = (float)chi_a_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_charge_e_long);
+  free(chi_a_double);
+}
+
+
+void AT_effective_collision_number_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			exp_b,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  int* particle_charge_e_long = (int*)calloc(n_long,sizeof(int));
+  double* target_thickness_cm_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_charge_e_long[i] = (int)particle_charge_e[i];
+	target_thickness_cm_double[i] = (double)target_thickness_cm[i];
+  }
+
+//Allocate space for the results.
+  double* exp_b_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_effective_collision_number( n_long,
+	E_MeV_u_double,
+	particle_charge_e_long,
+	target_thickness_cm_double,
+	element_acronym,
+	exp_b_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	exp_b[i] = (float)exp_b_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_charge_e_long);
+  free(target_thickness_cm_double);
+  free(exp_b_double);
+}
+
+
+void AT_reduced_target_thickness_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			B,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  int* particle_charge_e_long = (int*)calloc(n_long,sizeof(int));
+  double* target_thickness_cm_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_charge_e_long[i] = (int)particle_charge_e[i];
+	target_thickness_cm_double[i] = (double)target_thickness_cm[i];
+  }
+
+//Allocate space for the results.
+  double* B_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_reduced_target_thickness( n_long,
+	E_MeV_u_double,
+	particle_charge_e_long,
+	target_thickness_cm_double,
+	element_acronym,
+	B_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	B[i] = (float)B_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_charge_e_long);
+  free(target_thickness_cm_double);
+  free(B_double);
+}
+
+
+void AT_characteristic_multiple_scattering_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		char**		element_acronym,
+		float*			Theta_M,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  int* particle_charge_e_long = (int*)calloc(n_long,sizeof(int));
+  double* target_thickness_cm_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_charge_e_long[i] = (int)particle_charge_e[i];
+	target_thickness_cm_double[i] = (double)target_thickness_cm[i];
+  }
+
+//Allocate space for the results.
+  double* Theta_M_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_characteristic_multiple_scattering_angle( n_long,
+	E_MeV_u_double,
+	particle_charge_e_long,
+	target_thickness_cm_double,
+	element_acronym,
+	Theta_M_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	Theta_M[i] = (float)Theta_M_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_charge_e_long);
+  free(target_thickness_cm_double);
+  free(Theta_M_double);
+}
+
+
+void AT_Moliere_function_f0_R( float*			red_Theta,
+		float*			returnValue
+){
+  double red_Theta_double = (double)(*red_Theta);
+
+
+  double returnValue_internal = 	AT_Moliere_function_f0( red_Theta_double);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+}
+
+
+void AT_Moliere_function_f1_R( float*			red_Theta,
+		float*			returnValue
+){
+  double red_Theta_double = (double)(*red_Theta);
+
+
+  double returnValue_internal = 	AT_Moliere_function_f1( red_Theta_double);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+}
+
+
+void AT_Moliere_function_f2_R( float*			red_Theta,
+		float*			returnValue
+){
+  double red_Theta_double = (double)(*red_Theta);
+
+
+  double returnValue_internal = 	AT_Moliere_function_f2( red_Theta_double);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+}
+
+
+void AT_scattering_angle_distribution_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	target_thickness_cm,
+		const char**	element_acronym,
+		const float*	Theta,
+		float*			distribution,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const int particle_charge_e_long = (int)(*particle_charge_e);
+  const double target_thickness_cm_double = (double)(*target_thickness_cm);
+
+
+//Allocate space for the input parameter.
+  double* Theta_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	Theta_double[i] = (double)Theta[i];
+  }
+
+//Allocate space for the results.
+  double* distribution_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_scattering_angle_distribution( n_long,
+	E_MeV_u_double,
+	particle_charge_e_long,
+	target_thickness_cm_double,
+	element_acronym[0],
+	Theta_double,
+	distribution_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	distribution[i] = (float)distribution_double[i];
+  }
+
+//Free allocated space
+  free(Theta_double);
+  free(distribution_double);
+}
+
+
+void AT_Highland_angle_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_charge_e,
+		const float*	l_over_lR,
+		float*			Theta0,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  int* particle_charge_e_long = (int*)calloc(n_long,sizeof(int));
+  double* l_over_lR_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_charge_e_long[i] = (int)particle_charge_e[i];
+	l_over_lR_double[i] = (double)l_over_lR[i];
+  }
+
+//Allocate space for the results.
+  double* Theta0_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_Highland_angle( n_long,
+	E_MeV_u_double,
+	particle_charge_e_long,
+	l_over_lR_double,
+	Theta0_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	Theta0[i] = (float)Theta0_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_charge_e_long);
+  free(l_over_lR_double);
+  free(Theta0_double);
 }
 
 
