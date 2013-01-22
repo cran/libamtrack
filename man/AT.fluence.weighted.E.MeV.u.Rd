@@ -19,7 +19,7 @@
 \seealso{
 View the C source code here:
 
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.3/src/AT_PhysicsRoutines.c#L514}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_PhysicsRoutines.c#L514}
 }
 \examples{
 # fluence- and dose-weighted mean energy for a simple mixed field

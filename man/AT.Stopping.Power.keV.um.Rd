@@ -18,7 +18,7 @@
 \seealso{
 View the C source code here:
 
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.3/src/AT_DataStoppingPower.c#L211}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_DataStoppingPower.c#L211}
 }
 
 

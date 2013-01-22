@@ -21,7 +21,7 @@
 \seealso{
 View the C source code here:
 
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.3/src/AT_PhysicsRoutines.c#L371}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_PhysicsRoutines.c#L371}
 }
 \examples{
 # Technical parameters for a double Gaussian beam
