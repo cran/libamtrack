@@ -9,16 +9,16 @@
 \arguments{
   \item{Z}{ atomic numbers of constituents (array of size n).}
   \item{A}{ mass numbers of constituents (array of size n).}
-  \item{weight.fraction}{ relative fractions of weight of constituents (array of size n).}
+  \item{weight.fraction}{ relative fractions of weight of constituents (array
+ of size n).}
 }
 \value{
-% TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
+% TODO proper return definition of lists!!! ADD
+% NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{I.eV}{ I value in eV}
 }
 \seealso{
 View the C source code here:
-
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_DataMaterial.c#L452}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_DataMate
+rial.c#L452}
 }
-
-

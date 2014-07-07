@@ -3,23 +3,29 @@
 \alias{AT.dose.Gy.from.fluence.cm2}
 \title{AT.dose.Gy.from.fluence.cm2}
 \description{Returns dose in Gy for each given particle}
-\usage{AT.dose.Gy.from.fluence.cm2(E.MeV.u, particle.no, fluence.cm2, material.no, stopping.power.source.no)
+\usage{AT.dose.Gy.from.fluence.cm2(E.MeV.u, particle.no, fluence.cm2,
+ material.no, stopping.power.source.no)
 }
 \arguments{
-  \item{E.MeV.u}{ energy of particles in the mixed particle field (array of size n) (see also \code{\link{E.MeV.u}}).}
-  \item{particle.no}{ type of the particles in the mixed particle field (array of size n) (see also \code{\link{particle.no}}).}
+  \item{E.MeV.u}{ energy of particles in the mixed particle field (array of
+ size n) (see also \code{\link{E.MeV.u}}).}
+  \item{particle.no}{ type of the particles in the mixed particle field (array
+ of size n) (see also \code{\link{particle.no}}).}
   \item{fluence.cm2}{ fluence for each particle type (array of size n).}
   \item{material.no}{ material index (see also \code{\link{material.no}}).}
-  \item{stopping.power.source.no}{ stopping power source index (see also \code{\link{stopping.power.source.no}}).}
+  \item{stopping.power.source.no}{ stopping power source index (see also
+ \code{\link{stopping.power.source.no}}).}
 }
 \value{
-% TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
-  \item{dose.Gy}{ be allocated by the user which will be used to return the results (array of size n)}
+% TODO proper return definition of lists!!! ADD
+% NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
+  \item{dose.Gy}{ be allocated by the user which will be used to return the
+ results (array of size n)}
 }
 \seealso{
 View the C source code here:
-
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_PhysicsRoutines.c#L297}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_PhysicsR
+outines.c#L297}
 }
 \examples{
 # Compute dose from protons, He-3, C-12 and O-16 at
@@ -30,5 +36,3 @@ AT.dose.Gy.from.fluence.cm2( E.MeV.u      = c(10, 10, 10, 10),
                              material.no  = 7,
                              stopping.power.source.no = 0)
 }
-
-

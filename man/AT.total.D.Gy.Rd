@@ -4,23 +4,31 @@
 \title{AT.total.D.Gy}
 \description{Computes the total dose of a mixed particle field
 }
-\usage{AT.total.D.Gy(E.MeV.u, particle.no, fluence.cm2, material.no, stopping.power.source.no)
+\usage{AT.total.D.Gy(E.MeV.u, particle.no, fluence.cm2, material.no,
+ stopping.power.source.no)
 }
 \arguments{
-  \item{E.MeV.u}{ energy of particles in the mixed particle field (array of size \code{\link{number.of.field.components}}) (see also \code{\link{E.MeV.u}}).}
-  \item{particle.no}{ particle index (array of size \code{\link{number.of.field.components}}) (see also \code{\link{particle.no}}).}
-  \item{fluence.cm2}{ fluences of particles in the mixed particle field (array of size \code{\link{number.of.field.components}}).}
+  \item{E.MeV.u}{ energy of particles in the mixed particle field (array of
+ size \code{\link{number.of.field.components}}) (see also
+ \code{\link{E.MeV.u}}).}
+  \item{particle.no}{ particle index (array of size
+ \code{\link{number.of.field.components}}) (see also
+ \code{\link{particle.no}}).}
+  \item{fluence.cm2}{ fluences of particles in the mixed particle field (array
+ of size \code{\link{number.of.field.components}}).}
   \item{material.no}{ material index (see also \code{\link{material.no}}).}
-  \item{stopping.power.source.no}{ TODO (see also \code{\link{stopping.power.source.no}}).}
+  \item{stopping.power.source.no}{ TODO (see also
+ \code{\link{stopping.power.source.no}}).}
 }
 \value{
-% TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
+% TODO proper return definition of lists!!! ADD
+% NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{total.dose.Gy}{total.dose.Gy}
 }
 \seealso{
 View the C source code here:
-
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_PhysicsRoutines.c#L457}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_PhysicsR
+outines.c#L457}
 }
 \examples{
 # Compute dose of monoenergtic high energy
@@ -37,5 +45,3 @@ AT.total.D.Gy( E.MeV.u     = c(100, 5),
                material.no = 1,
                stopping.power.source.no = 0)
 }
-
-

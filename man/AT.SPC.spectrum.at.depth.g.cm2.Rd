@@ -6,17 +6,19 @@
 }
 \arguments{
   \item{spc}{ spc data}
-  \item{depth.g.cm2}{ depth the spectrum should be taken at (up to now, the data from the closest depth step will be taken)}
+  \item{depth.g.cm2}{ depth the spectrum should be taken at (up to now, the
+ data from the closest depth step will be taken)}
 }
 \value{
-  A data frame with the following columns (ready to use in most libamtrack functions):
+  A data frame with the following columns (ready to use in most libamtrack
+ functions):
   \item{E.MeV.u}{ Energy [MeV/u] - mid point of bin}
   \item{particle.no}{ Particle index number}
   \item{fluence.cm2}{ Fluence for each bin}
 }
-
 \seealso{
-Uses \code{\link{AT.SPC.spectrum.at.depth.step}}. spc data should be read in by \code{\link{AT.SPC.read}}.}
+Uses \code{\link{AT.SPC.spectrum.at.depth.step}}. spc data should be read in
+ by \code{\link{AT.SPC.read}}.}
 \examples{
 # None yet.
 }

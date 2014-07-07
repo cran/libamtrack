@@ -6,17 +6,19 @@
 }
 \arguments{
   \item{spc}{ spc data}
-  \item{depth.step}{ depth step the spectrum should be taken from (if outside data scope an errormessage will be issued)}
+  \item{depth.step}{ depth step the spectrum should be taken from (if outside
+ data scope an errormessage will be issued)}
 }
 \value{
-  A data frame with the following columns (ready to use in most libamtrack functions):
+  A data frame with the following columns (ready to use in most libamtrack
+ functions):
   \item{E.MeV.u}{ Energy [MeV/u] - mid point of bin}
   \item{particle.no}{ Particle index number}
   \item{fluence.cm2}{ Fluence for each bin}
 }
-
 \seealso{
-Use \code{\link{AT.SPC.spectrum.at.depth.g.cm2}} to get spectrum at given depth. spc data should be read in by \code{\link{AT.SPC.read}}.}
+Use \code{\link{AT.SPC.spectrum.at.depth.g.cm2}} to get spectrum at given
+ depth. spc data should be read in by \code{\link{AT.SPC.read}}.}
 \examples{
 # None yet.
 }

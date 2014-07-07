@@ -9,14 +9,13 @@
   \item{Z}{ atomic numbers (array of size n).}
 }
 \value{
-% TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
+% TODO proper return definition of lists!!! ADD
+% NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{acronym}{ corresponding elemental symbols (array of size n)}
   \item{status}{status}
 }
 \seealso{
 View the C source code here:
-
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_DataParticle.c#L355}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_DataPart
+icle.c#L355}
 }
-
-

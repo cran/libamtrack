@@ -8,24 +8,28 @@
 \usage{AT.max.electron.ranges.m(E.MeV.u, material.no, er.model)
 }
 \arguments{
-  \item{E.MeV.u}{ kinetic energy for particles in the given field (array of size number.of.particles) (see also \code{\link{E.MeV.u}}).}
+  \item{E.MeV.u}{ kinetic energy for particles in the given field (array of
+ size number.of.particles) (see also \code{\link{E.MeV.u}}).}
   \item{material.no}{ material index (see also \code{\link{material.no}}).}
-  \item{er.model}{ electron-range model index (see also \code{\link{er.model}}).}
+  \item{er.model}{ electron-range model index (see also
+ \code{\link{er.model}}).}
 }
 \value{
-% TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
-  \item{max.electron.range.m}{ electron range (track radius) in m (array of size number.of.particles)}
+% TODO proper return definition of lists!!! ADD
+% NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
+  \item{max.electron.range.m}{ electron range (track radius) in m (array of
+ size number.of.particles)}
 }
 \seealso{
 View the C source code here:
-
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_ElectronRange.c#L126}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_Electron
+Range.c#L135}
 }
 \examples{
-# Compute the electron range in PMMA for the Tabata parametrization between 0.3 keV and 30 MeV
+
+# Compute the electron range in PMMA for the Tabata parametrization between
+# 0.3 keV and 30 MeV
 AT.max.electron.ranges.m( E.MeV.u     = 0.3 * 10^(-4:2),
                           material.no = 4,
                           er.model    = 7)
 }
-
-

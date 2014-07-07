@@ -6,17 +6,17 @@
 \usage{AT.nuclear.spin.from.particle.no(particle.no)
 }
 \arguments{
-  \item{particle.no}{ particle index number (array of size n) (see also \code{\link{particle.no}}).}
+  \item{particle.no}{ particle index number (array of size n) (see also
+ \code{\link{particle.no}}).}
 }
 \value{
-% TODO proper return definition of lists!!! ADD NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
+% TODO proper return definition of lists!!! ADD
+% NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
   \item{I}{ nuclear spin (array of size n)}
   \item{status}{status}
 }
 \seealso{
 View the C source code here:
-
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.5.4/src/AT_DataParticle.c#L184}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_DataPart
+icle.c#L184}
 }
-
-

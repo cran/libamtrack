@@ -1,15 +1,13 @@
 % Documentation for 'material.name' variable
 \name{material.name}
-
 \alias{material.name}
 \alias{material naming}
-
 \title{Material naming convention}
-
-\description{Currently seven predefined materials exist in libamtrack. They are referred to using sequential positive integer numbers (see also \code{\link{particle.no}}) but carry also a name, preferrably the NIST name.
-
-When referring to a material by name, make sure that the spelling (incl. cases) is correct.}
-
+\description{Currently seven predefined materials exist in libamtrack. They
+ are referred to using sequential positive integer numbers (see also
+ \code{\link{particle.no}}) but carry also a name, preferrably the NIST name.
+When referring to a material by name, make sure that the spelling (incl.
+ cases) is correct.}
 \details{
 	The predefined materials in libamtrack are:
 	\tabular{rl}{
@@ -23,5 +21,4 @@ When referring to a material by name, make sure that the spelling (incl. cases) 
 		7 \tab "Air"
 	}
 }
-
 \keyword{material naming}

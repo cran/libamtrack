@@ -147,6 +147,7 @@ void AT_run_CPPSC_method_R( const int*		number_of_field_components,
 }
 
 
+
 void AT_run_GSM_method_R( const int*		number_of_field_components,
 		const float*	E_MeV_u,
 		const int*		particle_no,
@@ -289,6 +290,7 @@ void AT_run_GSM_method_R( const int*		number_of_field_components,
 }
 
 
+
 void AT_run_IGK_method_R( const int*		number_of_field_components,
 		const float*	E_MeV_u,
 		const int*		particle_no,
@@ -407,91 +409,6 @@ void AT_run_IGK_method_R( const int*		number_of_field_components,
 }
 
 
-void AT_CSDA_range_m_R( const int*		number_of_particles,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const int*		material_no,
-		float*			CSDA_range_m
-){
-  long i;
-  const long number_of_particles_long = (long)(*number_of_particles);
-  const long material_no_long = (long)(*material_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_particles_long,sizeof(long));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_particles_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-  }
-
-//Allocate space for the results.
-  double* CSDA_range_m_double = (double*)calloc(number_of_particles_long,sizeof(double));
-
-  AT_CSDA_range_m( number_of_particles_long,
-	E_MeV_u_double,
-	particle_no_long,
-	material_no_long,
-	CSDA_range_m_double);
-
-//Results:
-  for(i = 0 ; i < number_of_particles_long; i++){
-	CSDA_range_m[i] = (float)CSDA_range_m_double[i];
-  }
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(CSDA_range_m_double);
-}
-
-
-void AT_CSDA_range_g_cm2_R( const int*		number_of_particles,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const int*		material_no,
-		float*			CSDA_range_g_cm2
-){
-  long i;
-  const long number_of_particles_long = (long)(*number_of_particles);
-  const long material_no_long = (long)(*material_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_particles_long,sizeof(long));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_particles_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-  }
-
-//Allocate space for the results.
-  double* CSDA_range_g_cm2_double = (double*)calloc(number_of_particles_long,sizeof(double));
-
-  AT_CSDA_range_g_cm2( number_of_particles_long,
-	E_MeV_u_double,
-	particle_no_long,
-	material_no_long,
-	CSDA_range_g_cm2_double);
-
-//Results:
-  for(i = 0 ; i < number_of_particles_long; i++){
-	CSDA_range_g_cm2[i] = (float)CSDA_range_g_cm2_double[i];
-  }
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(CSDA_range_g_cm2_double);
-}
-
 
 void AT_set_user_material_from_composition_R( const int*		n,
 		const float*	density_g_cm3,
@@ -539,6 +456,7 @@ void AT_set_user_material_from_composition_R( const int*		n,
 }
 
 
+
 void AT_set_user_material_R( const float*	density_g_cm3,
 		const float*	I_eV,
 		const float*	average_A,
@@ -566,6 +484,7 @@ void AT_set_user_material_R( const float*	density_g_cm3,
 
 //Free allocated space
 }
+
 
 
 void AT_I_eV_from_composition_R( const int*		n,
@@ -609,6 +528,7 @@ void AT_I_eV_from_composition_R( const int*		n,
   free(A_long);
   free(weight_fraction_double);
 }
+
 
 
 void AT_effective_Z_from_composition_R( const int*		n,
@@ -657,6 +577,7 @@ void AT_effective_Z_from_composition_R( const int*		n,
 }
 
 
+
 void AT_average_Z_from_composition_R( const int*		n,
 		const int*		Z,
 		const float*	weight_fraction,
@@ -695,6 +616,7 @@ void AT_average_Z_from_composition_R( const int*		n,
 }
 
 
+
 void AT_average_A_from_composition_R( const int*		n,
 		const int*		A,
 		const float*	weight_fraction,
@@ -731,6 +653,7 @@ void AT_average_A_from_composition_R( const int*		n,
   free(A_long);
   free(weight_fraction_double);
 }
+
 
 
 void AT_electron_density_m3_from_composition_R( const int*		n,
@@ -779,6 +702,7 @@ void AT_electron_density_m3_from_composition_R( const int*		n,
 }
 
 
+
 void AT_electron_density_m3_multi_R( const int*		n,
 		const float*	density_g_cm3,
 		const float*	average_Z,
@@ -824,6 +748,7 @@ void AT_electron_density_m3_multi_R( const int*		n,
 }
 
 
+
 void AT_electron_density_m3_from_material_no_multi_R( const int*		n,
 		const int*		material_no,
 		float*			electron_density_m3
@@ -857,6 +782,7 @@ void AT_electron_density_m3_from_material_no_multi_R( const int*		n,
   free(material_no_long);
   free(electron_density_m3_double);
 }
+
 
 
 void AT_get_materials_data_R( const int*		number_of_materials,
@@ -924,6 +850,7 @@ void AT_get_materials_data_R( const int*		number_of_materials,
 }
 
 
+
 void AT_I_eV_from_element_acronym_R( const int*		n,
 		char**		acronym,
 		float*			I,
@@ -951,6 +878,7 @@ void AT_I_eV_from_element_acronym_R( const int*		n,
 //Free allocated space
   free(I_double);
 }
+
 
 
 void AT_density_g_cm3_from_element_acronym_R( const int*		n,
@@ -982,6 +910,7 @@ void AT_density_g_cm3_from_element_acronym_R( const int*		n,
 }
 
 
+
 void AT_atomic_weight_from_element_acronym_R( const int*		n,
 		char**		acronym,
 		float*			atomic_weight,
@@ -1009,6 +938,7 @@ void AT_atomic_weight_from_element_acronym_R( const int*		n,
 //Free allocated space
   free(atomic_weight_double);
 }
+
 
 
 void AT_element_acronym_from_Z_R( const int*		n,
@@ -1043,6 +973,7 @@ void AT_element_acronym_from_Z_R( const int*		n,
 }
 
 
+
 void AT_Z_from_element_acronym_R( const int*		n,
 		char**		acronym,
 		int*			Z,
@@ -1070,6 +1001,7 @@ void AT_Z_from_element_acronym_R( const int*		n,
 //Free allocated space
   free(Z_long);
 }
+
 
 
 void AT_nuclear_spin_from_particle_no_multi_R( const int*		n,
@@ -1111,6 +1043,7 @@ void AT_nuclear_spin_from_particle_no_multi_R( const int*		n,
 }
 
 
+
 void AT_Z_from_particle_no_R( const int*		n,
 		const int*		particle_no,
 		int*			Z,
@@ -1148,6 +1081,7 @@ void AT_Z_from_particle_no_R( const int*		n,
   free(particle_no_long);
   free(Z_long);
 }
+
 
 
 void AT_atomic_weight_from_Z_R( const int*		n,
@@ -1189,6 +1123,7 @@ void AT_atomic_weight_from_Z_R( const int*		n,
 }
 
 
+
 void AT_A_from_particle_no_R( const int*		n,
 		const int*		particle_no,
 		int*			A,
@@ -1226,6 +1161,7 @@ void AT_A_from_particle_no_R( const int*		n,
   free(particle_no_long);
   free(A_long);
 }
+
 
 
 void AT_particle_no_from_Z_and_A_R( const int*		n,
@@ -1270,6 +1206,7 @@ void AT_particle_no_from_Z_and_A_R( const int*		n,
   free(A_long);
   free(particle_no_long);
 }
+
 
 
 void AT_WEPL_Bethe_multi_R( const int*		n,
@@ -1318,98 +1255,223 @@ void AT_WEPL_Bethe_multi_R( const int*		n,
 }
 
 
-void AT_CSDA_energy_after_slab_E_MeV_u_multi_R( const int*		n,
-		const float*	E_initial_MeV_u,
+
+void AT_Stopping_Power_keV_um_multi_R( const int*		stopping_power_source_no,
+		const int*		number_of_particles,
+		const float*	E_MeV_u,
 		const int*		particle_no,
 		const int*		material_no,
-		const float*	slab_thickness_m,
-		float*			E_final_MeV_u
+		float*			Stopping_Power_keV_um
 ){
   long i;
-  const long n_long = (long)(*n);
-  const long material_no_long = (long)(*material_no);
-  const double slab_thickness_m_double = (double)(*slab_thickness_m);
-
-
-//Allocate space for the input parameter.
-  double* E_initial_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	E_initial_MeV_u_double[i] = (double)E_initial_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-  }
-
-//Allocate space for the results.
-  double* E_final_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-
-  AT_CSDA_energy_after_slab_E_MeV_u_multi( n_long,
-	E_initial_MeV_u_double,
-	particle_no_long,
-	material_no_long,
-	slab_thickness_m_double,
-	E_final_MeV_u_double);
-
-//Results:
-  for(i = 0 ; i < n_long; i++){
-	E_final_MeV_u[i] = (float)E_final_MeV_u_double[i];
-  }
-
-//Free allocated space
-  free(E_initial_MeV_u_double);
-  free(particle_no_long);
-  free(E_final_MeV_u_double);
-}
-
-
-void AT_CSDA_range_Bethe_g_cm2_multi_R( const int*		n,
-		const float*	E_initial_MeV_u,
-		const float*	E_final_MeV_u,
-		const int*		particle_no,
-		const int*		material_no,
-		float*			CSDA_range_cm2_g
-){
-  long i;
-  const long n_long = (long)(*n);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+  const long number_of_particles_long = (long)(*number_of_particles);
   const long material_no_long = (long)(*material_no);
 
 
 //Allocate space for the input parameter.
-  double* E_initial_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  double* E_final_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
+  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_particles_long,sizeof(long));
 
 
 //Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	E_initial_MeV_u_double[i] = (double)E_initial_MeV_u[i];
-	E_final_MeV_u_double[i] = (double)E_final_MeV_u[i];
+  for(i = 0 ; i < number_of_particles_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
 	particle_no_long[i] = (long)particle_no[i];
   }
 
 //Allocate space for the results.
-  double* CSDA_range_cm2_g_double = (double*)calloc(n_long,sizeof(double));
+  double* Stopping_Power_keV_um_double = (double*)calloc(number_of_particles_long,sizeof(double));
 
-  AT_CSDA_range_Bethe_g_cm2_multi( n_long,
-	E_initial_MeV_u_double,
-	E_final_MeV_u_double,
+  AT_Stopping_Power_keV_um_multi( stopping_power_source_no_long,
+	number_of_particles_long,
+	E_MeV_u_double,
 	particle_no_long,
 	material_no_long,
-	CSDA_range_cm2_g_double);
+	Stopping_Power_keV_um_double);
 
 //Results:
-  for(i = 0 ; i < n_long; i++){
-	CSDA_range_cm2_g[i] = (float)CSDA_range_cm2_g_double[i];
+  for(i = 0 ; i < number_of_particles_long; i++){
+	Stopping_Power_keV_um[i] = (float)Stopping_Power_keV_um_double[i];
   }
 
 //Free allocated space
-  free(E_initial_MeV_u_double);
-  free(E_final_MeV_u_double);
+  free(E_MeV_u_double);
   free(particle_no_long);
-  free(CSDA_range_cm2_g_double);
+  free(Stopping_Power_keV_um_double);
 }
+
+
+
+void AT_Stopping_Power_MeV_cm2_g_multi_R( const int*		stopping_power_source_no,
+		const int*		number_of_particles,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		float*			Stopping_Power_MeV_cm2_g
+){
+  long i;
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+  const long number_of_particles_long = (long)(*number_of_particles);
+  const long material_no_long = (long)(*material_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_particles_long,sizeof(long));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_particles_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+  }
+
+//Allocate space for the results.
+  double* Stopping_Power_MeV_cm2_g_double = (double*)calloc(number_of_particles_long,sizeof(double));
+
+  AT_Stopping_Power_MeV_cm2_g_multi( stopping_power_source_no_long,
+	number_of_particles_long,
+	E_MeV_u_double,
+	particle_no_long,
+	material_no_long,
+	Stopping_Power_MeV_cm2_g_double);
+
+//Results:
+  for(i = 0 ; i < number_of_particles_long; i++){
+	Stopping_Power_MeV_cm2_g[i] = (float)Stopping_Power_MeV_cm2_g_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(Stopping_Power_MeV_cm2_g_double);
+}
+
+
+
+void AT_max_electron_ranges_m_R( const int*		number_of_particles,
+		const float*	E_MeV_u,
+		const int*		material_no,
+		const int*		er_model,
+		float*			max_electron_range_m
+){
+  long i;
+  const long number_of_particles_long = (long)(*number_of_particles);
+  const int material_no_long = (int)(*material_no);
+  const int er_model_long = (int)(*er_model);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_particles_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+  }
+
+//Allocate space for the results.
+  double* max_electron_range_m_double = (double*)calloc(number_of_particles_long,sizeof(double));
+
+  AT_max_electron_ranges_m( number_of_particles_long,
+	E_MeV_u_double,
+	material_no_long,
+	er_model_long,
+	max_electron_range_m_double);
+
+//Results:
+  for(i = 0 ; i < number_of_particles_long; i++){
+	max_electron_range_m[i] = (float)max_electron_range_m_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(max_electron_range_m_double);
+}
+
+
+
+#ifdef HAVE_CERNLIB
+void AT_Vavilov_PDF_R( const int*		n,
+		const float*	lambda_V,
+		const float*	kappa,
+		const float*	beta,
+		float*			density
+){
+  long i;
+  const long n_long = (long)(*n);
+  const double kappa_double = (double)(*kappa);
+  const double beta_double = (double)(*beta);
+
+
+//Allocate space for the input parameter.
+  double* lambda_V_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	lambda_V_double[i] = (double)lambda_V[i];
+  }
+
+//Allocate space for the results.
+  double* density_double = (double*)calloc(n_long,sizeof(double));
+
+  AT_Vavilov_PDF( n_long,
+	lambda_V_double,
+	kappa_double,
+	beta_double,
+	density_double);
+
+//Results:
+  for(i = 0 ; i < n_long; i++){
+	density[i] = (float)density_double[i];
+  }
+
+//Free allocated space
+  free(lambda_V_double);
+  free(density_double);
+}
+
+#endif
+
+
+#ifdef HAVE_CERNLIB
+void AT_Landau_PDF_R( const int*		n,
+		const float*	lambda,
+		float*			density
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* lambda_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	lambda_double[i] = (double)lambda[i];
+  }
+
+//Allocate space for the results.
+  double* density_double = (double*)calloc(n_long,sizeof(double));
+
+  AT_Landau_PDF( n_long,
+	lambda_double,
+	density_double);
+
+//Results:
+  for(i = 0 ; i < n_long; i++){
+	density[i] = (float)density_double[i];
+  }
+
+//Free allocated space
+  free(lambda_double);
+  free(density_double);
+}
+
+#endif
 
 
 void AT_Rutherford_SDCS_R( const float*	E_MeV_u,
@@ -1460,183 +1522,267 @@ void AT_Rutherford_SDCS_R( const float*	E_MeV_u,
 }
 
 
-void AT_Stopping_Power_Mass_Bethe_MeV_cm2_g_multi_R( const int*		n,
+
+void AT_Bethe_mean_energy_loss_MeV_R( const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		const float*	slab_thickness_um,
+		float*			returnValue
+){
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const long particle_no_long = (long)(*particle_no);
+  const long material_no_long = (long)(*material_no);
+  const double slab_thickness_um_double = (double)(*slab_thickness_um);
+
+
+  double returnValue_internal = 	AT_Bethe_mean_energy_loss_MeV( E_MeV_u_double,
+	particle_no_long,
+	material_no_long,
+	slab_thickness_um_double);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+}
+
+
+
+void AT_kappa_R( const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		const float*	slab_thickness_um,
+		float*			returnValue
+){
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const long particle_no_long = (long)(*particle_no);
+  const long material_no_long = (long)(*material_no);
+  const double slab_thickness_um_double = (double)(*slab_thickness_um);
+
+
+  double returnValue_internal = 	AT_kappa( E_MeV_u_double,
+	particle_no_long,
+	material_no_long,
+	slab_thickness_um_double);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+}
+
+
+
+#ifdef HAVE_CERNLIB
+void AT_lambda_from_energy_loss_R( const int*		n,
+		const float*	energy_loss_keV,
 		const float*	E_MeV_u,
 		const int*		particle_no,
 		const int*		material_no,
-		const float*	E_restricted_keV,
-		float*			Mass_Stopping_Power_MeV_cm2_g
+		const float*	slab_thickness_um,
+		float*			lambda_V
 ){
   long i;
   const long n_long = (long)(*n);
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const long particle_no_long = (long)(*particle_no);
   const long material_no_long = (long)(*material_no);
-  const double E_restricted_keV_double = (double)(*E_restricted_keV);
+  const double slab_thickness_um_double = (double)(*slab_thickness_um);
 
 
 //Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
+  double* energy_loss_keV_double = (double*)calloc(n_long,sizeof(double));
 
 
 //Fill in the input parameter.
   for(i = 0 ; i < n_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
+	energy_loss_keV_double[i] = (double)energy_loss_keV[i];
   }
 
 //Allocate space for the results.
-  double* Mass_Stopping_Power_MeV_cm2_g_double = (double*)calloc(n_long,sizeof(double));
+  double* lambda_V_double = (double*)calloc(n_long,sizeof(double));
 
-  AT_Stopping_Power_Mass_Bethe_MeV_cm2_g_multi( n_long,
+  AT_lambda_from_energy_loss( n_long,
+	energy_loss_keV_double,
 	E_MeV_u_double,
 	particle_no_long,
 	material_no_long,
-	E_restricted_keV_double,
-	Mass_Stopping_Power_MeV_cm2_g_double);
+	slab_thickness_um_double,
+	lambda_V_double);
 
 //Results:
   for(i = 0 ; i < n_long; i++){
-	Mass_Stopping_Power_MeV_cm2_g[i] = (float)Mass_Stopping_Power_MeV_cm2_g_double[i];
+	lambda_V[i] = (float)lambda_V_double[i];
   }
 
 //Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(Mass_Stopping_Power_MeV_cm2_g_double);
+  free(energy_loss_keV_double);
+  free(lambda_V_double);
 }
 
+#endif
 
-void AT_Stopping_Power_keV_um_multi_R( const int*		stopping_power_source_no,
-		const int*		number_of_particles,
+
+#ifdef HAVE_CERNLIB
+void AT_Vavilov_energy_loss_distribution_R( const int*		n,
+		const float*	energy_loss_keV,
 		const float*	E_MeV_u,
 		const int*		particle_no,
 		const int*		material_no,
-		float*			Stopping_Power_keV_um
+		const float*	slab_thickness_um,
+		float*			fDdD
 ){
   long i;
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-  const long number_of_particles_long = (long)(*number_of_particles);
+  const long n_long = (long)(*n);
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const long particle_no_long = (long)(*particle_no);
   const long material_no_long = (long)(*material_no);
+  const double slab_thickness_um_double = (double)(*slab_thickness_um);
 
 
 //Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_particles_long,sizeof(long));
+  double* energy_loss_keV_double = (double*)calloc(n_long,sizeof(double));
 
 
 //Fill in the input parameter.
-  for(i = 0 ; i < number_of_particles_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
+  for(i = 0 ; i < n_long; i++){
+	energy_loss_keV_double[i] = (double)energy_loss_keV[i];
   }
 
 //Allocate space for the results.
-  double* Stopping_Power_keV_um_double = (double*)calloc(number_of_particles_long,sizeof(double));
+  double* fDdD_double = (double*)calloc(n_long,sizeof(double));
 
-  AT_Stopping_Power_keV_um_multi( stopping_power_source_no_long,
-	number_of_particles_long,
+  AT_Vavilov_energy_loss_distribution( n_long,
+	energy_loss_keV_double,
 	E_MeV_u_double,
 	particle_no_long,
 	material_no_long,
-	Stopping_Power_keV_um_double);
+	slab_thickness_um_double,
+	fDdD_double);
 
 //Results:
-  for(i = 0 ; i < number_of_particles_long; i++){
-	Stopping_Power_keV_um[i] = (float)Stopping_Power_keV_um_double[i];
+  for(i = 0 ; i < n_long; i++){
+	fDdD[i] = (float)fDdD_double[i];
   }
 
 //Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(Stopping_Power_keV_um_double);
+  free(energy_loss_keV_double);
+  free(fDdD_double);
 }
 
+#endif
 
-void AT_Stopping_Power_MeV_cm2_g_multi_R( const int*		stopping_power_source_no,
-		const int*		number_of_particles,
+
+#ifdef HAVE_CERNLIB
+void AT_energy_loss_distribution_R( const int*		n,
+		const float*	energy_loss_keV,
 		const float*	E_MeV_u,
 		const int*		particle_no,
 		const int*		material_no,
-		float*			Stopping_Power_MeV_cm2_g
+		const float*	slab_thickness_um,
+		float*			fDdD
 ){
   long i;
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-  const long number_of_particles_long = (long)(*number_of_particles);
+  const long n_long = (long)(*n);
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const long particle_no_long = (long)(*particle_no);
   const long material_no_long = (long)(*material_no);
+  const double slab_thickness_um_double = (double)(*slab_thickness_um);
 
 
 //Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_particles_long,sizeof(long));
+  double* energy_loss_keV_double = (double*)calloc(n_long,sizeof(double));
 
 
 //Fill in the input parameter.
-  for(i = 0 ; i < number_of_particles_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
+  for(i = 0 ; i < n_long; i++){
+	energy_loss_keV_double[i] = (double)energy_loss_keV[i];
   }
 
 //Allocate space for the results.
-  double* Stopping_Power_MeV_cm2_g_double = (double*)calloc(number_of_particles_long,sizeof(double));
+  double* fDdD_double = (double*)calloc(n_long,sizeof(double));
 
-  AT_Stopping_Power_MeV_cm2_g_multi( stopping_power_source_no_long,
-	number_of_particles_long,
+  AT_energy_loss_distribution( n_long,
+	energy_loss_keV_double,
 	E_MeV_u_double,
 	particle_no_long,
 	material_no_long,
-	Stopping_Power_MeV_cm2_g_double);
+	slab_thickness_um_double,
+	fDdD_double);
 
 //Results:
-  for(i = 0 ; i < number_of_particles_long; i++){
-	Stopping_Power_MeV_cm2_g[i] = (float)Stopping_Power_MeV_cm2_g_double[i];
+  for(i = 0 ; i < n_long; i++){
+	fDdD[i] = (float)fDdD_double[i];
   }
 
 //Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(Stopping_Power_MeV_cm2_g_double);
+  free(energy_loss_keV_double);
+  free(fDdD_double);
 }
 
+#endif
 
-void AT_max_electron_ranges_m_R( const int*		number_of_particles,
-		const float*	E_MeV_u,
+
+#ifdef HAVE_CERNLIB
+void AT_energy_loss_mode_R( const float*	E_MeV_u,
+		const int*		particle_no,
 		const int*		material_no,
-		const int*		er_model,
-		float*			max_electron_range_m
+		const float*	slab_thickness_um,
+		float*			returnValue
 ){
-  long i;
-  const long number_of_particles_long = (long)(*number_of_particles);
-  const int material_no_long = (int)(*material_no);
-  const int er_model_long = (int)(*er_model);
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const long particle_no_long = (long)(*particle_no);
+  const long material_no_long = (long)(*material_no);
+  const double slab_thickness_um_double = (double)(*slab_thickness_um);
 
 
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_particles_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_particles_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-  }
-
-//Allocate space for the results.
-  double* max_electron_range_m_double = (double*)calloc(number_of_particles_long,sizeof(double));
-
-  AT_max_electron_ranges_m( number_of_particles_long,
-	E_MeV_u_double,
+  double returnValue_internal = 	AT_energy_loss_mode( E_MeV_u_double,
+	particle_no_long,
 	material_no_long,
-	er_model_long,
-	max_electron_range_m_double);
+	slab_thickness_um_double);
 
 //Results:
-  for(i = 0 ; i < number_of_particles_long; i++){
-	max_electron_range_m[i] = (float)max_electron_range_m_double[i];
-  }
+
+	*returnValue = ( float )returnValue_internal;
+
 
 //Free allocated space
-  free(E_MeV_u_double);
-  free(max_electron_range_m_double);
 }
+
+#endif
+
+
+#ifdef HAVE_CERNLIB
+void AT_energy_loss_FWHM_R( const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		const float*	slab_thickness_um,
+		float*			returnValue
+){
+  const double E_MeV_u_double = (double)(*E_MeV_u);
+  const long particle_no_long = (long)(*particle_no);
+  const long material_no_long = (long)(*material_no);
+  const double slab_thickness_um_double = (double)(*slab_thickness_um);
+
+
+  double returnValue_internal = 	AT_energy_loss_FWHM( E_MeV_u_double,
+	particle_no_long,
+	material_no_long,
+	slab_thickness_um_double);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+}
+
+#endif
 
 
 void AT_characteristic_single_scattering_angle_R( const int*		n,
@@ -1690,6 +1836,7 @@ void AT_characteristic_single_scattering_angle_R( const int*		n,
 }
 
 
+
 void AT_screening_angle_R( const int*		n,
 		const float*	E_MeV_u,
 		const int*		particle_charge_e,
@@ -1734,6 +1881,7 @@ void AT_screening_angle_R( const int*		n,
   free(particle_charge_e_long);
   free(chi_a_double);
 }
+
 
 
 void AT_effective_collision_number_R( const int*		n,
@@ -1787,6 +1935,7 @@ void AT_effective_collision_number_R( const int*		n,
 }
 
 
+
 void AT_reduced_target_thickness_R( const int*		n,
 		const float*	E_MeV_u,
 		const int*		particle_charge_e,
@@ -1836,6 +1985,7 @@ void AT_reduced_target_thickness_R( const int*		n,
   free(target_thickness_cm_double);
   free(B_double);
 }
+
 
 
 void AT_characteristic_multiple_scattering_angle_R( const int*		n,
@@ -1889,6 +2039,7 @@ void AT_characteristic_multiple_scattering_angle_R( const int*		n,
 }
 
 
+
 void AT_Moliere_function_f0_R( float*			red_Theta,
 		float*			returnValue
 ){
@@ -1904,6 +2055,7 @@ void AT_Moliere_function_f0_R( float*			red_Theta,
 
 //Free allocated space
 }
+
 
 
 void AT_Moliere_function_f1_R( float*			red_Theta,
@@ -1923,6 +2075,7 @@ void AT_Moliere_function_f1_R( float*			red_Theta,
 }
 
 
+
 void AT_Moliere_function_f2_R( float*			red_Theta,
 		float*			returnValue
 ){
@@ -1938,6 +2091,7 @@ void AT_Moliere_function_f2_R( float*			red_Theta,
 
 //Free allocated space
 }
+
 
 
 void AT_scattering_angle_distribution_R( const int*		n,
@@ -1990,6 +2144,7 @@ void AT_scattering_angle_distribution_R( const int*		n,
 }
 
 
+
 void AT_Highland_angle_R( const int*		n,
 		const float*	E_MeV_u,
 		const int*		particle_charge_e,
@@ -2039,564 +2194,10 @@ void AT_Highland_angle_R( const int*		n,
 }
 
 
-void AT_mean_number_of_tracks_contrib_R( const int*		number_of_field_components,
+
+void AT_beta_from_E_R( const int*		n,
 		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	fluence_cm2,
-		const int*		material_no,
-		const int*		er_model,
-		const int*		stopping_power_source_no,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-  const long material_no_long = (long)(*material_no);
-  const long er_model_long = (long)(*er_model);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
-  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-  double returnValue_internal = 	AT_mean_number_of_tracks_contrib( number_of_field_components_long,
-	E_MeV_u_double,
-	particle_no_long,
-	fluence_cm2_double,
-	material_no_long,
-	er_model_long,
-	stopping_power_source_no_long);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(fluence_cm2_double);
-}
-
-
-void AT_stopping_power_ratio_R( const int*		number_of_field_components,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	fluence_cm2,
-		const int*		material_no,
-		const int*		reference_material_no,
-		const int*		stopping_power_source_no,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-  const long material_no_long = (long)(*material_no);
-  const long reference_material_no_long = (long)(*reference_material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
-  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-  double returnValue_internal = 	AT_stopping_power_ratio( number_of_field_components_long,
-	E_MeV_u_double,
-	particle_no_long,
-	fluence_cm2_double,
-	material_no_long,
-	reference_material_no_long,
-	stopping_power_source_no_long);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(fluence_cm2_double);
-}
-
-
-void AT_dose_weighted_LET_MeV_cm2_g_R( const int*		number_of_field_components,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	fluence_cm2,
-		const int*		material_no,
-		const int*		stopping_power_source_no,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-  const long material_no_long = (long)(*material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
-  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-  double returnValue_internal = 	AT_dose_weighted_LET_MeV_cm2_g( number_of_field_components_long,
-	E_MeV_u_double,
-	particle_no_long,
-	fluence_cm2_double,
-	material_no_long,
-	stopping_power_source_no_long);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(fluence_cm2_double);
-}
-
-
-void AT_fluence_weighted_LET_MeV_cm2_g_R( const int*		number_of_field_components,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	fluence_cm2,
-		const int*		material_no,
-		const int*		stopping_power_source_no,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-  const long material_no_long = (long)(*material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
-  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-  double returnValue_internal = 	AT_fluence_weighted_LET_MeV_cm2_g( number_of_field_components_long,
-	E_MeV_u_double,
-	particle_no_long,
-	fluence_cm2_double,
-	material_no_long,
-	stopping_power_source_no_long);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(fluence_cm2_double);
-}
-
-
-void AT_dose_weighted_E_MeV_u_R( const int*		number_of_field_components,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	fluence_cm2,
-		const int*		material_no,
-		const int*		stopping_power_source_no,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-  const long material_no_long = (long)(*material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
-  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-  double returnValue_internal = 	AT_dose_weighted_E_MeV_u( number_of_field_components_long,
-	E_MeV_u_double,
-	particle_no_long,
-	fluence_cm2_double,
-	material_no_long,
-	stopping_power_source_no_long);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(fluence_cm2_double);
-}
-
-
-void AT_fluence_weighted_E_MeV_u_R( const int*		number_of_field_components,
-		const float*	E_MeV_u,
-		const float*	fluence_cm2,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-  double returnValue_internal = 	AT_fluence_weighted_E_MeV_u( number_of_field_components_long,
-	E_MeV_u_double,
-	fluence_cm2_double);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(fluence_cm2_double);
-}
-
-
-void AT_total_fluence_cm2_R( const int*		number_of_field_components,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	D_Gy,
-		const int*		material_no,
-		const int*		stopping_power_source_no,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-  const long material_no_long = (long)(*material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
-  double* D_Gy_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	D_Gy_double[i] = (double)D_Gy[i];
-  }
-
-  double returnValue_internal = 	AT_total_fluence_cm2( number_of_field_components_long,
-	E_MeV_u_double,
-	particle_no_long,
-	D_Gy_double,
-	material_no_long,
-	stopping_power_source_no_long);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(D_Gy_double);
-}
-
-
-void AT_total_D_Gy_R( const int*		number_of_field_components,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	fluence_cm2,
-		const int*		material_no,
-		const int*		stopping_power_source_no,
-		float*			returnValue
-){
-  long i;
-  const long number_of_field_components_long = (long)(*number_of_field_components);
-  const long material_no_long = (long)(*material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
-  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < number_of_field_components_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-  double returnValue_internal = 	AT_total_D_Gy( number_of_field_components_long,
-	E_MeV_u_double,
-	particle_no_long,
-	fluence_cm2_double,
-	material_no_long,
-	stopping_power_source_no_long);
-
-//Results:
-
-	*returnValue = ( float )returnValue_internal;
-
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(fluence_cm2_double);
-}
-
-
-void AT_beam_par_technical_to_physical_R( const int*		n,
-		const float*	N,
-		const float*	FWHM_mm,
-		float*			fluence_cm2,
-		float*			sigma_cm
-){
-  long i;
-  const long n_long = (long)(*n);
-
-
-//Allocate space for the input parameter.
-  double* N_double = (double*)calloc(n_long,sizeof(double));
-  double* FWHM_mm_double = (double*)calloc(n_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	N_double[i] = (double)N[i];
-	FWHM_mm_double[i] = (double)FWHM_mm[i];
-  }
-
-//Allocate space for the results.
-  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
-  double* sigma_cm_double = (double*)calloc(n_long,sizeof(double));
-
-  AT_beam_par_technical_to_physical( n_long,
-	N_double,
-	FWHM_mm_double,
-	fluence_cm2_double,
-	sigma_cm_double);
-
-//Results:
-  for(i = 0 ; i < n_long; i++){
-	fluence_cm2[i] = (float)fluence_cm2_double[i];
-	sigma_cm[i] = (float)sigma_cm_double[i];
-  }
-
-//Free allocated space
-  free(N_double);
-  free(FWHM_mm_double);
-  free(fluence_cm2_double);
-  free(sigma_cm_double);
-}
-
-
-void AT_beam_par_physical_to_technical_R( const int*		n,
-		const float*	fluence_cm2,
-		const float*	sigma_cm,
-		float*			N,
-		float*			FWHM_mm
-){
-  long i;
-  const long n_long = (long)(*n);
-
-
-//Allocate space for the input parameter.
-  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
-  double* sigma_cm_double = (double*)calloc(n_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-	sigma_cm_double[i] = (double)sigma_cm[i];
-  }
-
-//Allocate space for the results.
-  double* N_double = (double*)calloc(n_long,sizeof(double));
-  double* FWHM_mm_double = (double*)calloc(n_long,sizeof(double));
-
-  AT_beam_par_physical_to_technical( n_long,
-	fluence_cm2_double,
-	sigma_cm_double,
-	N_double,
-	FWHM_mm_double);
-
-//Results:
-  for(i = 0 ; i < n_long; i++){
-	N[i] = (float)N_double[i];
-	FWHM_mm[i] = (float)FWHM_mm_double[i];
-  }
-
-//Free allocated space
-  free(fluence_cm2_double);
-  free(sigma_cm_double);
-  free(N_double);
-  free(FWHM_mm_double);
-}
-
-
-void AT_fluence_cm2_from_dose_Gy_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	D_Gy,
-		const int*		material_no,
-		const int*		stopping_power_source_no,
-		float*			fluence_cm2
-){
-  long i;
-  const long n_long = (long)(*n);
-  const long material_no_long = (long)(*material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
-  double* D_Gy_double = (double*)calloc(n_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	D_Gy_double[i] = (double)D_Gy[i];
-  }
-
-//Allocate space for the results.
-  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
-
-  AT_fluence_cm2_from_dose_Gy( n_long,
-	E_MeV_u_double,
-	particle_no_long,
-	D_Gy_double,
-	material_no_long,
-	stopping_power_source_no_long,
-	fluence_cm2_double);
-
-//Results:
-  for(i = 0 ; i < n_long; i++){
-	fluence_cm2[i] = (float)fluence_cm2_double[i];
-  }
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(D_Gy_double);
-  free(fluence_cm2_double);
-}
-
-
-void AT_dose_Gy_from_fluence_cm2_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const float*	fluence_cm2,
-		const int*		material_no,
-		const int*		stopping_power_source_no,
-		float*			dose_Gy
-){
-  long i;
-  const long n_long = (long)(*n);
-  const long material_no_long = (long)(*material_no);
-  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
-
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
-  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-	fluence_cm2_double[i] = (double)fluence_cm2[i];
-  }
-
-//Allocate space for the results.
-  double* dose_Gy_double = (double*)calloc(n_long,sizeof(double));
-
-  AT_dose_Gy_from_fluence_cm2( n_long,
-	E_MeV_u_double,
-	particle_no_long,
-	fluence_cm2_double,
-	material_no_long,
-	stopping_power_source_no_long,
-	dose_Gy_double);
-
-//Results:
-  for(i = 0 ; i < n_long; i++){
-	dose_Gy[i] = (float)dose_Gy_double[i];
-  }
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(fluence_cm2_double);
-  free(dose_Gy_double);
-}
-
-
-void AT_momentum_MeV_c_u_from_E_MeV_u_R( const int*		n,
-		const float*	E_MeV_u,
-		float*			momentum_MeV_c,
+		float*			beta,
 		int*			returnValue
 ){
   long i;
@@ -2613,29 +2214,110 @@ void AT_momentum_MeV_c_u_from_E_MeV_u_R( const int*		n,
   }
 
 //Allocate space for the results.
-  double* momentum_MeV_c_double = (double*)calloc(n_long,sizeof(double));
+  double* beta_double = (double*)calloc(n_long,sizeof(double));
 
-  int returnValue_internal = 	AT_momentum_MeV_c_u_from_E_MeV_u( n_long,
+  int returnValue_internal = 	AT_beta_from_E( n_long,
 	E_MeV_u_double,
-	momentum_MeV_c_double);
+	beta_double);
 
 //Results:
 
 	*returnValue = ( int )returnValue_internal;
 
   for(i = 0 ; i < n_long; i++){
-	momentum_MeV_c[i] = (float)momentum_MeV_c_double[i];
+	beta[i] = (float)beta_double[i];
   }
 
 //Free allocated space
   free(E_MeV_u_double);
-  free(momentum_MeV_c_double);
+  free(beta_double);
 }
 
 
-void AT_max_E_transfer_MeV_R( const int*		n,
+
+void AT_E_from_beta_R( const int*		n,
+		const float*	beta,
+		float*			E_MeV_u,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* beta_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	beta_double[i] = (double)beta[i];
+  }
+
+//Allocate space for the results.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_E_from_beta( n_long,
+	beta_double,
+	E_MeV_u_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u[i] = (float)E_MeV_u_double[i];
+  }
+
+//Free allocated space
+  free(beta_double);
+  free(E_MeV_u_double);
+}
+
+
+
+void AT_E_MeV_u_from_momentum_MeV_c_u_R( const int*		n,
+		const float*	momentum_MeV_c_u,
+		float*			E_MeV_u,
+		int*			returnValue
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* momentum_MeV_c_u_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	momentum_MeV_c_u_double[i] = (double)momentum_MeV_c_u[i];
+  }
+
+//Allocate space for the results.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+
+  int returnValue_internal = 	AT_E_MeV_u_from_momentum_MeV_c_u( n_long,
+	momentum_MeV_c_u_double,
+	E_MeV_u_double);
+
+//Results:
+
+	*returnValue = ( int )returnValue_internal;
+
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u[i] = (float)E_MeV_u_double[i];
+  }
+
+//Free allocated space
+  free(momentum_MeV_c_u_double);
+  free(E_MeV_u_double);
+}
+
+
+
+void AT_gamma_from_E_R( const int*		n,
 		const float*	E_MeV_u,
-		float*			max_E_transfer_MeV,
+		float*			gamma,
 		int*			returnValue
 ){
   long i;
@@ -2652,34 +2334,36 @@ void AT_max_E_transfer_MeV_R( const int*		n,
   }
 
 //Allocate space for the results.
-  double* max_E_transfer_MeV_double = (double*)calloc(n_long,sizeof(double));
+  double* gamma_double = (double*)calloc(n_long,sizeof(double));
 
-  int returnValue_internal = 	AT_max_E_transfer_MeV( n_long,
+  int returnValue_internal = 	AT_gamma_from_E( n_long,
 	E_MeV_u_double,
-	max_E_transfer_MeV_double);
+	gamma_double);
 
 //Results:
 
 	*returnValue = ( int )returnValue_internal;
 
   for(i = 0 ; i < n_long; i++){
-	max_E_transfer_MeV[i] = (float)max_E_transfer_MeV_double[i];
+	gamma[i] = (float)gamma_double[i];
   }
 
 //Free allocated space
   free(E_MeV_u_double);
-  free(max_E_transfer_MeV_double);
+  free(gamma_double);
 }
 
 
-void AT_effective_charge_from_E_MeV_u_R( const int*		n,
+
+void AT_energy_straggling_MeV2_cm2_g_R( const int*		n,
 		const float*	E_MeV_u,
 		const int*		particle_no,
-		float*			effective_charge,
-		int*			returnValue
+		const int*		material_no,
+		float*			dsE2dz_MeV2_cm2_g
 ){
   long i;
   const long n_long = (long)(*n);
+  const long material_no_long = (long)(*material_no);
 
 
 //Allocate space for the input parameter.
@@ -2694,26 +2378,25 @@ void AT_effective_charge_from_E_MeV_u_R( const int*		n,
   }
 
 //Allocate space for the results.
-  double* effective_charge_double = (double*)calloc(n_long,sizeof(double));
+  double* dsE2dz_MeV2_cm2_g_double = (double*)calloc(n_long,sizeof(double));
 
-  int returnValue_internal = 	AT_effective_charge_from_E_MeV_u( n_long,
+  AT_energy_straggling_MeV2_cm2_g( n_long,
 	E_MeV_u_double,
 	particle_no_long,
-	effective_charge_double);
+	material_no_long,
+	dsE2dz_MeV2_cm2_g_double);
 
 //Results:
-
-	*returnValue = ( int )returnValue_internal;
-
   for(i = 0 ; i < n_long; i++){
-	effective_charge[i] = (float)effective_charge_double[i];
+	dsE2dz_MeV2_cm2_g[i] = (float)dsE2dz_MeV2_cm2_g_double[i];
   }
 
 //Free allocated space
   free(E_MeV_u_double);
   free(particle_no_long);
-  free(effective_charge_double);
+  free(dsE2dz_MeV2_cm2_g_double);
 }
+
 
 
 void AT_energy_straggling_after_slab_E_MeV_u_R( const int*		n,
@@ -2767,15 +2450,15 @@ void AT_energy_straggling_after_slab_E_MeV_u_R( const int*		n,
 }
 
 
-void AT_energy_straggling_MeV2_cm2_g_R( const int*		n,
+
+void AT_effective_charge_from_E_MeV_u_R( const int*		n,
 		const float*	E_MeV_u,
 		const int*		particle_no,
-		const int*		material_no,
-		float*			dsE2dz_MeV2_cm2_g
+		float*			effective_charge,
+		int*			returnValue
 ){
   long i;
   const long n_long = (long)(*n);
-  const long material_no_long = (long)(*material_no);
 
 
 //Allocate space for the input parameter.
@@ -2790,29 +2473,32 @@ void AT_energy_straggling_MeV2_cm2_g_R( const int*		n,
   }
 
 //Allocate space for the results.
-  double* dsE2dz_MeV2_cm2_g_double = (double*)calloc(n_long,sizeof(double));
+  double* effective_charge_double = (double*)calloc(n_long,sizeof(double));
 
-  AT_energy_straggling_MeV2_cm2_g( n_long,
+  int returnValue_internal = 	AT_effective_charge_from_E_MeV_u( n_long,
 	E_MeV_u_double,
 	particle_no_long,
-	material_no_long,
-	dsE2dz_MeV2_cm2_g_double);
+	effective_charge_double);
 
 //Results:
+
+	*returnValue = ( int )returnValue_internal;
+
   for(i = 0 ; i < n_long; i++){
-	dsE2dz_MeV2_cm2_g[i] = (float)dsE2dz_MeV2_cm2_g_double[i];
+	effective_charge[i] = (float)effective_charge_double[i];
   }
 
 //Free allocated space
   free(E_MeV_u_double);
   free(particle_no_long);
-  free(dsE2dz_MeV2_cm2_g_double);
+  free(effective_charge_double);
 }
 
 
-void AT_gamma_from_E_R( const int*		n,
+
+void AT_max_E_transfer_MeV_R( const int*		n,
 		const float*	E_MeV_u,
-		float*			gamma,
+		float*			max_E_transfer_MeV,
 		int*			returnValue
 ){
   long i;
@@ -2829,107 +2515,30 @@ void AT_gamma_from_E_R( const int*		n,
   }
 
 //Allocate space for the results.
-  double* gamma_double = (double*)calloc(n_long,sizeof(double));
+  double* max_E_transfer_MeV_double = (double*)calloc(n_long,sizeof(double));
 
-  int returnValue_internal = 	AT_gamma_from_E( n_long,
+  int returnValue_internal = 	AT_max_E_transfer_MeV( n_long,
 	E_MeV_u_double,
-	gamma_double);
+	max_E_transfer_MeV_double);
 
 //Results:
 
 	*returnValue = ( int )returnValue_internal;
 
   for(i = 0 ; i < n_long; i++){
-	gamma[i] = (float)gamma_double[i];
+	max_E_transfer_MeV[i] = (float)max_E_transfer_MeV_double[i];
   }
 
 //Free allocated space
   free(E_MeV_u_double);
-  free(gamma_double);
+  free(max_E_transfer_MeV_double);
 }
 
 
-void AT_E_MeV_u_from_momentum_MeV_c_u_R( const int*		n,
-		const float*	momentum_MeV_c_u,
-		float*			E_MeV_u,
-		int*			returnValue
-){
-  long i;
-  const long n_long = (long)(*n);
 
-
-//Allocate space for the input parameter.
-  double* momentum_MeV_c_u_double = (double*)calloc(n_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	momentum_MeV_c_u_double[i] = (double)momentum_MeV_c_u[i];
-  }
-
-//Allocate space for the results.
-  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-
-  int returnValue_internal = 	AT_E_MeV_u_from_momentum_MeV_c_u( n_long,
-	momentum_MeV_c_u_double,
-	E_MeV_u_double);
-
-//Results:
-
-	*returnValue = ( int )returnValue_internal;
-
-  for(i = 0 ; i < n_long; i++){
-	E_MeV_u[i] = (float)E_MeV_u_double[i];
-  }
-
-//Free allocated space
-  free(momentum_MeV_c_u_double);
-  free(E_MeV_u_double);
-}
-
-
-void AT_E_from_beta_R( const int*		n,
-		const float*	beta,
-		float*			E_MeV_u,
-		int*			returnValue
-){
-  long i;
-  const long n_long = (long)(*n);
-
-
-//Allocate space for the input parameter.
-  double* beta_double = (double*)calloc(n_long,sizeof(double));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	beta_double[i] = (double)beta[i];
-  }
-
-//Allocate space for the results.
-  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-
-  int returnValue_internal = 	AT_E_from_beta( n_long,
-	beta_double,
-	E_MeV_u_double);
-
-//Results:
-
-	*returnValue = ( int )returnValue_internal;
-
-  for(i = 0 ; i < n_long; i++){
-	E_MeV_u[i] = (float)E_MeV_u_double[i];
-  }
-
-//Free allocated space
-  free(beta_double);
-  free(E_MeV_u_double);
-}
-
-
-void AT_beta_from_E_R( const int*		n,
+void AT_momentum_MeV_c_u_from_E_MeV_u_R( const int*		n,
 		const float*	E_MeV_u,
-		float*			beta,
+		float*			momentum_MeV_c,
 		int*			returnValue
 ){
   long i;
@@ -2946,24 +2555,592 @@ void AT_beta_from_E_R( const int*		n,
   }
 
 //Allocate space for the results.
-  double* beta_double = (double*)calloc(n_long,sizeof(double));
+  double* momentum_MeV_c_double = (double*)calloc(n_long,sizeof(double));
 
-  int returnValue_internal = 	AT_beta_from_E( n_long,
+  int returnValue_internal = 	AT_momentum_MeV_c_u_from_E_MeV_u( n_long,
 	E_MeV_u_double,
-	beta_double);
+	momentum_MeV_c_double);
 
 //Results:
 
 	*returnValue = ( int )returnValue_internal;
 
   for(i = 0 ; i < n_long; i++){
-	beta[i] = (float)beta_double[i];
+	momentum_MeV_c[i] = (float)momentum_MeV_c_double[i];
   }
 
 //Free allocated space
   free(E_MeV_u_double);
-  free(beta_double);
+  free(momentum_MeV_c_double);
 }
+
+
+
+void AT_dose_Gy_from_fluence_cm2_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	fluence_cm2,
+		const int*		material_no,
+		const int*		stopping_power_source_no,
+		float*			dose_Gy
+){
+  long i;
+  const long n_long = (long)(*n);
+  const long material_no_long = (long)(*material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
+  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+//Allocate space for the results.
+  double* dose_Gy_double = (double*)calloc(n_long,sizeof(double));
+
+  AT_dose_Gy_from_fluence_cm2( n_long,
+	E_MeV_u_double,
+	particle_no_long,
+	fluence_cm2_double,
+	material_no_long,
+	stopping_power_source_no_long,
+	dose_Gy_double);
+
+//Results:
+  for(i = 0 ; i < n_long; i++){
+	dose_Gy[i] = (float)dose_Gy_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(fluence_cm2_double);
+  free(dose_Gy_double);
+}
+
+
+
+void AT_fluence_cm2_from_dose_Gy_R( const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	D_Gy,
+		const int*		material_no,
+		const int*		stopping_power_source_no,
+		float*			fluence_cm2
+){
+  long i;
+  const long n_long = (long)(*n);
+  const long material_no_long = (long)(*material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
+  double* D_Gy_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	D_Gy_double[i] = (double)D_Gy[i];
+  }
+
+//Allocate space for the results.
+  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
+
+  AT_fluence_cm2_from_dose_Gy( n_long,
+	E_MeV_u_double,
+	particle_no_long,
+	D_Gy_double,
+	material_no_long,
+	stopping_power_source_no_long,
+	fluence_cm2_double);
+
+//Results:
+  for(i = 0 ; i < n_long; i++){
+	fluence_cm2[i] = (float)fluence_cm2_double[i];
+  }
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(D_Gy_double);
+  free(fluence_cm2_double);
+}
+
+
+
+void AT_beam_par_physical_to_technical_R( const int*		n,
+		const float*	fluence_cm2,
+		const float*	sigma_cm,
+		float*			N,
+		float*			FWHM_mm
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
+  double* sigma_cm_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+	sigma_cm_double[i] = (double)sigma_cm[i];
+  }
+
+//Allocate space for the results.
+  double* N_double = (double*)calloc(n_long,sizeof(double));
+  double* FWHM_mm_double = (double*)calloc(n_long,sizeof(double));
+
+  AT_beam_par_physical_to_technical( n_long,
+	fluence_cm2_double,
+	sigma_cm_double,
+	N_double,
+	FWHM_mm_double);
+
+//Results:
+  for(i = 0 ; i < n_long; i++){
+	N[i] = (float)N_double[i];
+	FWHM_mm[i] = (float)FWHM_mm_double[i];
+  }
+
+//Free allocated space
+  free(fluence_cm2_double);
+  free(sigma_cm_double);
+  free(N_double);
+  free(FWHM_mm_double);
+}
+
+
+
+void AT_beam_par_technical_to_physical_R( const int*		n,
+		const float*	N,
+		const float*	FWHM_mm,
+		float*			fluence_cm2,
+		float*			sigma_cm
+){
+  long i;
+  const long n_long = (long)(*n);
+
+
+//Allocate space for the input parameter.
+  double* N_double = (double*)calloc(n_long,sizeof(double));
+  double* FWHM_mm_double = (double*)calloc(n_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_long; i++){
+	N_double[i] = (double)N[i];
+	FWHM_mm_double[i] = (double)FWHM_mm[i];
+  }
+
+//Allocate space for the results.
+  double* fluence_cm2_double = (double*)calloc(n_long,sizeof(double));
+  double* sigma_cm_double = (double*)calloc(n_long,sizeof(double));
+
+  AT_beam_par_technical_to_physical( n_long,
+	N_double,
+	FWHM_mm_double,
+	fluence_cm2_double,
+	sigma_cm_double);
+
+//Results:
+  for(i = 0 ; i < n_long; i++){
+	fluence_cm2[i] = (float)fluence_cm2_double[i];
+	sigma_cm[i] = (float)sigma_cm_double[i];
+  }
+
+//Free allocated space
+  free(N_double);
+  free(FWHM_mm_double);
+  free(fluence_cm2_double);
+  free(sigma_cm_double);
+}
+
+
+
+void AT_total_D_Gy_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	fluence_cm2,
+		const int*		material_no,
+		const int*		stopping_power_source_no,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+  const long material_no_long = (long)(*material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
+  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+  double returnValue_internal = 	AT_total_D_Gy( number_of_field_components_long,
+	E_MeV_u_double,
+	particle_no_long,
+	fluence_cm2_double,
+	material_no_long,
+	stopping_power_source_no_long);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(fluence_cm2_double);
+}
+
+
+
+void AT_total_fluence_cm2_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	D_Gy,
+		const int*		material_no,
+		const int*		stopping_power_source_no,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+  const long material_no_long = (long)(*material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
+  double* D_Gy_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	D_Gy_double[i] = (double)D_Gy[i];
+  }
+
+  double returnValue_internal = 	AT_total_fluence_cm2( number_of_field_components_long,
+	E_MeV_u_double,
+	particle_no_long,
+	D_Gy_double,
+	material_no_long,
+	stopping_power_source_no_long);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(D_Gy_double);
+}
+
+
+
+void AT_fluence_weighted_E_MeV_u_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const float*	fluence_cm2,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+  double returnValue_internal = 	AT_fluence_weighted_E_MeV_u( number_of_field_components_long,
+	E_MeV_u_double,
+	fluence_cm2_double);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(fluence_cm2_double);
+}
+
+
+
+void AT_dose_weighted_E_MeV_u_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	fluence_cm2,
+		const int*		material_no,
+		const int*		stopping_power_source_no,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+  const long material_no_long = (long)(*material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
+  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+  double returnValue_internal = 	AT_dose_weighted_E_MeV_u( number_of_field_components_long,
+	E_MeV_u_double,
+	particle_no_long,
+	fluence_cm2_double,
+	material_no_long,
+	stopping_power_source_no_long);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(fluence_cm2_double);
+}
+
+
+
+void AT_fluence_weighted_LET_MeV_cm2_g_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	fluence_cm2,
+		const int*		material_no,
+		const int*		stopping_power_source_no,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+  const long material_no_long = (long)(*material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
+  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+  double returnValue_internal = 	AT_fluence_weighted_LET_MeV_cm2_g( number_of_field_components_long,
+	E_MeV_u_double,
+	particle_no_long,
+	fluence_cm2_double,
+	material_no_long,
+	stopping_power_source_no_long);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(fluence_cm2_double);
+}
+
+
+
+void AT_dose_weighted_LET_MeV_cm2_g_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	fluence_cm2,
+		const int*		material_no,
+		const int*		stopping_power_source_no,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+  const long material_no_long = (long)(*material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
+  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+  double returnValue_internal = 	AT_dose_weighted_LET_MeV_cm2_g( number_of_field_components_long,
+	E_MeV_u_double,
+	particle_no_long,
+	fluence_cm2_double,
+	material_no_long,
+	stopping_power_source_no_long);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(fluence_cm2_double);
+}
+
+
+
+void AT_stopping_power_ratio_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	fluence_cm2,
+		const int*		material_no,
+		const int*		reference_material_no,
+		const int*		stopping_power_source_no,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+  const long material_no_long = (long)(*material_no);
+  const long reference_material_no_long = (long)(*reference_material_no);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
+  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+  double returnValue_internal = 	AT_stopping_power_ratio( number_of_field_components_long,
+	E_MeV_u_double,
+	particle_no_long,
+	fluence_cm2_double,
+	material_no_long,
+	reference_material_no_long,
+	stopping_power_source_no_long);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(fluence_cm2_double);
+}
+
+
+
+void AT_mean_number_of_tracks_contrib_R( const int*		number_of_field_components,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const float*	fluence_cm2,
+		const int*		material_no,
+		const int*		er_model,
+		const int*		stopping_power_source_no,
+		float*			returnValue
+){
+  long i;
+  const long number_of_field_components_long = (long)(*number_of_field_components);
+  const long material_no_long = (long)(*material_no);
+  const long er_model_long = (long)(*er_model);
+  const long stopping_power_source_no_long = (long)(*stopping_power_source_no);
+
+
+//Allocate space for the input parameter.
+  double* E_MeV_u_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+  long* particle_no_long = (long*)calloc(number_of_field_components_long,sizeof(long));
+  double* fluence_cm2_double = (double*)calloc(number_of_field_components_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < number_of_field_components_long; i++){
+	E_MeV_u_double[i] = (double)E_MeV_u[i];
+	particle_no_long[i] = (long)particle_no[i];
+	fluence_cm2_double[i] = (double)fluence_cm2[i];
+  }
+
+  double returnValue_internal = 	AT_mean_number_of_tracks_contrib( number_of_field_components_long,
+	E_MeV_u_double,
+	particle_no_long,
+	fluence_cm2_double,
+	material_no_long,
+	er_model_long,
+	stopping_power_source_no_long);
+
+//Results:
+
+	*returnValue = ( float )returnValue_internal;
+
+
+//Free allocated space
+  free(E_MeV_u_double);
+  free(particle_no_long);
+  free(fluence_cm2_double);
+}
+
 
 
 void AT_r_RDD_m_R( const int*		n,
@@ -3035,6 +3212,7 @@ void AT_r_RDD_m_R( const int*		n,
 }
 
 
+
 void AT_D_RDD_Gy_R( const int*		n,
 		const float*	r_m,
 		const float*	E_MeV_u,
@@ -3104,6 +3282,7 @@ void AT_D_RDD_Gy_R( const int*		n,
 }
 
 
+
 void AT_SPC_read_data_from_filename_fast_R( const char**	filename,
 		int*			n,
 		int*			depth_step,
@@ -3158,6 +3337,7 @@ void AT_SPC_read_data_from_filename_fast_R( const char**	filename,
 }
 
 
+
 void AT_SPC_read_header_from_filename_fast_R( const char**	filename,
 		float*			E_MeV_u,
 		float*			peak_position_g_cm2,
@@ -3207,6 +3387,7 @@ void AT_SPC_read_header_from_filename_fast_R( const char**	filename,
 }
 
 
+
 void AT_SPC_get_number_of_bins_from_filename_fast_R( const char**	filename,
 		int*			returnValue
 ){
@@ -3222,5 +3403,84 @@ void AT_SPC_get_number_of_bins_from_filename_fast_R( const char**	filename,
 
 //Free allocated space
 }
+
+
+
+void AT_translate_dose_into_DSB_distribution_R( const int*		n_bins_f,
+		const float*	f_d_Gy,
+		const float*	f_dd_Gy,
+		const float*	f,
+		const float*	enhancement_factor,
+		const float*	DSB_per_Gy_per_domain,
+		const int*		domains_per_nucleus,
+		const int*		write_output,
+		float*			total_pDSBs,
+		float*			total_nDSBs,
+		float*			number_of_iDSBs,
+		float*			number_of_cDSBs,
+		float*			avg_number_of_DSBs_in_cDSBs
+){
+  long i;
+  const long n_bins_f_long = (long)(*n_bins_f);
+  const double DSB_per_Gy_per_domain_double = (double)(*DSB_per_Gy_per_domain);
+  const long domains_per_nucleus_long = (long)(*domains_per_nucleus);
+  const bool write_output_bool = (bool)(*write_output);
+
+
+//Allocate space for the input parameter.
+  double* f_d_Gy_double = (double*)calloc(n_bins_f_long,sizeof(double));
+  double* f_dd_Gy_double = (double*)calloc(n_bins_f_long,sizeof(double));
+  double* f_double = (double*)calloc(n_bins_f_long,sizeof(double));
+  double* enhancement_factor_double = (double*)calloc(n_bins_f_long,sizeof(double));
+
+
+//Fill in the input parameter.
+  for(i = 0 ; i < n_bins_f_long; i++){
+	f_d_Gy_double[i] = (double)f_d_Gy[i];
+	f_dd_Gy_double[i] = (double)f_dd_Gy[i];
+	f_double[i] = (double)f[i];
+	enhancement_factor_double[i] = (double)enhancement_factor[i];
+  }
+
+//Define type-casted output variables
+	double total_pDSBs_double = 0;
+	double total_nDSBs_double = 0;
+	double number_of_iDSBs_double = 0;
+	double number_of_cDSBs_double = 0;
+	double avg_number_of_DSBs_in_cDSBs_double = 0;
+
+  AT_translate_dose_into_DSB_distribution( n_bins_f_long,
+	f_d_Gy_double,
+	f_dd_Gy_double,
+	f_double,
+	enhancement_factor_double,
+	DSB_per_Gy_per_domain_double,
+	domains_per_nucleus_long,
+	write_output_bool,
+	&total_pDSBs_double,
+	&total_nDSBs_double,
+	&number_of_iDSBs_double,
+	&number_of_cDSBs_double,
+	&avg_number_of_DSBs_in_cDSBs_double);
+
+//Results:
+  *total_pDSBs = (float)total_pDSBs_double;
+
+  *total_nDSBs = (float)total_nDSBs_double;
+
+  *number_of_iDSBs = (float)number_of_iDSBs_double;
+
+  *number_of_cDSBs = (float)number_of_cDSBs_double;
+
+  *avg_number_of_DSBs_in_cDSBs = (float)avg_number_of_DSBs_in_cDSBs_double;
+
+
+//Free allocated space
+  free(f_d_Gy_double);
+  free(f_dd_Gy_double);
+  free(f_double);
+  free(enhancement_factor_double);
+}
+
 
 
