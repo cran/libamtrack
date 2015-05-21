@@ -1,5 +1,5 @@
 Package: libamtrack
-Version: 0.6.0
+Version: 0.6.1
 Date: 2015-05-21
 Title: Computational Routines for Proton and Ion Radiotherapy
 Author: Steffen Greilich and the libamtrack team
@@ -12,8 +12,8 @@ URL: libamtrack.dkfz.org
 License: GPL (>= 3)
 Repository: CRAN
 Repository/R-Forge/Project: libamtrack
-Repository/R-Forge/Revision: 297
-Repository/R-Forge/DateTimeStamp: 2015-05-21 08:12:15
-Date/Publication: 2015-05-21 16:30:57
+Repository/R-Forge/Revision: 300
+Repository/R-Forge/DateTimeStamp: 2015-05-21 21:10:02
+Date/Publication: 2015-05-22 08:14:35
 NeedsCompilation: yes
-Packaged: 2015-05-21 08:25:10 UTC; rforge
+Packaged: 2015-05-21 23:45:09 UTC; rforge

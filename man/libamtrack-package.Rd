@@ -20,7 +20,7 @@ Please note that libamtrack is still under heavy development and so is the R
 \details{
 \tabular{ll}{
 Package: \tab libamtrack\cr
-Version: \tab 0.6.0 (Black Armadillo)\cr
+Version: \tab 0.6.1 (Blue Armadillo)\cr
 Date: \tab 2015-05-21\cr
 Depends: \tab R (>= 2.12.0)\cr
 Suggests: \tab lattice\cr
