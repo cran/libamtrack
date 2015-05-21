@@ -1,19 +1,19 @@
 Package: libamtrack
-Version: 0.5.5
-Date: 2014-07-07
-Title: Computational routines for proton and ion radiotherapy
+Version: 0.6.0
+Date: 2015-05-21
+Title: Computational Routines for Proton and Ion Radiotherapy
 Author: Steffen Greilich and the libamtrack team
 Maintainer: Steffen Greilich <s.greilich@dkfz.de>
 Depends: R (>= 2.11.0)
-SystemRequirements: Gnu Scientific Library version >= 1.8
 Suggests: lattice
-Description: This package is the R interface to the open-source, ANSI C library libamtrack (http://libamtrack.dkfz.org). libamtrack provides computational routines for the prediction of detector response and radiobiological efficiency in heavy charged particle beams. It is designed for research in proton and ion dosimetry and radiotherapy. libamtrack also provides many auxiliary physics routines for proton and ion beams. Original package and C-to-R conversion routines developed by Felix A. Klein.
+SystemRequirements: Gnu Scientific Library version >= 1.8
+Description: R interface to the open-source, ANSI C library libamtrack (http://libamtrack.dkfz.org). libamtrack provides computational routines for the prediction of detector response and radiobiological efficiency in heavy charged particle beams. It is designed for research in proton and ion dosimetry and radiotherapy. libamtrack also provides many auxiliary physics routines for proton and ion beams. Original package and C-to-R conversion routines developed by Felix A. Klein.
 URL: libamtrack.dkfz.org
 License: GPL (>= 3)
 Repository: CRAN
 Repository/R-Forge/Project: libamtrack
-Repository/R-Forge/Revision: 7
-Repository/R-Forge/DateTimeStamp: 2014-07-07 15:02:12
-Date/Publication: 2014-07-08 07:49:26
-Packaged: 2014-07-07 16:15:43 UTC; rforge
+Repository/R-Forge/Revision: 297
+Repository/R-Forge/DateTimeStamp: 2015-05-21 08:12:15
+Date/Publication: 2015-05-21 16:30:57
 NeedsCompilation: yes
+Packaged: 2015-05-21 08:25:10 UTC; rforge

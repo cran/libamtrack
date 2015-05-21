@@ -33,8 +33,8 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_RDD.c#L4
-74}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.0/src/AT_RDD
+.c#L485}
 }
 \examples{
 
@@ -47,11 +47,10 @@ AT.D.RDD.Gy(    r.m              = 10^(-9:-4),
                 rdd.model        = 4,
                 rdd.parameter    = c(5e-8, 1e-10),
                 er.model         = 2,
-                stopping.power.source.no = 0)
+                stopping.power.source.no = 2)
 
 # Compare the Geiss parametrization of RDD for protons and Carbon ions at
 # different energies:
-require(lattice)
 df    <-    expand.grid( E.MeV.u        = 10^seq(0, 3, length.out = 4),      
  # from 1 to 1000 MeV/u in 4 steps
                          particle.no    = c(1001,6012),                      
@@ -81,12 +80,6 @@ for (i in 1:nrow(df)){
                                      rdd.model        = df$rdd.model[i],
                                      rdd.parameter    = df$rdd.parameter[i],
                                      er.model         = df$er.model[i],
-                                     stopping.power.source.no = 0)$D.RDD.Gy
+                                     stopping.power.source.no = 2)$D.RDD.Gy
 }
-xyplot( log10(D.Gy) ~ log10(r.m)|particle.name,                               
- # Plot
-        df,
-        type      = 'l',
-        groups    = E.MeV.u,
-        auto.key  = TRUE)[c(2,1)]
 }

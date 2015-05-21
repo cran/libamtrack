@@ -20,8 +20,8 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_PhysicsR
-outines.c#L112}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.0/src/AT_Phy
+sicsRoutines.c#L112}
 }
 \examples{
 # Get kinetic energy for a 502 MeV/c antiproton beam (CERN AD/ACE experiment):

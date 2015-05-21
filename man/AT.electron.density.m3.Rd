@@ -17,6 +17,6 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_DataMate
-rial.c#L350}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.0/src/AT_Dat
+aMaterial.c#L350}
 }

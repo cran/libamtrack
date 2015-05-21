@@ -19,23 +19,14 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_PhysicsR
-outines.c#L242}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.0/src/AT_Phy
+sicsRoutines.c#L242}
 }
 \examples{
 # Relation between kinetic proton energy and momentum
 # in relativistic and non-relativistic regime
-require(lattice)
 E.MeV.u     <- 10^seq(-2, 5, length.out = 100)
 df          <- data.frame( E.MeV          = E.MeV.u,
                            p.MeV.c        =
  AT.momentum.MeV.c.u.from.E.MeV.u(E.MeV.u)$momentum.MeV.c)
-xyplot( log10(p.MeV.c) ~ log10(E.MeV),
-        df,
-        type     = 'l',
-        xlab     = 'proton kinetic energy / MeV',
-        ylab     = 'proton momentum / (MeV/c)',
-        panel    = function(...){
-                       panel.abline(a = 0, b = 1, lty = 2, col = 'grey')
-                       panel.xyplot(...)})
 }

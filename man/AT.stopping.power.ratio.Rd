@@ -35,11 +35,10 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_PhysicsR
-outines.c#L657}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.0/src/AT_Phy
+sicsRoutines.c#L674}
 }
 \examples{
-require(lattice)
 df                <-    expand.grid( particle.name         = "1H",            
                           # Define parameter space:
                                      particle.energy.MeV.u = 10^seq(-1, 3,
@@ -63,31 +62,6 @@ for (i in 1:nrow(df)){
                                                                     
  reference.material.no = material.no.water,
                                                                     
- stopping.power.source.no = 0)
+ stopping.power.source.no = 2)
 }
-xyplot( stopping.power.ratio ~ log10(particle.energy.MeV.u)|particle.name,
-        df,
-        groups      =    material.name,
-        type        =    "l",
-        layout      =    c(1,1),
-        aspect      =    1,
-        as.table    =    TRUE,
-        auto.key    =    list(    columns = 3, points = FALSE, lines = TRUE),
-        xlab        =    list(    "energy / (MeV/u)", cex = 1.25),
-        ylab        =    list( "stopping power ratio\nwith respect to water",
- cex = 1.25),
-        main        =    list("stopping powers based on PSTAR data", cex =
- 1.0),
-        panel       =    function(...){
-                            panel.grid(h = -1, v = -1)
-                            panel.abline(h = 1.0)
-                            panel.xyplot(...)
-                         },
-        between     =    list( x = .5),
-        scales      =    list( x = list(    at        =    log10(c(.1, 1, 10,
- 100, 1000)),
-                                            labels    =    c(".1", "1", "10",
- "100", "1000"),
-                                            cex       =    1.0))
-    )
 }

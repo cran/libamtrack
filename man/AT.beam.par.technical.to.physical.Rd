@@ -22,8 +22,8 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_PhysicsR
-outines.c#L384}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.0/src/AT_Phy
+sicsRoutines.c#L396}
 }
 \examples{
 # Get peak dose of a 142.66 MeV protons in Alox
@@ -36,5 +36,5 @@ AT.dose.Gy.from.fluence.cm2( E.MeV.u     = 142.66,
                              material.no =
  AT.material.no.from.material.name("Aluminum Oxide"),
                              fluence.cm2 = peak.fluence.cm2,
-                             stopping.power.source.no = 0)
+                             stopping.power.source.no = 2)
 }

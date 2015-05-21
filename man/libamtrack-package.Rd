@@ -20,8 +20,8 @@ Please note that libamtrack is still under heavy development and so is the R
 \details{
 \tabular{ll}{
 Package: \tab libamtrack\cr
-Version: \tab 0.5.5 (Violet Wombat)\cr
-Date: \tab 2014-07-07\cr
+Version: \tab 0.6.0 (Black Armadillo)\cr
+Date: \tab 2015-05-21\cr
 Depends: \tab R (>= 2.12.0)\cr
 Suggests: \tab lattice\cr
 SystemRequirements: \tab gsl (optinally: cernlib to enable energy loss
@@ -79,17 +79,21 @@ These functions handle the physics of proton and ion beams needed in
  libamtrack.
 Stopping-power routines:
 \tabular{ll}{
-\code{\link{AT.Stopping.Power.keV.um}} \tab Unrestricted LET / Stopping
- power\cr
-\code{\link{AT.Stopping.Power.MeV.cm2.g}} \tab Unrestricted LET per mass /
- mass stopping power\cr
+\code{\link{AT.Mass.Stopping.Power}} \tab Electronic mass stopping power (data
+ source by name)\cr
+\code{\link{AT.Stopping.Power}} \tab Electronic stopping power (data source by
+ name)\cr
+\code{\link{AT.Mass.Stopping.Power.with.no}} \tab Electronic mass stopping
+ power (data source by number)\cr
+\code{\link{AT.Stopping.Power.with.no}} \tab Electronic stopping power (data
+ source by number)\cr
 \code{\link{AT.stopping.power.ratio}} \tab Computes stopping power ratios,
  also for mixed fields\cr
 TODO: \tab Re-enable CSDA functions \cr
 %\code{\link{AT.CSDA.range.m}} \tab CSDA range in m\cr
 %\code{\link{AT.CSDA.range.g.cm2}} \tab CSDA range in mass thickness\cr
-%\code{\link{AT.Stopping.Power.Mass.Bethe.MeV.cm2.g}} \tab Restricted (!) LET
-% / mass stopping power from the classical Bethe formula\cr
+%\code{\link{AT.Stopping.Power.Mass.Bethe.MeV.cm2.g}} \tab Restricted LET /
+% mass stopping power using the Bethe formula\cr
 %\code{\link{AT.CSDA.range.Bethe.g.cm2}} \tab CSDA range from Bethe formula\cr
 %\code{\link{AT.CSDA.energy.after.slab.E.MeV.u}} \tab Ion energy after slab of
 % material according Bethe formula\cr
@@ -203,26 +207,28 @@ Package maintainer: Steffen Greilich \email{s.greilich@dkfz.de}
 \examples{
 ##############################################################################
 ############################ 1. LET ##########################################
-cat("Compute the LET (in MeV*cm2/g) of a 270 MeV/u carbon ion in Aluminum\n")
+cat("Compute the LET (in keV/um) of a 270 MeV/u carbon ion in Aluminum\n")
 cat("using the PSTAR stopping power data:\n")
-AT.Stopping.Power.MeV.cm2.g( E.MeV.u     = 270,
-                  particle.no = AT.particle.no.from.particle.name("12C"),
-                  material.no = AT.material.no.from.material.name("Aluminum"),
-                  stopping.power.source.no             = 0)
+AT.Stopping.Power( E.MeV.u               = 270,
+                   particle.no           =
+ AT.particle.no.from.particle.name("12C"),
+                   material.no           =
+ AT.material.no.from.material.name("Aluminum"),
+                   stopping.power.source = "PSTAR")
                   
 cat("... and in water:\n")
-AT.Stopping.Power.MeV.cm2.g( E.MeV.u     = 270,
-                  particle.no = AT.particle.no.from.particle.name("12C"),
-                  material.no = AT.material.no.from.material.name
-("Water, Liquid"),
-                  stopping.power.source.no             = 0)
+AT.Stopping.Power( E.MeV.u               = 270,
+                   particle.no           =
+ AT.particle.no.from.particle.name("12C"),
+                   material.no           =
+ AT.material.no.from.material.name("Water, Liquid"),
+                   stopping.power.source = "PSTAR")
 ###############################################################################
 
 # 2. DOSE AROUND A TRACK 
 cat
 ("Compare the Geiss parametrization for protons and Carbon at different energies:\n"
 )
-require(lattice)
 df    <-    expand.grid(    E.MeV.u           = 10^seq(0, 3, length.out = 4), 
       # from 1 to 1000 MeV/u in 4 steps
                             particle.no       = c(1001,6012),                 
@@ -254,14 +260,14 @@ for (i in 1:nrow(df)){
  df$rdd.parameter[i],
                                          er.model         = df$er.model[i],
                                          stopping.power.source.no            
- = 0)[[1]]                           # use PSTAR data
+ = 2)[[1]]                           # use PSTAR data
 }
-xyplot( log10(D.Gy) ~ log10(r.m)|particle.name,                               
-      # Plot
-        df,
-        type      = 'l',
-        groups    = E.MeV.u,
-        auto.key  = TRUE)[c(2,1)]
+lattice::xyplot( log10(D.Gy) ~ log10(r.m)|particle.name,                      
+               # Plot
+                 df,
+                 type      = 'l',
+                 groups    = E.MeV.u,
+                 auto.key  = TRUE)[c(2,1)]
         
 #####################################################################
 #################### 3. DETECTOR EFFICIENCY #########################
@@ -291,6 +297,6 @@ AT.run.IGK.method( particle.no                          = 1001,
          # factor to take 'brush' around track into account
                    write.output                         = TRUE,               
          # write a log file
-                   stopping.power.source.no             = 0)                  
+                   stopping.power.source.no             = 2)                  
          # use PSTAR data
 }

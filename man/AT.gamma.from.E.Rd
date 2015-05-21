@@ -18,8 +18,8 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/trunk/src/AT_PhysicsR
-outines.c#L52}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.0/src/AT_Phy
+sicsRoutines.c#L52}
 }
 \examples{
 # Compute mass in MeV/c2 for a proton with 1-1000 MeV kinetic energy:

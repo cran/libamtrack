@@ -11,13 +11,12 @@
 #include "AT_DataMaterial.h"
 #include "AT_DataParticle.h"
 #include "AT_DataRange.h"
-#include "AT_DataStoppingPower.h"
 #include "AT_ElectronRange.h"
 #include "AT_EnergyLoss.h"
-#include "AT_MultipleCoulombScattering.h"
 #include "AT_PhysicsRoutines.h"
 #include "AT_RDD.h"
 #include "AT_SPC.h"
+#include "AT_StoppingPower.h"
 #include "AT_SuccessiveConvolutions.h"
 
 
@@ -186,41 +185,6 @@ void AT_get_materials_data_R( const int*		number_of_materials,
 );
 
 
-void AT_I_eV_from_element_acronym_R( const int*		n,
-		char**		acronym,
-		float*			I,
-		int*			returnValue
-);
-
-
-void AT_density_g_cm3_from_element_acronym_R( const int*		n,
-		char**		acronym,
-		float*			density,
-		int*			returnValue
-);
-
-
-void AT_atomic_weight_from_element_acronym_R( const int*		n,
-		char**		acronym,
-		float*			atomic_weight,
-		int*			returnValue
-);
-
-
-void AT_element_acronym_from_Z_R( const int*		n,
-		int*			Z,
-		char**		acronym,
-		int*			returnValue
-);
-
-
-void AT_Z_from_element_acronym_R( const int*		n,
-		char**		acronym,
-		int*			Z,
-		int*			returnValue
-);
-
-
 void AT_nuclear_spin_from_particle_no_multi_R( const int*		n,
 		const int*		particle_no,
 		float*			I,
@@ -266,21 +230,21 @@ void AT_WEPL_Bethe_multi_R( const int*		n,
 );
 
 
-void AT_Stopping_Power_keV_um_multi_R( const int*		stopping_power_source_no,
-		const int*		number_of_particles,
-		const float*	E_MeV_u,
+void AT_CSDA_energy_after_slab_E_MeV_u_multi_R( const int*		n,
+		const float*	E_initial_MeV_u,
 		const int*		particle_no,
 		const int*		material_no,
-		float*			Stopping_Power_keV_um
+		const float*	slab_thickness_m,
+		float*			E_final_MeV_u
 );
 
 
-void AT_Stopping_Power_MeV_cm2_g_multi_R( const int*		stopping_power_source_no,
-		const int*		number_of_particles,
-		const float*	E_MeV_u,
+void AT_CSDA_range_Bethe_g_cm2_multi_R( const int*		n,
+		const float*	E_initial_MeV_u,
+		const float*	E_final_MeV_u,
 		const int*		particle_no,
 		const int*		material_no,
-		float*			Stopping_Power_MeV_cm2_g
+		float*			CSDA_range_cm2_g
 );
 
 
@@ -390,90 +354,6 @@ void AT_energy_loss_FWHM_R( const float*	E_MeV_u,
 		float*			returnValue
 );
 #endif
-
-
-void AT_characteristic_single_scattering_angle_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_charge_e,
-		const float*	target_thickness_cm,
-		char**		element_acronym,
-		float*			chi_c,
-		int*			returnValue
-);
-
-
-void AT_screening_angle_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_charge_e,
-		char**		element_acronym,
-		float*			chi_a,
-		int*			returnValue
-);
-
-
-void AT_effective_collision_number_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_charge_e,
-		const float*	target_thickness_cm,
-		char**		element_acronym,
-		float*			exp_b,
-		int*			returnValue
-);
-
-
-void AT_reduced_target_thickness_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_charge_e,
-		const float*	target_thickness_cm,
-		char**		element_acronym,
-		float*			B,
-		int*			returnValue
-);
-
-
-void AT_characteristic_multiple_scattering_angle_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_charge_e,
-		const float*	target_thickness_cm,
-		char**		element_acronym,
-		float*			Theta_M,
-		int*			returnValue
-);
-
-
-void AT_Moliere_function_f0_R( float*			red_Theta,
-		float*			returnValue
-);
-
-
-void AT_Moliere_function_f1_R( float*			red_Theta,
-		float*			returnValue
-);
-
-
-void AT_Moliere_function_f2_R( float*			red_Theta,
-		float*			returnValue
-);
-
-
-void AT_scattering_angle_distribution_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_charge_e,
-		const float*	target_thickness_cm,
-		const char**	element_acronym,
-		const float*	Theta,
-		float*			distribution,
-		int*			returnValue
-);
-
-
-void AT_Highland_angle_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_charge_e,
-		const float*	l_over_lR,
-		float*			Theta0,
-		int*			returnValue
-);
 
 
 void AT_beta_from_E_R( const int*		n,
@@ -711,6 +591,46 @@ void AT_SPC_read_header_from_filename_fast_R( const char**	filename,
 
 
 void AT_SPC_get_number_of_bins_from_filename_fast_R( const char**	filename,
+		int*			returnValue
+);
+
+
+void AT_Mass_Stopping_Power_R( const char**	stopping_power_source,
+		const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		float*			stopping_power_MeV_cm2_g,
+		int*			returnValue
+);
+
+
+void AT_Stopping_Power_R( const char**	stopping_power_source,
+		const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		float*			stopping_power_keV_um,
+		int*			returnValue
+);
+
+
+void AT_Mass_Stopping_Power_with_no_R( const int*		stopping_power_source_no,
+		const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		float*			stopping_power_MeV_cm2_g,
+		int*			returnValue
+);
+
+
+void AT_Stopping_Power_with_no_R( const int*		stopping_power_source_no,
+		const int*		n,
+		const float*	E_MeV_u,
+		const int*		particle_no,
+		const int*		material_no,
+		float*			stopping_power_keV_um,
 		int*			returnValue
 );
 
