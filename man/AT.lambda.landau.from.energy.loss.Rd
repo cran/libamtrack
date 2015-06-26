@@ -1,12 +1,12 @@
-% TODO File path/AT.lambda.from.energy.loss.Rd
-\name{AT.lambda.from.energy.loss}
-\alias{AT.lambda.from.energy.loss}
-\title{AT.lambda.from.energy.loss}
+% TODO File path/AT.lambda.landau.from.energy.loss.Rd
+\name{AT.lambda.landau.from.energy.loss}
+\alias{AT.lambda.landau.from.energy.loss}
+\title{AT.lambda.landau.from.energy.loss}
 \description{Computes the lambda parameter for the
- Vavilov distribution acc. to Seltzer & Berger
+ Landau distribution acc. to CERN W5013
  No effective projectile charge is considered!}
-\usage{AT.lambda.from.energy.loss(energy.loss.keV, E.MeV.u, particle.no,
- material.no, slab.thickness.um)
+\usage{AT.lambda.landau.from.energy.loss(energy.loss.keV, E.MeV.u,
+ particle.no, material.no, slab.thickness.um)
 }
 \arguments{
   \item{energy.loss.keV}{ energy loss (array of size n).}
@@ -19,10 +19,10 @@
 \value{
 % TODO proper return definition of lists!!! ADD
 % NUMBER_OF_FIELD_COMPONENT_DESCRIBTION AGAIN!!!)
-  \item{lambda.V}{ (array of size n)}
+  \item{lambda.landau}{ (array of size n)}
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.1/src/AT_Ene
-rgyLoss.c#L309}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.2/src/AT_Ene
+rgyLoss.c#L149}
 }

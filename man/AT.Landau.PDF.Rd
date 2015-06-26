@@ -2,12 +2,13 @@
 \name{AT.Landau.PDF}
 \alias{AT.Landau.PDF}
 \title{AT.Landau.PDF}
-\description{Compute Landau distribution using CERNLIB (G115)
+\description{Computes the Landau probability density function using CERNLIB
+ (G115)
 }
-\usage{AT.Landau.PDF(lambda)
+\usage{AT.Landau.PDF(lambda.landau)
 }
 \arguments{
-  \item{lambda}{ lambda (array of size n).}
+  \item{lambda.landau}{ Landau lambda (array of size n).}
 }
 \value{
 % TODO proper return definition of lists!!! ADD
@@ -16,6 +17,6 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.1/src/AT_Ene
-rgyLoss.c#L41}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.2/src/AT_Ene
+rgyLoss.c#L77}
 }

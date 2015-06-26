@@ -21,8 +21,8 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.1/src/AT_Phy
-sicsRoutines.c#L531}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.2/src/AT_Phy
+sicsRoutines.c#L578}
 }
 \examples{
 # fluence- and dose-weighted mean energy for a simple mixed field

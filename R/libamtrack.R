@@ -698,78 +698,35 @@ AT.max.electron.ranges.m <- function( E.MeV.u,
 }
 
 
-AT.Vavilov.PDF <- function( lambda.V,
-			kappa,
-			beta){
-
-	n	<- length(lambda.V)
-	density <- numeric(n)
-
-	res <- .C("AT_Vavilov_PDF_R", 
-			n = as.integer(n),
-			lambda.V = as.single(lambda.V),
-			kappa = as.single(kappa),
-			beta = as.single(beta),
-			density = as.single(density),PACKAGE="libamtrack")
-
-	 return.list <- list(1)
-	 return.list[[1]] <- res$density
-	 names(return.list) <- c("density")
-	 return(return.list)
-}
-
-
-AT.Landau.PDF <- function( lambda){
-
-	n	<- length(lambda)
-	density <- numeric(n)
-
-	res <- .C("AT_Landau_PDF_R", 
-			n = as.integer(n),
-			lambda = as.single(lambda),
-			density = as.single(density),PACKAGE="libamtrack")
-
-	 return.list <- list(1)
-	 return.list[[1]] <- res$density
-	 names(return.list) <- c("density")
-	 return(return.list)
-}
-
-
-AT.Rutherford.SDCS <- function( E.MeV.u,
-			particle.no,
-			material.no,
-			T.MeV){
-
-	n	<- length(T.MeV)
-	dsdT.m2.MeV <- numeric(n)
-	returnValue = numeric(1)
-
-	res <- .C("AT_Rutherford_SDCS_R", 
-			E.MeV.u = as.single(E.MeV.u),
-			particle.no = as.integer(particle.no),
-			material.no = as.integer(material.no),
-			n = as.integer(n),
-			T.MeV = as.single(T.MeV),
-			dsdT.m2.MeV = as.single(dsdT.m2.MeV),
-			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
-
-	 return.list <- list(2)
-	 return.list[[1]] <- res$dsdT.m2.MeV
-	 return.list[[2]] <- res$returnValue
-	 names(return.list) <- c("dsdT.m2.MeV", "returnValue")
-	 return(return.list)
-}
-
-
-AT.Bethe.mean.energy.loss.MeV <- function( E.MeV.u,
+AT.mean.energy.loss.keV <- function( E.MeV.u,
 			particle.no,
 			material.no,
 			slab.thickness.um){
 
 	returnValue = numeric(1)
 
-	res <- .C("AT_Bethe_mean_energy_loss_MeV_R", 
+	res <- .C("AT_mean_energy_loss_keV_R", 
+			E.MeV.u = as.single(E.MeV.u),
+			particle.no = as.integer(particle.no),
+			material.no = as.integer(material.no),
+			slab.thickness.um = as.single(slab.thickness.um),
+			returnValue = as.single(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$returnValue
+	 names(return.list) <- c("returnValue")
+	 return(return.list)
+}
+
+
+AT.xi.keV <- function( E.MeV.u,
+			particle.no,
+			material.no,
+			slab.thickness.um){
+
+	returnValue = numeric(1)
+
+	res <- .C("AT_xi_keV_R", 
 			E.MeV.u = as.single(E.MeV.u),
 			particle.no = as.integer(particle.no),
 			material.no = as.integer(material.no),
@@ -788,135 +745,352 @@ AT.kappa <- function( E.MeV.u,
 			material.no,
 			slab.thickness.um){
 
-	returnValue = numeric(1)
+	n	<- length(E.MeV.u)
+	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
+		return}
 
-	res <- .C("AT_kappa_R", 
+	if(n != length(slab.thickness.um)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	kappa <- numeric(n)
+
+	res <- .C("AT_kappa_multi_R", 
+			n = as.integer(n),
 			E.MeV.u = as.single(E.MeV.u),
 			particle.no = as.integer(particle.no),
 			material.no = as.integer(material.no),
 			slab.thickness.um = as.single(slab.thickness.um),
-			returnValue = as.single(returnValue),PACKAGE="libamtrack")
+			kappa = as.single(kappa),PACKAGE="libamtrack")
 
 	 return.list <- list(1)
-	 return.list[[1]] <- res$returnValue
-	 names(return.list) <- c("returnValue")
+	 return.list[[1]] <- res$kappa
+	 names(return.list) <- c("kappa")
 	 return(return.list)
 }
 
 
-AT.lambda.from.energy.loss <- function( energy.loss.keV,
+AT.Landau.PDF <- function( lambda.landau){
+
+	n	<- length(lambda.landau)
+	density <- numeric(n)
+
+	res <- .C("AT_Landau_PDF_R", 
+			n = as.integer(n),
+			lambda.landau = as.single(lambda.landau),
+			density = as.single(density),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$density
+	 names(return.list) <- c("density")
+	 return(return.list)
+}
+
+
+AT.Landau.IDF <- function( rnd){
+
+	n	<- length(rnd)
+	lambda.landau <- numeric(n)
+
+	res <- .C("AT_Landau_IDF_R", 
+			n = as.integer(n),
+			rnd = as.single(rnd),
+			lambda.landau = as.single(lambda.landau),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$lambda.landau
+	 names(return.list) <- c("lambda.landau")
+	 return(return.list)
+}
+
+
+AT.lambda.landau.from.energy.loss <- function( energy.loss.keV,
 			E.MeV.u,
 			particle.no,
 			material.no,
 			slab.thickness.um){
 
 	n	<- length(energy.loss.keV)
-	lambda.V <- numeric(n)
+	lambda.landau <- numeric(n)
 
-	res <- .C("AT_lambda_from_energy_loss_R", 
+	res <- .C("AT_lambda_landau_from_energy_loss_multi_R", 
 			n = as.integer(n),
 			energy.loss.keV = as.single(energy.loss.keV),
 			E.MeV.u = as.single(E.MeV.u),
 			particle.no = as.integer(particle.no),
 			material.no = as.integer(material.no),
 			slab.thickness.um = as.single(slab.thickness.um),
-			lambda.V = as.single(lambda.V),PACKAGE="libamtrack")
+			lambda.landau = as.single(lambda.landau),PACKAGE="libamtrack")
 
 	 return.list <- list(1)
-	 return.list[[1]] <- res$lambda.V
-	 names(return.list) <- c("lambda.V")
+	 return.list[[1]] <- res$lambda.landau
+	 names(return.list) <- c("lambda.landau")
 	 return(return.list)
 }
 
 
-AT.Vavilov.energy.loss.distribution <- function( energy.loss.keV,
+AT.lambda.mean <- function( E.MeV.u,
+			particle.no,
+			material.no,
+			slab.thickness.um){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(slab.thickness.um)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	lambda.mean <- numeric(n)
+
+	res <- .C("AT_lambda_mean_multi_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.no = as.integer(particle.no),
+			material.no = as.integer(material.no),
+			slab.thickness.um = as.single(slab.thickness.um),
+			lambda.mean = as.single(lambda.mean),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$lambda.mean
+	 names(return.list) <- c("lambda.mean")
+	 return(return.list)
+}
+
+
+AT.lambda.max <- function( E.MeV.u,
+			particle.no,
+			material.no,
+			slab.thickness.um){
+
+	n	<- length(E.MeV.u)
+	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(slab.thickness.um)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	lambda.max <- numeric(n)
+
+	res <- .C("AT_lambda_max_multi_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.no = as.integer(particle.no),
+			material.no = as.integer(material.no),
+			slab.thickness.um = as.single(slab.thickness.um),
+			lambda.max = as.single(lambda.max),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$lambda.max
+	 names(return.list) <- c("lambda.max")
+	 return(return.list)
+}
+
+
+AT.energy.loss.from.lambda.landau <- function( lambda.landau,
+			E.MeV.u,
+			particle.no,
+			material.no,
+			slab.thickness.um){
+
+	n	<- length(lambda.landau)
+	if(n != length(E.MeV.u)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(slab.thickness.um)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	energy.loss.keV <- numeric(n)
+
+	res <- .C("AT_energy_loss_from_lambda_landau_multi_R", 
+			n = as.integer(n),
+			lambda.landau = as.single(lambda.landau),
+			E.MeV.u = as.single(E.MeV.u),
+			particle.no = as.integer(particle.no),
+			material.no = as.integer(material.no),
+			slab.thickness.um = as.single(slab.thickness.um),
+			energy.loss.keV = as.single(energy.loss.keV),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$energy.loss.keV
+	 names(return.list) <- c("energy.loss.keV")
+	 return(return.list)
+}
+
+
+AT.Vavilov.PDF <- function( lambda.vavilov,
+			kappa,
+			beta){
+
+	n	<- length(lambda.vavilov)
+	density <- numeric(n)
+
+	res <- .C("AT_Vavilov_PDF_R", 
+			n = as.integer(n),
+			lambda.vavilov = as.single(lambda.vavilov),
+			kappa = as.single(kappa),
+			beta = as.single(beta),
+			density = as.single(density),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$density
+	 names(return.list) <- c("density")
+	 return(return.list)
+}
+
+
+AT.Vavilov.IDF <- function( rnd,
+			kappa,
+			beta){
+
+	n	<- length(rnd)
+	if(n != length(kappa)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(beta)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	lambda.vavilov <- numeric(n)
+
+	res <- .C("AT_Vavilov_IDF_R", 
+			n = as.integer(n),
+			rnd = as.single(rnd),
+			kappa = as.single(kappa),
+			beta = as.single(beta),
+			lambda.vavilov = as.single(lambda.vavilov),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$lambda.vavilov
+	 names(return.list) <- c("lambda.vavilov")
+	 return(return.list)
+}
+
+
+AT.lambda.vavilov.from.energy.loss <- function( energy.loss.keV,
 			E.MeV.u,
 			particle.no,
 			material.no,
 			slab.thickness.um){
 
 	n	<- length(energy.loss.keV)
-	fDdD <- numeric(n)
+	lambda.vavilov <- numeric(n)
 
-	res <- .C("AT_Vavilov_energy_loss_distribution_R", 
+	res <- .C("AT_lambda_vavilov_from_energy_loss_multi_R", 
 			n = as.integer(n),
 			energy.loss.keV = as.single(energy.loss.keV),
 			E.MeV.u = as.single(E.MeV.u),
 			particle.no = as.integer(particle.no),
 			material.no = as.integer(material.no),
 			slab.thickness.um = as.single(slab.thickness.um),
-			fDdD = as.single(fDdD),PACKAGE="libamtrack")
+			lambda.vavilov = as.single(lambda.vavilov),PACKAGE="libamtrack")
 
 	 return.list <- list(1)
-	 return.list[[1]] <- res$fDdD
-	 names(return.list) <- c("fDdD")
+	 return.list[[1]] <- res$lambda.vavilov
+	 names(return.list) <- c("lambda.vavilov")
 	 return(return.list)
 }
 
 
-AT.energy.loss.distribution <- function( energy.loss.keV,
+AT.energy.loss.from.lambda.vavilov <- function( lambda.vavilov,
 			E.MeV.u,
 			particle.no,
 			material.no,
 			slab.thickness.um){
 
-	n	<- length(energy.loss.keV)
-	fDdD <- numeric(n)
+	n	<- length(lambda.vavilov)
+	if(n != length(E.MeV.u)){cat("Array size mismatch for 'n'!\n")
+		return}
 
-	res <- .C("AT_energy_loss_distribution_R", 
+	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(slab.thickness.um)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	energy.loss.keV <- numeric(n)
+
+	res <- .C("AT_energy_loss_from_lambda_vavilov_multi_R", 
 			n = as.integer(n),
-			energy.loss.keV = as.single(energy.loss.keV),
+			lambda.vavilov = as.single(lambda.vavilov),
 			E.MeV.u = as.single(E.MeV.u),
 			particle.no = as.integer(particle.no),
 			material.no = as.integer(material.no),
 			slab.thickness.um = as.single(slab.thickness.um),
-			fDdD = as.single(fDdD),PACKAGE="libamtrack")
+			energy.loss.keV = as.single(energy.loss.keV),PACKAGE="libamtrack")
 
 	 return.list <- list(1)
-	 return.list[[1]] <- res$fDdD
-	 names(return.list) <- c("fDdD")
+	 return.list[[1]] <- res$energy.loss.keV
+	 names(return.list) <- c("energy.loss.keV")
 	 return(return.list)
 }
 
 
-AT.energy.loss.mode <- function( E.MeV.u,
-			particle.no,
-			material.no,
-			slab.thickness.um){
+AT.Gauss.PDF <- function( lambda.gauss){
 
-	returnValue = numeric(1)
+	n	<- length(lambda.gauss)
+	density <- numeric(n)
 
-	res <- .C("AT_energy_loss_mode_R", 
-			E.MeV.u = as.single(E.MeV.u),
-			particle.no = as.integer(particle.no),
-			material.no = as.integer(material.no),
-			slab.thickness.um = as.single(slab.thickness.um),
-			returnValue = as.single(returnValue),PACKAGE="libamtrack")
+	res <- .C("AT_Gauss_PDF_R", 
+			n = as.integer(n),
+			lambda.gauss = as.single(lambda.gauss),
+			density = as.single(density),PACKAGE="libamtrack")
 
 	 return.list <- list(1)
-	 return.list[[1]] <- res$returnValue
-	 names(return.list) <- c("returnValue")
+	 return.list[[1]] <- res$density
+	 names(return.list) <- c("density")
 	 return(return.list)
 }
 
 
-AT.energy.loss.FWHM <- function( E.MeV.u,
+AT.Gauss.IDF <- function( rnd){
+
+	n	<- length(rnd)
+	lambda.gauss <- numeric(n)
+
+	res <- .C("AT_Gauss_IDF_R", 
+			n = as.integer(n),
+			rnd = as.single(rnd),
+			lambda.gauss = as.single(lambda.gauss),PACKAGE="libamtrack")
+
+	 return.list <- list(1)
+	 return.list[[1]] <- res$lambda.gauss
+	 names(return.list) <- c("lambda.gauss")
+	 return(return.list)
+}
+
+
+AT.energy.loss.from.lambda.gauss <- function( lambda.gauss,
+			E.MeV.u,
 			particle.no,
 			material.no,
 			slab.thickness.um){
 
-	returnValue = numeric(1)
+	n	<- length(lambda.gauss)
+	if(n != length(E.MeV.u)){cat("Array size mismatch for 'n'!\n")
+		return}
 
-	res <- .C("AT_energy_loss_FWHM_R", 
+	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	if(n != length(slab.thickness.um)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	energy.loss.keV <- numeric(n)
+
+	res <- .C("AT_energy_loss_from_lambda_gauss_multi_R", 
+			n = as.integer(n),
+			lambda.gauss = as.single(lambda.gauss),
 			E.MeV.u = as.single(E.MeV.u),
 			particle.no = as.integer(particle.no),
 			material.no = as.integer(material.no),
 			slab.thickness.um = as.single(slab.thickness.um),
-			returnValue = as.single(returnValue),PACKAGE="libamtrack")
+			energy.loss.keV = as.single(energy.loss.keV),PACKAGE="libamtrack")
 
 	 return.list <- list(1)
-	 return.list[[1]] <- res$returnValue
-	 names(return.list) <- c("returnValue")
+	 return.list[[1]] <- res$energy.loss.keV
+	 names(return.list) <- c("energy.loss.keV")
 	 return(return.list)
 }
 
@@ -1077,6 +1251,31 @@ AT.effective.charge.from.E.MeV.u <- function( E.MeV.u,
 	 return.list[[1]] <- res$effective.charge
 	 return.list[[2]] <- res$returnValue
 	 names(return.list) <- c("effective.charge", "returnValue")
+	 return(return.list)
+}
+
+
+AT.max.E.transfer.MeV.new <- function( E.MeV.u,
+			A){
+
+	n	<- length(E.MeV.u)
+	if(n != length(A)){cat("Array size mismatch for 'n'!\n")
+		return}
+
+	max.E.transfer.MeV <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_max_E_transfer_MeV_new_R", 
+			n = as.integer(n),
+			E.MeV.u = as.single(E.MeV.u),
+			A = as.integer(A),
+			max.E.transfer.MeV = as.single(max.E.transfer.MeV),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$max.E.transfer.MeV
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("max.E.transfer.MeV", "returnValue")
 	 return(return.list)
 }
 
@@ -1472,6 +1671,32 @@ AT.mean.number.of.tracks.contrib <- function( E.MeV.u,
 	 return.list <- list(1)
 	 return.list[[1]] <- res$returnValue
 	 names(return.list) <- c("returnValue")
+	 return(return.list)
+}
+
+
+AT.Rutherford.SDCS <- function( E.MeV.u,
+			particle.no,
+			material.no,
+			T.MeV){
+
+	n	<- length(T.MeV)
+	dsdT.m2.MeV <- numeric(n)
+	returnValue = numeric(1)
+
+	res <- .C("AT_Rutherford_SDCS_R", 
+			E.MeV.u = as.single(E.MeV.u),
+			particle.no = as.integer(particle.no),
+			material.no = as.integer(material.no),
+			n = as.integer(n),
+			T.MeV = as.single(T.MeV),
+			dsdT.m2.MeV = as.single(dsdT.m2.MeV),
+			returnValue = as.integer(returnValue),PACKAGE="libamtrack")
+
+	 return.list <- list(2)
+	 return.list[[1]] <- res$dsdT.m2.MeV
+	 return.list[[2]] <- res$returnValue
+	 names(return.list) <- c("dsdT.m2.MeV", "returnValue")
 	 return(return.list)
 }
 

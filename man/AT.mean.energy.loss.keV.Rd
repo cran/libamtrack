@@ -1,13 +1,13 @@
-% TODO File path/AT.Bethe.mean.energy.loss.MeV.Rd
-\name{AT.Bethe.mean.energy.loss.MeV}
-\alias{AT.Bethe.mean.energy.loss.MeV}
-\title{AT.Bethe.mean.energy.loss.MeV}
+% TODO File path/AT.mean.energy.loss.keV.Rd
+\name{AT.mean.energy.loss.keV}
+\alias{AT.mean.energy.loss.keV}
+\title{AT.mean.energy.loss.keV}
 \description{Computes the mean energy loss in a slab of
  material using the Bethe formula
  for many particles according to ICRU49
  BUT WITHOUT shell, Bloch or Barkas correction!
  No effective projectile charge is considered!}
-\usage{AT.Bethe.mean.energy.loss.MeV(E.MeV.u, particle.no, material.no,
+\usage{AT.mean.energy.loss.keV(E.MeV.u, particle.no, material.no,
  slab.thickness.um)
 }
 \arguments{
@@ -24,6 +24,6 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.1/src/AT_Ene
-rgyLoss.c#L281}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.2/src/AT_Ene
+rgyLoss.c#L42}
 }

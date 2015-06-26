@@ -22,8 +22,8 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.1/src/AT_Phy
-sicsRoutines.c#L396}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.2/src/AT_Phy
+sicsRoutines.c#L443}
 }
 \examples{
 # Get peak dose of a 142.66 MeV protons in Alox

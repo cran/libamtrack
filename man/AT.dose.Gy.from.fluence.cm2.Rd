@@ -24,8 +24,8 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.1/src/AT_Phy
-sicsRoutines.c#L297}
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.2/src/AT_Phy
+sicsRoutines.c#L344}
 }
 \examples{
 # Compute dose from protons, He-3, C-12 and O-16 at

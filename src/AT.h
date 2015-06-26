@@ -12,9 +12,9 @@
  *    Created on: 14.08.2011
  *    Creator: greilich
  *
- *    File name: $HeadURL: https://svn.code.sf.net/p/libamtrack/code/trunk/include/AT.h $
+ *    File name: $HeadURL: https://svn.code.sf.net/p/libamtrack/code/tags/0.6.2/include/AT.h $
  *    Revision:  $Revision: 1330 $
- *    Last modified: $Date: 2015-04-23 15:24:20 +0200 (Thu, 23 Apr 2015) $
+ *    Last modified: $Date: 2015-04-23 15:24:20 +0200 (Do, 23 Apr 2015) $
  *    Last modified by: $Author: sgreilich $
  *
  *    Copyright 2006, 2010 The libamtrack team

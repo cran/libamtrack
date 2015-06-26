@@ -9,9 +9,9 @@
  *    Created on: 14.08.2011
  *    Creator: greilich
  *
- *    File name: $HeadURL: https://svn.code.sf.net/p/libamtrack/code/trunk/src/AT.c $
+ *    File name: $HeadURL: https://svn.code.sf.net/p/libamtrack/code/tags/0.6.2/src/AT.c $
  *    Revision:  $Revision: 1048 $
- *    Last modified: $Date: 2011-08-17 07:56:16 +0200 (Wed, 17 Aug 2011) $
+ *    Last modified: $Date: 2011-08-17 07:56:16 +0200 (Mi, 17 Aug 2011) $
  *    Last modified by: $Author: sgreilich $
  *
  *    Copyright 2006, 2010 The libamtrack team

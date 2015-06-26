@@ -268,7 +268,59 @@ int AT_mean_excitation_energy_eV_from_Z( const long n,
 	const double Z[],
 	double       I_eV[]);
 
- /**
+/**
+ * Returns mass correction terms of max relativistic energy transfer for single particle
+ *
+ * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
+ * @param[in]  A                        atomic mass
+ * @return mass_correction_terms
+ */
+double AT_mass_correction_terms_new( const double E_MeV_u, const long A );
+
+/**
+ * Max relativistic energy transfer with mass correction terms for single particle
+ *
+ * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
+ * @param[in]  A                        atomic mass
+ * @return max_rel_E_transfer_MeV
+ */
+double AT_max_relativistic_E_transfer_MeV_new_single( const double E_MeV_u, const long A );
+
+/**
+* Max classic energy transfer for single particle
+*
+* @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
+* @param[in]  A                        atomic mass
+* @return max_classic_E_transfer_MeV
+*/
+double AT_max_classic_E_transfer_MeV_new_single( const double E_MeV_u, const long A );
+
+/**
+* Max energy transfer for single particle
+*
+* @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
+* @param[in]  A                        atomic mass
+* @return     max_E_transfer_MeV
+*/
+double AT_max_E_transfer_MeV_new_single( const double E_MeV_u, const long A );
+
+/**
+* Kinetic energy maximally transferred from an ion to an electron
+* in a collision - relativistic or non-relativistic
+*
+* @param[in]  n                        number of particles
+* @param[in]  E_MeV_u                  energies of particle per nucleon [MeV/u]; if positive, the computation will be relativistic; if negative, the classic formular will be used (array of size n)
+* @param[in]  A                        atomic mass (array of size n)
+* @param[out] max_E_transfer_MeV       maximal energies transferred (array of size n)
+* @return     status code
+*/
+int AT_max_E_transfer_MeV_new(  const long  n,
+   const double  E_MeV_u[],
+   const long    A[],
+   double        max_E_transfer_MeV[]);
+
+
+/**
   * Returns mass correction terms of max relativistic energy transfer for single particle
   *
   * @param[in]  E_MeV_u                  energy of particle per nucleon [MeV/u]
@@ -724,6 +776,25 @@ double AT_mean_number_of_tracks_contrib(    const long number_of_field_component
  * @return     				kinetic variable
  */
 double AT_kinetic_variable_single( double E_MeV_u );
+
+/**
+ * Computes the Rutherford single differential cross section
+ * for the energy spectrum of secondary electrons produced by
+ * an HCP
+ * @param[in]  	   E_MeV_u      energy of particle per nucleon
+ * @param[in]  	   particle_no  particle index
+ * @param[in]      material_no  material index
+ * @param[in]  	   n      		number of secondary electron energies
+ * @param[in]      T_MeV 	    electron energies (array of size n)
+ * @param[out]     dsdT_m2_MeV  Rutherford SDCS for given electron energies (array of size n)
+ * @return         status code
+ */
+int AT_Rutherford_SDCS( const double E_MeV_u,
+		const long particle_no,
+		const long material_no,
+		const long n,
+		const double T_MeV[],
+		double dsdT_m2_MeV[]);
 
 /**
  * Computes the cross section (in 1/m2) the a particle is scattered
