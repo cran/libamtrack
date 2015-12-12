@@ -1,8 +1,10 @@
 # Namespace for package libamtrack
-#Created by R.create.package.namespace.R script
+# Created by R.create.package.namespace.R script
 
 useDynLib("libamtrack", .registration = TRUE)
 
+importFrom("stats", "approx", "coef", "nls")
+importFrom("utils", "head", "tail", "unzip")
 export(
 	"AT.add.leading.zeros",
 	"AT.add.trailing.zeros",
@@ -14,8 +16,7 @@ export(
 	"AT.beam.par.technical.to.physical",
 	"AT.beta.from.E",
 	"AT.CPPSC.alpha.and.beta",
-	"AT.CSDA.energy.after.slab.E.MeV.u",
-	"AT.CSDA.range.Bethe.g.cm2",
+	"AT.CSDA.range.g.cm2",
 	"AT.dose.Gy.from.fluence.cm2",
 	"AT.dose.weighted.E.MeV.u",
 	"AT.dose.weighted.LET.MeV.cm2.g",
@@ -91,7 +92,6 @@ export(
 	"AT.translate.dose.into.DSB.distribution",
 	"AT.Vavilov.IDF",
 	"AT.Vavilov.PDF",
-	"AT.WEPL.Bethe",
 	"AT.xi.keV",
 	"AT.Z.from.particle.no"
 )

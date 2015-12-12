@@ -40,7 +40,7 @@
 }
 \seealso{
 View the C source code here:
-\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.2/src/AT_Sto
+\url{http://sourceforge.net/apps/trac/libamtrack/browser/tags/0.6.3/src/AT_Sto
 ppingPower.c#L39}
 }
 \examples{

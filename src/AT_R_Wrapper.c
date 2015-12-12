@@ -1038,99 +1038,7 @@ void AT_particle_no_from_Z_and_A_R( const int*		n,
 
 
 
-void AT_WEPL_Bethe_multi_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const int*		material_no,
-		const float*	slab_thickness_m,
-		float*			WEPL
-){
-  long i;
-  const long n_long = (long)(*n);
-  const long material_no_long = (long)(*material_no);
-  const double slab_thickness_m_double = (double)(*slab_thickness_m);
-
-//Allocate space for the input parameter.
-  double* E_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	E_MeV_u_double[i] = (double)E_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-  }
-
-//Allocate space for the results.
-  double* WEPL_double = (double*)calloc(n_long,sizeof(double));
-
-  AT_WEPL_Bethe_multi( n_long,
-	E_MeV_u_double,
-	particle_no_long,
-	material_no_long,
-	slab_thickness_m_double,
-	WEPL_double);
-
-//Results:
-  for(i = 0 ; i < n_long; i++){
-	WEPL[i] = (float)WEPL_double[i];
-  }
-
-//Free allocated space
-  free(E_MeV_u_double);
-  free(particle_no_long);
-  free(WEPL_double);
-}
-
-
-
-void AT_CSDA_energy_after_slab_E_MeV_u_multi_R( const int*		n,
-		const float*	E_initial_MeV_u,
-		const int*		particle_no,
-		const int*		material_no,
-		const float*	slab_thickness_m,
-		float*			E_final_MeV_u
-){
-  long i;
-  const long n_long = (long)(*n);
-  const long material_no_long = (long)(*material_no);
-  const double slab_thickness_m_double = (double)(*slab_thickness_m);
-
-//Allocate space for the input parameter.
-  double* E_initial_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-  long* particle_no_long = (long*)calloc(n_long,sizeof(long));
-
-
-//Fill in the input parameter.
-  for(i = 0 ; i < n_long; i++){
-	E_initial_MeV_u_double[i] = (double)E_initial_MeV_u[i];
-	particle_no_long[i] = (long)particle_no[i];
-  }
-
-//Allocate space for the results.
-  double* E_final_MeV_u_double = (double*)calloc(n_long,sizeof(double));
-
-  AT_CSDA_energy_after_slab_E_MeV_u_multi( n_long,
-	E_initial_MeV_u_double,
-	particle_no_long,
-	material_no_long,
-	slab_thickness_m_double,
-	E_final_MeV_u_double);
-
-//Results:
-  for(i = 0 ; i < n_long; i++){
-	E_final_MeV_u[i] = (float)E_final_MeV_u_double[i];
-  }
-
-//Free allocated space
-  free(E_initial_MeV_u_double);
-  free(particle_no_long);
-  free(E_final_MeV_u_double);
-}
-
-
-
-void AT_CSDA_range_Bethe_g_cm2_multi_R( const int*		n,
+void AT_CSDA_range_g_cm2_multi_R( const int*		n,
 		const float*	E_initial_MeV_u,
 		const float*	E_final_MeV_u,
 		const int*		particle_no,
@@ -1157,7 +1065,7 @@ void AT_CSDA_range_Bethe_g_cm2_multi_R( const int*		n,
 //Allocate space for the results.
   double* CSDA_range_cm2_g_double = (double*)calloc(n_long,sizeof(double));
 
-  AT_CSDA_range_Bethe_g_cm2_multi( n_long,
+  AT_CSDA_range_g_cm2_multi( n_long,
 	E_initial_MeV_u_double,
 	E_final_MeV_u_double,
 	particle_no_long,

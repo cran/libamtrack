@@ -221,25 +221,7 @@ void AT_particle_no_from_Z_and_A_R( const int*		n,
 );
 
 
-void AT_WEPL_Bethe_multi_R( const int*		n,
-		const float*	E_MeV_u,
-		const int*		particle_no,
-		const int*		material_no,
-		const float*	slab_thickness_m,
-		float*			WEPL
-);
-
-
-void AT_CSDA_energy_after_slab_E_MeV_u_multi_R( const int*		n,
-		const float*	E_initial_MeV_u,
-		const int*		particle_no,
-		const int*		material_no,
-		const float*	slab_thickness_m,
-		float*			E_final_MeV_u
-);
-
-
-void AT_CSDA_range_Bethe_g_cm2_multi_R( const int*		n,
+void AT_CSDA_range_g_cm2_multi_R( const int*		n,
 		const float*	E_initial_MeV_u,
 		const float*	E_final_MeV_u,
 		const int*		particle_no,

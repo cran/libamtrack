@@ -596,59 +596,7 @@ AT.particle.no.from.Z.and.A <- function( Z,
 }
 
 
-AT.WEPL.Bethe <- function( E.MeV.u,
-			particle.no,
-			material.no,
-			slab.thickness.m){
-
-	n	<- length(E.MeV.u)
-	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
-		return}
-
-	WEPL <- numeric(n)
-
-	res <- .C("AT_WEPL_Bethe_multi_R", 
-			n = as.integer(n),
-			E.MeV.u = as.single(E.MeV.u),
-			particle.no = as.integer(particle.no),
-			material.no = as.integer(material.no),
-			slab.thickness.m = as.single(slab.thickness.m),
-			WEPL = as.single(WEPL),PACKAGE="libamtrack")
-
-	 return.list <- list(1)
-	 return.list[[1]] <- res$WEPL
-	 names(return.list) <- c("WEPL")
-	 return(return.list)
-}
-
-
-AT.CSDA.energy.after.slab.E.MeV.u <- function( E.initial.MeV.u,
-			particle.no,
-			material.no,
-			slab.thickness.m){
-
-	n	<- length(E.initial.MeV.u)
-	if(n != length(particle.no)){cat("Array size mismatch for 'n'!\n")
-		return}
-
-	E.final.MeV.u <- numeric(n)
-
-	res <- .C("AT_CSDA_energy_after_slab_E_MeV_u_multi_R", 
-			n = as.integer(n),
-			E.initial.MeV.u = as.single(E.initial.MeV.u),
-			particle.no = as.integer(particle.no),
-			material.no = as.integer(material.no),
-			slab.thickness.m = as.single(slab.thickness.m),
-			E.final.MeV.u = as.single(E.final.MeV.u),PACKAGE="libamtrack")
-
-	 return.list <- list(1)
-	 return.list[[1]] <- res$E.final.MeV.u
-	 names(return.list) <- c("E.final.MeV.u")
-	 return(return.list)
-}
-
-
-AT.CSDA.range.Bethe.g.cm2 <- function( E.initial.MeV.u,
+AT.CSDA.range.g.cm2 <- function( E.initial.MeV.u,
 			E.final.MeV.u,
 			particle.no,
 			material.no){
@@ -662,7 +610,7 @@ AT.CSDA.range.Bethe.g.cm2 <- function( E.initial.MeV.u,
 
 	CSDA.range.cm2.g <- numeric(n)
 
-	res <- .C("AT_CSDA_range_Bethe_g_cm2_multi_R", 
+	res <- .C("AT_CSDA_range_g_cm2_multi_R", 
 			n = as.integer(n),
 			E.initial.MeV.u = as.single(E.initial.MeV.u),
 			E.final.MeV.u = as.single(E.final.MeV.u),
